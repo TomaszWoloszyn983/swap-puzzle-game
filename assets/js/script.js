@@ -20,6 +20,16 @@ window.onload = function(){
             
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
+
+            /*
+            Next: add EventListener for clicked tile.
+            it has to highlight the clicked element and the elements that are its neighbours.
+            The cliked element has to be styled in css.
+            Also function swap has to be defined
+            */ 
+            tile.addEventListener("click", highlight); //click on image to drag
+            tile.addEventListener("click", swap); //click on image to drag
+
             document.getElementById("board").append(tile);
         }
     }
@@ -47,16 +57,27 @@ function shuffle(){
     console.log("Shuffle!");
 }
 
+// This function is propably going to be redundant and it will be replaced by random swapping tiles function
 function fillBoard(){
     let board = document.getElementById("board");
+    let tileM = document.getElementById("board");
     shuffle();
+    console.log(board.child);
 
     for (let i = 0; i < pieces.length; i++) {
         let tile = document.createElement("img");
         tile.src = "assets/images/" + pieces[i] + ".jpg";
-        console.log("Fill the board");
+        console.log("Fill the board with"+tileM);
 
         document.getElementById("board").append(tile);
     }
+}
+
+// Provisional version of the swap() function
+function swap() {
+    let currImg = currTile.src;
+    let otherImg = otherTile.src;
+    currTile.src = otherImg;
+    otherTile.src = currImg;
 }
 
