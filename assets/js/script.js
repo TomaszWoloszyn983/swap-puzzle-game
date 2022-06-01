@@ -8,6 +8,7 @@ var currTile;
 var otherTile;
 
 var turns = 0;
+let pieces = [];
 
 window.onload = function(){
     console.log("Onload function");
@@ -22,12 +23,17 @@ window.onload = function(){
             document.getElementById("board").append(tile);
         }
     }
+}
 
-    let pieces = [];
+
+// for (let i=1; i <= rows*columns; i++) {
+//     pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
+// }
+
+function shuffle(){
     for (let i=1; i <= rows*columns; i++) {
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
     }
-
 
     pieces.reverse();
     for (let i =0; i < pieces.length; i++) {
@@ -38,12 +44,19 @@ window.onload = function(){
         pieces[i] = pieces[j];
         pieces[j] = tmp;
     }
+    console.log("Shuffle!");
+}
+
+function fillBoard(){
+    let board = document.getElementById("board");
+    shuffle();
 
     for (let i = 0; i < pieces.length; i++) {
         let tile = document.createElement("img");
         tile.src = "assets/images/" + pieces[i] + ".jpg";
-        console.log("Loading ./assets/images/" + pieces[i] + ".jpg");
+        console.log("Fill the board");
 
-        document.getElementById("pieces").append(tile);
+        document.getElementById("board").append(tile);
     }
 }
+
