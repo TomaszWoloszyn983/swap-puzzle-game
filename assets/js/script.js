@@ -21,6 +21,14 @@ window.onload = function(){
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
 
+            /* Consider creating a Tile object that contains image and id, initialize it here and add to 
+               Tiles array.
+               Another idea would be to create a code that creates a div with class tile
+               in HTML
+            */
+
+            // fillBoard();
+
             /*
             Next: add EventListener for clicked tile.
             it has to highlight the clicked element and the elements that are its neighbours.
@@ -28,7 +36,7 @@ window.onload = function(){
             Also function swap has to be defined
             */ 
             tile.addEventListener("click", highlight); //click on image to drag
-            tile.addEventListener("click", swap); //click on image to drag
+            // tile.addEventListener("click", swap); //click on image to drag
 
             document.getElementById("board").append(tile);
         }
@@ -60,24 +68,30 @@ function shuffle(){
 // This function is propably going to be redundant and it will be replaced by random swapping tiles function
 function fillBoard(){
     let board = document.getElementById("board");
-    let tileM = document.getElementById("board");
-    shuffle();
-    console.log(board.child);
+    let tiles = board.children;
+    console.log(board.children);
+    console.log("Display some tile: "+document.querySelector("#board > img:nth-child(15)"));
 
     for (let i = 0; i < pieces.length; i++) {
         let tile = document.createElement("img");
         tile.src = "assets/images/" + pieces[i] + ".jpg";
-        console.log("Fill the board with"+tileM);
+        console.log("Fill the board with"+tile);
 
         document.getElementById("board").append(tile);
     }
 }
 
-// Provisional version of the swap() function
+// Provisional version of the swap() function (Not working)
 function swap() {
     let currImg = currTile.src;
     let otherImg = otherTile.src;
     currTile.src = otherImg;
     otherTile.src = currImg;
+    console.log("I'm swapping tile no. ");
+}
+
+function highlight(event){
+    console.log("I'm highlighting tile no. "+this.currImg); // shows undefined element
+    this.style.border = "3px solid green";
 }
 

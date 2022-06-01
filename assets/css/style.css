@@ -19,6 +19,14 @@ body {
     border: 2px solid blue;
 }
 
+#board img:hover {
+    border: 2px solid red;
+}
+#board img:active {
+    border: 2px solid yellow;
+    
+}
+
 #btn_new_game {
     background-color: #4CAF50; /* Green */
     border: 2px solid black;
@@ -32,8 +40,10 @@ body {
 
 #btn_new_game:hover{
     background-color: #4CAF50; /* Green */
-    color: white;
+    border: 4px solid black;
+    color: yellow;
 }
 #btn_new_game:active {
     background-color: gray;
 }
+
