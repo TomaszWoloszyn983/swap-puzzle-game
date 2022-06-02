@@ -23,7 +23,7 @@ body {
     border: 2px solid red;
 }
 #board img:active {
-    border: 2px solid yellow;
+    border: 0 solid yellow;
     
 }
 

@@ -11,7 +11,7 @@ var turns = 0;
 let pieces = [];
 
 window.onload = function(){
-    console.log("Onload function");
+    console.log("Onload function.");
 
         /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
@@ -20,23 +20,11 @@ window.onload = function(){
             
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
-
-            /* Consider creating a Tile object that contains image and id, initialize it here and add to 
-               Tiles array.
-               Another idea would be to create a code that creates a div with class tile
-               in HTML
-            */
+            // console.log("Displaying tile "+tile.src); // Displaying tiles
 
             // fillBoard();
-
-            /*
-            Next: add EventListener for clicked tile.
-            it has to highlight the clicked element and the elements that are its neighbours.
-            The cliked element has to be styled in css.
-            Also function swap has to be defined
-            */ 
-            tile.addEventListener("click", highlight); //click on image to drag
-            // tile.addEventListener("click", swap); //click on image to drag
+            tile.addEventListener("mouseover", highlight);
+            tile.addEventListener("mouseleave", mouseLeave);
 
             document.getElementById("board").append(tile);
         }
@@ -90,8 +78,31 @@ function swap() {
     console.log("I'm swapping tile no. ");
 }
 
+/*
+This function highlights the hovered tile and its neighbours instead of 
+the function in css.
+*/ 
 function highlight(event){
-    console.log("I'm highlighting tile no. "+this.currImg); // shows undefined element
-    this.style.border = "3px solid green";
+    let thisTile = this.src;
+    console.log("I'm highlighting tile no. "+thisTile); // shows undefined element
+    this.style.border = "2px solid green";
+    isNeighbour(thisTile);
 }
+function mouseLeave(event){
+    this.style.border = "2px solid blue";
+}
+
+function isNeighbour(tile){
+    let thisTile = tile
+    console.log("isNeighbour launched for tile: "+thisTile);
+    for (let piece in pieces){
+        console.log("Run for loop "+piece);
+        if(piece.src === thisTile){
+            console.log(piece.src+" compare to "+string);
+        }else{
+            console.log("Tile not found");
+        }
+    }
+}
+
 
