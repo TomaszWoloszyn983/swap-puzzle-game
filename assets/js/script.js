@@ -12,7 +12,7 @@ let pieces = [];
 
 window.onload = function(){
     console.log("Onload function.");
-
+    setPieces();
         /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
     for (let r = 0; r < rows; r++) {
@@ -20,9 +20,7 @@ window.onload = function(){
             
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
-            // console.log("Displaying tile "+tile.src); // Displaying tiles
-
-            // fillBoard();
+            
             tile.addEventListener("mouseover", highlight);
             tile.addEventListener("mouseleave", mouseLeave);
 
@@ -31,15 +29,21 @@ window.onload = function(){
     }
 }
 
-
-// for (let i=1; i <= rows*columns; i++) {
-//     pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
-// }
-
-function shuffle(){
+function setPieces(){
     for (let i=1; i <= rows*columns; i++) {
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
     }
+    console.log("setPieces display array: "+pieces);
+}
+
+
+function shuffle(){
+    /*
+    Temporarly remove and replaced by setPieces function
+    */ 
+    // for (let i=1; i <= rows*columns; i++) {
+    //     pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
+    // }
 
     pieces.reverse();
     for (let i =0; i < pieces.length; i++) {
@@ -86,22 +90,86 @@ function highlight(event){
     let thisTile = this.src;
     console.log("I'm highlighting tile no. "+thisTile); // shows undefined element
     this.style.border = "2px solid green";
-    isNeighbour(thisTile);
+    neighbours(thisTile);
 }
 function mouseLeave(event){
     this.style.border = "2px solid blue";
 }
 
-function isNeighbour(tile){
+/*
+Chcemy by ta funkcja zwracała kolekcje sąsiadów klikniętego elementu
+Sasiadów czyli elementów sąsiadujących od góry, dólu i po bokach.
+*/ 
+function neighbours(tile){
+    let neighbours = []
     let thisTile = tile
     console.log("isNeighbour launched for tile: "+thisTile);
-    for (let piece in pieces){
-        console.log("Run for loop "+piece);
-        if(piece.src === thisTile){
-            console.log(piece.src+" compare to "+string);
-        }else{
-            console.log("Tile not found");
-        }
+
+    for (let i=1; i<=columns*rows; i++){
+        console.log("looping");
+        let tile = "https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+[i]+".jpg";
+            if(tile === thisTile){
+                console.log(" compare to "+[i]);
+                neighbours.push(tile);
+                if(upperNeighbour(i)>0){
+                    neighbours.push(thisTile);
+                }
+                if(lowerNeighbour(i)>0){
+                    neighbours.push(thisTile);
+                }
+                if(leftNeighbour(i)>0){
+                    neighbours.push(thisTile);
+                }
+                if(rightNeighbour(i)>0){
+                    neighbours.push(thisTile);
+                }
+                console.log("Neighbours list: "+neighbours);
+                
+            }else{
+                console.log("Tile " +[i]+ " not found");
+            }
+         return 0;
+        }   
+        return neighbours;
+}
+
+
+function upperNeighbour(tileIndex){
+    let upperTile = tileIndex + 4;
+    if(upperTile > 0 && (upperTile <= columns*rows)){
+        console.log(upperTile+" is a neighbour");
+        return upperTile;
+    }else{
+        return 0;
+    }
+}
+function lowerNeighbour(tileIndex){
+    let lowerTile = tileIndex - 4;
+    if(lowerTile > 0 && (lowerTile <= columns*rows)){
+        console.log(lowerTile+" is a neighbour");
+        return lowerTile;
+    }else{
+        return 0;
+    }
+}
+function leftNeighbour(tileIndex){
+    let leftTile = tileIndex - 1;
+    if(leftTile > 0 && leftTile <= columns*rows 
+        && leftTile != 4  && leftTile != 8  && leftTile != 12  && leftTile != 16){
+            console.log(leftTile+" is a neighbour");
+        return leftTile;
+    }else{
+        return 0;
+    }
+}
+function rightNeighbour(tileIndex){
+    let rightTile = tileIndex + 1;
+    if(rightTile > 0 && rightTile <= columns*rows 
+        && rightTile != 5  && rightTile != 9  && rightTile != 13  && rightTile != 17){
+            console.log(rightTile+" is a neighbour");
+        return rightTile;
+    }else{
+        return 0;
     }
 }
 
