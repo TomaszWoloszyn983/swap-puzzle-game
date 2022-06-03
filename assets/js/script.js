@@ -21,11 +21,10 @@ window.onload = function(){
             
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
-            tile.setAttribute("id", '"tile"+i');
+            let tileId = "tile"+i;
+            tile.setAttribute("id", tileId);
             boardElement.appendChild(tile);
             console.log("Initialize tiles "+tile+" id = "+tile.innerHTML);
-            
-           
             
             tile.addEventListener("mouseover", highlight);
             tile.addEventListener("mouseleave", mouseLeave);
@@ -68,7 +67,8 @@ function fillBoard(){
     let board = document.getElementById("board");
     let tiles = board.children;
     console.log(board.children);
-    console.log("Display some tile: "+document.querySelector("#board > img:nth-child(15)"));
+    console.log("Display some tile: "+document.querySelector("#board > img:nth-child(15)"
+    )+"Another one: "+document.getElementById("tile5").src);
 
     for (let i = 0; i < pieces.length; i++) {
         let tile = document.createElement("img");
@@ -92,7 +92,7 @@ function swap() {
 This function highlights the hovered tile and its neighbours instead of 
 the function in css.
 */ 
-function highlight(event){
+function highlight(){
     let thisTile = this.src;
 
     console.log("I'm highlighting tile no. "+thisTile); // shows undefined element
@@ -101,6 +101,10 @@ function highlight(event){
     // for(let neib of neibs){
     //     neib.src.style.border = "2px solid green";
     // }
+
+    let tile20 = document.getElementById("tile16");
+    tile20.style.border = "2px solid red";
+    // Here I see that I can highlight a tile by id
 
 }
 function mouseLeave(event){
