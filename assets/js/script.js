@@ -90,45 +90,51 @@ function highlight(event){
     let thisTile = this.src;
     console.log("I'm highlighting tile no. "+thisTile); // shows undefined element
     this.style.border = "2px solid green";
-    neighbours(thisTile);
+    let neibs = neighbours(thisTile);
+    // for(let neib of neibs){
+    //     neib.src.style.border = "2px solid green";
+    // }
+
 }
 function mouseLeave(event){
     this.style.border = "2px solid blue";
 }
 
 /*
-Chcemy by ta funkcja zwracała kolekcje sąsiadów klikniętego elementu
-Sasiadów czyli elementów sąsiadujących od góry, dólu i po bokach.
+    Searches for tiles neighbours which are elements below, above and on the sides of the tile.
+    The function finds the neighbours by adding 1 for the right neighbour, subtracting 1 for the 
+    left one, adding 4 for lower one and subtracting 4 for the upper one.
+    It checking if the number of the tile isn't lower that 0 or higher than the number of all tiles
+    in the board.
+
+    Returns the array of the neighbours elements
 */ 
 function neighbours(tile){
     let neighbours = []
     let thisTile = tile
-    console.log("isNeighbour launched for tile: "+thisTile);
 
     for (let i=1; i<=columns*rows; i++){
-        console.log("looping");
         let tile = "https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+[i]+".jpg";
             if(tile === thisTile){
-                console.log(" compare to "+[i]);
-                neighbours.push(tile);
+
                 if(upperNeighbour(i)>0){
-                    neighbours.push(thisTile);
+                    neighbours.push("https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+upperNeighbour(i)+".jpg");
                 }
                 if(lowerNeighbour(i)>0){
-                    neighbours.push(thisTile);
+                    ntile.src = "https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+lowerNeighbour(i)+".jpg";
+                    ntile.style.border = "2px solid green";
+                    neighbours.push("https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+lowerNeighbour(i)+".jpg");
                 }
                 if(leftNeighbour(i)>0){
-                    neighbours.push(thisTile);
+                    neighbours.push("https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+leftNeighbour(i)+".jpg");
                 }
                 if(rightNeighbour(i)>0){
-                    neighbours.push(thisTile);
+                    neighbours.push("https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+rightNeighbour(i)+".jpg");
                 }
-                console.log("Neighbours list: "+neighbours);
-                
+                break;
             }else{
                 console.log("Tile " +[i]+ " not found");
             }
-         return 0;
         }   
         return neighbours;
 }
