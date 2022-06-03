@@ -12,6 +12,7 @@ let pieces = [];
 
 window.onload = function(){
     console.log("Onload function.");
+    let boardElement = document.getElementById("board");
     setPieces();
         /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
@@ -20,6 +21,11 @@ window.onload = function(){
             
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
+            tile.setAttribute("id", '"tile"+i');
+            boardElement.appendChild(tile);
+            console.log("Initialize tiles "+tile+" id = "+tile.innerHTML);
+            
+           
             
             tile.addEventListener("mouseover", highlight);
             tile.addEventListener("mouseleave", mouseLeave);
@@ -88,6 +94,7 @@ the function in css.
 */ 
 function highlight(event){
     let thisTile = this.src;
+
     console.log("I'm highlighting tile no. "+thisTile); // shows undefined element
     this.style.border = "2px solid green";
     let neibs = neighbours(thisTile);
@@ -110,26 +117,28 @@ function mouseLeave(event){
     Returns the array of the neighbours elements
 */ 
 function neighbours(tile){
-    let neighbours = []
-    let thisTile = tile
+    let neighbours = [];
+    let thisTile = tile;
+    let url = tile.toString();
+    let result = url.split('/assets');
+    console.log(result);
 
     for (let i=1; i<=columns*rows; i++){
-        let tile = "https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+[i]+".jpg";
-            if(tile === thisTile){
+        let tile2 = result[0]+"/assets/images/"+[i]+".jpg";
+        console.log("compare thisTile "+thisTile+ " to "+tile2);
+            if(tile2 === thisTile){
 
                 if(upperNeighbour(i)>0){
-                    neighbours.push("https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+upperNeighbour(i)+".jpg");
+                    neighbours.push(result[0]+"/assets/images/"+upperNeighbour(i)+".jpg");
                 }
                 if(lowerNeighbour(i)>0){
-                    ntile.src = "https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+lowerNeighbour(i)+".jpg";
-                    ntile.style.border = "2px solid green";
-                    neighbours.push("https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+lowerNeighbour(i)+".jpg");
+                    neighbours.push(result[0]+"/assets/images/"+lowerNeighbour(i)+".jpg");
                 }
                 if(leftNeighbour(i)>0){
-                    neighbours.push("https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+leftNeighbour(i)+".jpg");
+                    neighbours.push(result[0]+"/assets/images/"+leftNeighbour(i)+".jpg");
                 }
                 if(rightNeighbour(i)>0){
-                    neighbours.push("https://8000-tomaszwolos-swappuzzleg-f9t61hc8dtm.ws-eu46.gitpod.io/assets/images/"+rightNeighbour(i)+".jpg");
+                    neighbours.push(result[0]+"/assets/images/"+rightNeighbour(i)+".jpg");
                 }
                 break;
             }else{
