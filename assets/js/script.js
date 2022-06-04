@@ -41,41 +41,39 @@ function setPieces(){
     console.log("setPieces display array: "+pieces);
 }
 
-
-function shuffle(){
-    /*
-    Temporarly remove and replaced by setPieces function
-    */ 
-    // for (let i=1; i <= rows*columns; i++) {
-    //     pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
-    // }
+/*
+    Shuffle takes an Array of pieces and return a new 
+    array of pieces in random order.
+*/ 
+function shuffle(piecesList){
+   
+    let newList = piecesList;
 
     pieces.reverse();
-    for (let i =0; i < pieces.length; i++) {
-        let j = Math.floor(Math.random() * pieces.length);
+    for (let i =0; i < newList.length; i++) {
+        let j = Math.floor(Math.random() * newList.length);
 
         //swap
-        let tmp = pieces[i];
-        pieces[i] = pieces[j];
-        pieces[j] = tmp;
+        let tmp = newList[i];
+        newList[i] = newList[j];
+        newList[j] = tmp;
     }
     console.log("Shuffle!");
+    return newList;
 }
 
-// This function is propably going to be redundant and it will be replaced by random swapping tiles function
+/*
+    FillBoard calls shuffle() function and fills up the board with 
+    shuffled pieces.
+*/ 
 function fillBoard(){
     let board = document.getElementById("board");
     let tiles = board.children;
-    console.log(board.children);
-    console.log("Display some tile: "+document.querySelector("#board > img:nth-child(15)"
-    )+"Another one: "+document.getElementById("tile5").src);
+    let shuffledPieces = shuffle(pieces);
 
-    for (let i = 0; i < pieces.length; i++) {
-        let tile = document.createElement("img");
-        tile.src = "assets/images/" + pieces[i] + ".jpg";
-        console.log("Fill the board with"+tile);
-
-        document.getElementById("board").append(tile);
+    for (let i = 0; i < shuffledPieces.length; i++) {
+        console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + shuffledPieces[i] + ".jpg");
+        tiles[i].src = "assets/images/" + shuffledPieces[i] + ".jpg";
     }
 }
 
