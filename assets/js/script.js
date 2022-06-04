@@ -86,13 +86,9 @@ function fillBoard(){
     }
 }
 
-// Provisional version of the swap() function (Not working)
-function swap() {
-    let currImg = currTile.src;
-    let otherImg = otherTile.src;
-    currTile.src = otherImg;
-    otherTile.src = currImg;
-    console.log("I'm swapping tile no. ");
+function startNewGame(){
+    fillBoard();
+    turns = 0;
 }
 
 /*

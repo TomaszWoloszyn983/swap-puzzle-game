@@ -8,7 +8,7 @@ body {
     height: 600px;
     border: 2px solid blue;
 
-    margin: 0 auto;
+    /* margin: 5px 15px; */
     display: flex;
     flex-wrap: wrap;
 }
@@ -46,4 +46,34 @@ body {
 #btn_new_game:active {
     background-color: gray;
 }
+
+#game_container {
+    border: 1px solid blue;
+    display: grid;
+    grid-template-columns: 0.25fr 0.25fr 0.25fr 0.25fr;
+    grid-template-rows: 1fr;
+    height: fit-content;
+    line-height: 20px;
+    margin: 20px 5% 0 5%; 
+    padding: 10px;
+}
+
+#game_window {
+    width: fit-content;
+    border: 1px solid yellow;
+    text-align: center;
+    padding: 20px;
+    /* margin: auto; */
+
+}
+
+#rules, #results{
+    max-height: 300px;
+    border: 2px solid blue;
+    margin: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    float: left;
+}
+
 

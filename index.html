@@ -10,12 +10,20 @@
     <title>Puzzles</title>
 </head>
 <body>
-    <br>
-    <div id="board"></div>
-    <h2>Turns: <span id="turns">0</span></h2>
+    <section id="game_container">
+        <br>
+        <div id="rules">Rules</div>
+        
+        <div id="game_window">
+            <div id="board"></div>
 
-    <button type="button" onclick="fillBoard()" id="btn_new_game">Start New Game</button>
-
+            <h2>Turns: <span id="turns">0</span></h2>
+            <button type="button" onclick="startNewGame()" id="btn_new_game">Start New Game</button>
+        </div>
+        
+        <div id="results">Best results</div>
+    </section>
+    
 
 
     <script src="assets/js/script.js"></script>
