@@ -12,7 +12,7 @@ var turns = 0;
 var pieces = [];
 
 window.onload = function(){
-    console.log("Onload function.");
+
     let boardElement = document.getElementById("board");
     setPieces();
         /*Initialize the main board with tiles made of croped image*/ 
@@ -25,7 +25,7 @@ window.onload = function(){
             let tileId = "tile"+i;
             tile.setAttribute("id", tileId);  // Add id attribute to the tile.
             boardElement.appendChild(tile);
-            console.log("Initialize tiles "+tile+" id = "+tile.innerHTML);
+            // console.log("Initialize tiles "+tile+" id = "+tile.id);
             
             tile.addEventListener("mouseover", highlight);
             tile.addEventListener("mouseleave", mouseLeave);
@@ -85,7 +85,7 @@ function fillInOrder(){
     FillBoard calls shuffle() function and fills up the board with 
     shuffled pieces.
 */ 
-function fillBoard(){
+function fillShuffle(){
     let board = document.getElementById("board");
     let tiles = board.children;
     let shuffledPieces = shuffle(pieces);
@@ -97,13 +97,26 @@ function fillBoard(){
 }
 
 function startNewGame(){
-    fillBoard();
+    fillShuffle();
     turns = 0;
+    document.getElementById("turns").innerText = turns;
 }
 
 function stopThisGame(){
     fillInOrder();
-    turns = 0;
+}
+
+function toggleStartButton(){
+    let button = document.getElementById("btn_new_game");
+    if(button.getAttribute(onclick) == startNewGame()){
+        button.innerHTML = "Stop This Game";
+        console.log("Chanding button to stop");
+        button.onclick = stopThisGame();
+    }else{
+        button.innerHTML = "Start New Game";
+        console.log("Chanding button to start");
+        button.onclick = startNewGame();
+    }
 }
 
 /*
@@ -129,6 +142,33 @@ function mouseLeave(event){
         tile.style.border = "2px solid blue";
     }
     this.style.border = "2px solid blue";
+}
+
+/**
+ * Compares tile
+ * 
+ * @param tile id 
+ * @returns boolean
+ */ 
+function isNeighbour(tile){
+
+    console.log("isNeibour0"+tile);
+    let list = neighboursList(tile);
+    console.log(tile+" neibour are: "+list);
+
+    //  I deliver neighbours list. All I need is to find out if the target tile is in that list.
+    //  Może lepiej wykonać całą tą operację na funkcji dragEnd
+
+    for(let l of list){
+        console.log("Compare: "+l+" to "+tile);
+        if("tile"+l == tile){
+            console.log("Good");
+            return true;
+            
+        }
+        console.log("No good");
+    }
+    // return false;
 }
 
 /*
@@ -172,17 +212,23 @@ function neighbours(tile){
         return neighbours;
 }
 
+/**
+ * Takes: tile id
+ * Returns: list of integers
+ */ 
 function neighboursList(tile){
+    console.log("isNeib: "+tile);
     
     let index = parseInt(tile.substring(4));
     let list = [];
+    console.log("isNeib2: "+tile.substring(4));
 
     (upperNeighbour(index) > 0) ?  list.push(upperNeighbour(index)) : 0;
     (leftNeighbour(index) > 0) ?  list.push(leftNeighbour(index)) : 0;
     (rightNeighbour(index) > 0) ?  list.push(rightNeighbour(index)) : 0;
     (lowerNeighbour(index) > 0) ?  list.push(lowerNeighbour(index)) : 0;
     
-    // console.log("Return neighnours list for: "+tile+" at index: "+index+" : "+list);
+    console.log("Return neighnours list for: "+tile+" at index: "+index+" : "+list);
     return list;
 }
 
@@ -250,10 +296,21 @@ function dragEnd() {
     if (currTile.src.includes("blank")) {
         return;
     }
+
+        // These two reference to the image not to the tile
     let currImg = currTile.src;
     let otherImg = otherTile.src;
     currTile.src = otherImg;
     otherTile.src = currImg;
+
+    console.log("Drag end : "+currTile+" id = "+currTile.id);
+
+    if(isNeighbour(this.id)){ // I deliver id of the current tile, not the target tile
+                                // I need the current tiles neighbours
+
+
+    }
+  
 
     turns += 1;
     document.getElementById("turns").innerText = turns;
@@ -271,12 +328,12 @@ function isSolved(){
     let currentOrder =  document.getElementById("board").children;
     let url = currentOrder[0].src.toString();
     let result = url.split('/assets');
-    console.log("New turn!")
+    // console.log("New turn!")
     for(let i=0; i<pieces.length; i++){
         let orderedPiece = result[0]+"/assets/images/" + [i+1] + ".jpg";
-        console.log("Compare: "+currentOrder[i].src.substring(74)+" to : "+ orderedPiece.substring(74));
+        // console.log("Compare: "+currentOrder[i].src.substring(74)+" to : "+ orderedPiece.substring(74));
         if(currentOrder[i].src == orderedPiece){
-            console.log("Element: "+currentOrder[i].src.substring(74)+" is equal to element "+ orderedPiece.substring(74));
+            // console.log("Element: "+currentOrder[i].src.substring(74)+" is equal to element "+ orderedPiece.substring(74));
         }else{
             console.log("Element: "+currentOrder[i].src.substring(74)+" is equal NOT to element "+ orderedPiece.substring(74));
             return false;
