@@ -91,7 +91,7 @@ function fillBoard(){
     let shuffledPieces = shuffle(pieces);
 
     for (let i = 0; i < shuffledPieces.length; i++) {
-        console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + shuffledPieces[i] + ".jpg");
+        // console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + shuffledPieces[i] + ".jpg");
         tiles[i].src = "assets/images/" + shuffledPieces[i] + ".jpg";
     }
 }
@@ -114,9 +114,9 @@ function highlight(event){
     let tile = this.src;
     let hoveredTile = this.id;
     let neiList = neighboursList(hoveredTile);
-    console.log('The id of the element you clicked: ' + hoveredTile);
+    // console.log('The id of the element you clicked: ' + hoveredTile);
 
-    console.log("I'm highlighting piece no. "+tile);
+    // console.log("I'm highlighting piece no. "+tile);
     this.style.border = "2px solid green";
     for(let nei of neiList){
         let element = document.getElementById("tile"+nei).style.border = "2px dotted green";
@@ -182,7 +182,7 @@ function neighboursList(tile){
     (rightNeighbour(index) > 0) ?  list.push(rightNeighbour(index)) : 0;
     (lowerNeighbour(index) > 0) ?  list.push(lowerNeighbour(index)) : 0;
     
-    console.log("Return neighnours list for: "+tile+" at index: "+index+" : "+list);
+    // console.log("Return neighnours list for: "+tile+" at index: "+index+" : "+list);
     return list;
 }
 
@@ -265,19 +265,20 @@ function dragEnd() {
     Compare the current pieces order to the required order.
     If every piece is in the required order then the function 
     returns true.
+    Function return false when meets the first not equal pair of elements
 */ 
 function isSolved(){
     let currentOrder =  document.getElementById("board").children;
     let url = currentOrder[0].src.toString();
     let result = url.split('/assets');
-
+    console.log("New turn!")
     for(let i=0; i<pieces.length; i++){
-        let orderedPiece = result[0]+"/assets/images/" + pieces[i] + ".jpg";
-
+        let orderedPiece = result[0]+"/assets/images/" + [i+1] + ".jpg";
+        console.log("Compare: "+currentOrder[i].src.substring(74)+" to : "+ orderedPiece.substring(74));
         if(currentOrder[i].src == orderedPiece){
-            // return true;
+            console.log("Element: "+currentOrder[i].src.substring(74)+" is equal to element "+ orderedPiece.substring(74));
         }else{
-            console.log("Element: "+currentOrder[i].src+" is NOT equal to element "+ orderedPiece);
+            console.log("Element: "+currentOrder[i].src.substring(74)+" is equal NOT to element "+ orderedPiece.substring(74));
             return false;
         }
     }
