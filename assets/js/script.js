@@ -95,19 +95,27 @@ function startNewGame(){
 This function highlights the hovered tile and its neighbours instead of 
 the function in css.
 */ 
-function highlight(){
-    let thisTile = this.src;
+function highlight(event){
+    let tile = this.src;
+    let hoveredTile = this.id;
+    let neiList = neighboursList(hoveredTile);
+    console.log("List "+neiList);
+    console.log('The id of the element you clicked: ' + hoveredTile);
 
-    console.log("I'm highlighting tile no. "+thisTile); // shows undefined element
+    console.log("I'm highlighting piece no. "+tile); // shows undefined element
     this.style.border = "2px solid green";
-    let neibs = neighbours(thisTile);
-    // for(let neib of neibs){
-    //     neib.src.style.border = "2px solid green";
-    // }
+    // let neibs = neighbours(thisTile);
+    for(let nei of neiList){
+        console.log("Looping list: "+nei);
+        nei.style.border = "2px dotted green";
+    }
 
-    let tile20 = document.getElementById("tile16");
-    tile20.style.border = "2px solid red";
-    // Here I see that I can highlight a tile by id
+    // let tile = document.getElementById("tile16");
+    // tile.style.border = "2px solid red";
+    // (rightNeighbour(hoveredTile) > 0) ?  tile.style.border = "2px dotted red" : console.log(hoveredTile+ " not recognized as a neighbour");
+    // // Here I see that I can highlight a tile by id
+
+
 
 }
 function mouseLeave(event){
@@ -132,7 +140,7 @@ function neighbours(tile){
 
     for (let i=1; i<=columns*rows; i++){
         let tile2 = result[0]+"/assets/images/"+[i]+".jpg";
-        console.log("compare thisTile "+thisTile+ " to "+tile2);
+        // console.log("compare thisTile "+thisTile+ " to "+tile2);
             if(tile2 === thisTile){
 
                 if(upperNeighbour(i)>0){
@@ -149,12 +157,25 @@ function neighbours(tile){
                 }
                 break;
             }else{
-                console.log("Tile " +[i]+ " not found");
+                // console.log("Tile " +[i]+ " not found");
             }
         }   
         return neighbours;
 }
 
+function neighboursList(tile){
+    
+    let index = parseInt(tile.substring(4));
+    let list = [];
+
+    (upperNeighbour(index) > 0) ?  list.push(upperNeighbour(index)) : 0;
+    (leftNeighbour(index) > 0) ?  list.push(leftNeighbour(index)) : 0;
+    (rightNeighbour(index) > 0) ?  list.push(rightNeighbour(index)) : 0;
+    (lowerNeighbour(index) > 0) ?  list.push(lowerNeighbour(index)) : 0;
+    
+    console.log("Returned neighnours list for: "+tile+" index: "+index+" : "+list);
+    return list;
+}
 
 function upperNeighbour(tileIndex){
     let upperTile = tileIndex + 4;
