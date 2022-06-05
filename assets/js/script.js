@@ -114,13 +114,11 @@ function highlight(event){
     let tile = this.src;
     let hoveredTile = this.id;
     let neiList = neighboursList(hoveredTile);
-    console.log("List "+neiList);
     console.log('The id of the element you clicked: ' + hoveredTile);
 
     console.log("I'm highlighting piece no. "+tile);
     this.style.border = "2px solid green";
     for(let nei of neiList){
-        console.log("Looping list: "+nei);
         let element = document.getElementById("tile"+nei).style.border = "2px dotted green";
     }   
 }
@@ -147,7 +145,7 @@ function neighbours(tile){
     let thisTile = tile;
     let url = tile.toString();
     let result = url.split('/assets');
-    console.log(result);
+    // console.log(result);
 
     for (let i=1; i<=columns*rows; i++){
         let tile2 = result[0]+"/assets/images/"+[i]+".jpg";
@@ -263,21 +261,26 @@ function dragEnd() {
     isSolved();
 }
 
-
+/*
+    Compare the current pieces order to the required order.
+    If every piece is in the required order then the function 
+    returns true.
+*/ 
 function isSolved(){
     let currentOrder =  document.getElementById("board").children;
-    let requiredOrder = pieces;
+    let url = currentOrder[0].src.toString();
+    let result = url.split('/assets');
 
     for(let i=0; i<pieces.length; i++){
-        let orderedPiece = "assets/images/" + pieces[i] + ".jpg";
-        console.log("compare: "+" current: "+currentOrder[i]+" to required: "+ orderedPiece);
-        if(currentOrder[i].src === orderedPiece){
-            console.log("Element: "+currentOrder[i].src+" is equal to element "+ orderedPiece);
+        let orderedPiece = result[0]+"/assets/images/" + pieces[i] + ".jpg";
+
+        if(currentOrder[i].src == orderedPiece){
             // return true;
         }else{
-            console.log("Element: "+currentOrder[i]+" is NOT equal to element "+ orderedPiece);
+            console.log("Element: "+currentOrder[i].src+" is NOT equal to element "+ orderedPiece);
             return false;
         }
     }
-    return false;
+    console.log("The jigsaw has been solved!!!");
+    return true;
 }
