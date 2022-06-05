@@ -9,7 +9,7 @@ var currTile;
 var otherTile;
 
 var turns = 0;
-let pieces = [];
+var pieces = [];
 
 window.onload = function(){
     console.log("Onload function.");
@@ -23,7 +23,7 @@ window.onload = function(){
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
             let tileId = "tile"+i;
-            tile.setAttribute("id", tileId);
+            tile.setAttribute("id", tileId);  // Add id attribute to the tile.
             boardElement.appendChild(tile);
             console.log("Initialize tiles "+tile+" id = "+tile.innerHTML);
             
@@ -71,6 +71,16 @@ function shuffle(piecesList){
     return newList;
 }
 
+function fillInOrder(){
+    let board = document.getElementById("board");
+    let tiles = board.children;
+
+    for (let i = 0; i < pieces.length; i++) {
+        console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + pieces[i] + ".jpg");
+        tiles[i].src = "assets/images/" + pieces[i] + ".jpg";
+    }
+}
+
 /*
     FillBoard calls shuffle() function and fills up the board with 
     shuffled pieces.
@@ -91,6 +101,11 @@ function startNewGame(){
     turns = 0;
 }
 
+function stopThisGame(){
+    fillInOrder();
+    turns = 0;
+}
+
 /*
 This function highlights the hovered tile and its neighbours instead of 
 the function in css.
@@ -102,23 +117,19 @@ function highlight(event){
     console.log("List "+neiList);
     console.log('The id of the element you clicked: ' + hoveredTile);
 
-    console.log("I'm highlighting piece no. "+tile); // shows undefined element
+    console.log("I'm highlighting piece no. "+tile);
     this.style.border = "2px solid green";
-    // let neibs = neighbours(thisTile);
     for(let nei of neiList){
         console.log("Looping list: "+nei);
-        nei.style.border = "2px dotted green";
-    }
-
-    // let tile = document.getElementById("tile16");
-    // tile.style.border = "2px solid red";
-    // (rightNeighbour(hoveredTile) > 0) ?  tile.style.border = "2px dotted red" : console.log(hoveredTile+ " not recognized as a neighbour");
-    // // Here I see that I can highlight a tile by id
-
-
-
+        let element = document.getElementById("tile"+nei).style.border = "2px dotted green";
+    }   
 }
+
 function mouseLeave(event){
+    let tiles = document.getElementById("board").children;
+    for(let tile of tiles){
+        tile.style.border = "2px solid blue";
+    }
     this.style.border = "2px solid blue";
 }
 
@@ -173,14 +184,14 @@ function neighboursList(tile){
     (rightNeighbour(index) > 0) ?  list.push(rightNeighbour(index)) : 0;
     (lowerNeighbour(index) > 0) ?  list.push(lowerNeighbour(index)) : 0;
     
-    console.log("Returned neighnours list for: "+tile+" index: "+index+" : "+list);
+    console.log("Return neighnours list for: "+tile+" at index: "+index+" : "+list);
     return list;
 }
 
 function upperNeighbour(tileIndex){
     let upperTile = tileIndex + 4;
     if(upperTile > 0 && (upperTile <= columns*rows)){
-        console.log(upperTile+" is a neighbour");
+        // console.log(upperTile+" is a neighbour");
         return upperTile;
     }else{
         return 0;
@@ -189,7 +200,7 @@ function upperNeighbour(tileIndex){
 function lowerNeighbour(tileIndex){
     let lowerTile = tileIndex - 4;
     if(lowerTile > 0 && (lowerTile <= columns*rows)){
-        console.log(lowerTile+" is a neighbour");
+        // console.log(lowerTile+" is a neighbour");
         return lowerTile;
     }else{
         return 0;
@@ -199,7 +210,7 @@ function leftNeighbour(tileIndex){
     let leftTile = tileIndex - 1;
     if(leftTile > 0 && leftTile <= columns*rows 
         && leftTile != 4  && leftTile != 8  && leftTile != 12  && leftTile != 16){
-            console.log(leftTile+" is a neighbour");
+            // console.log(leftTile+" is a neighbour");
         return leftTile;
     }else{
         return 0;
@@ -209,7 +220,7 @@ function rightNeighbour(tileIndex){
     let rightTile = tileIndex + 1;
     if(rightTile > 0 && rightTile <= columns*rows 
         && rightTile != 5  && rightTile != 9  && rightTile != 13  && rightTile != 17){
-            console.log(rightTile+" is a neighbour");
+            // console.log(rightTile+" is a neighbour");
         return rightTile;
     }else{
         return 0;
@@ -248,4 +259,25 @@ function dragEnd() {
 
     turns += 1;
     document.getElementById("turns").innerText = turns;
+
+    isSolved();
+}
+
+
+function isSolved(){
+    let currentOrder =  document.getElementById("board").children;
+    let requiredOrder = pieces;
+
+    for(let i=0; i<pieces.length; i++){
+        let orderedPiece = "assets/images/" + pieces[i] + ".jpg";
+        console.log("compare: "+" current: "+currentOrder[i]+" to required: "+ orderedPiece);
+        if(currentOrder[i].src === orderedPiece){
+            console.log("Element: "+currentOrder[i].src+" is equal to element "+ orderedPiece);
+            // return true;
+        }else{
+            console.log("Element: "+currentOrder[i]+" is NOT equal to element "+ orderedPiece);
+            return false;
+        }
+    }
+    return false;
 }
