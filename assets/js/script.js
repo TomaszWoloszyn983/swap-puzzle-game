@@ -7,7 +7,7 @@ var columns = 4;
 var currTile;
 var otherTile;
 
-
+var gameOn = false;
 var turns = 0;
 var pieces = [];
 
@@ -103,11 +103,13 @@ function fillShuffle(){
 function startNewGame(){
     fillShuffle();
     turns = 0;
+    gameOn = true;
     document.getElementById("turns").innerText = turns;
 }
 
 function QuitGame(){
     fillInOrder();
+    gameOn = false;
 }
 
 function toggleStartButton(button){
@@ -132,12 +134,12 @@ This function highlights the hovered tile and its neighbours instead of
 the function in css.
 */ 
 function highlight(event){
-    let tile = this.src;
+    // let tile = this.src;
     let hoveredTile = this.id;
     let neiList = neighboursList(hoveredTile);
-    // console.log('The id of the element you clicked: ' + hoveredTile);
-
     // console.log("I'm highlighting piece no. "+tile);
+
+    // Highlighting the hovered tile and its neighbours
     this.style.border = "2px solid green";
     for(let nei of neiList){
         let element = document.getElementById("tile"+nei).style.border = "2px dotted green";
@@ -325,6 +327,10 @@ function dragEnd() {
     If every piece is in the required order then the function 
     returns true.
     Function return false when meets the first not equal pair of elements
+
+    Add condition below besides the turns > 0 condition.
+     && gameOn == true
+
 */ 
 function isSolved(){
     if(turns > 0){
@@ -351,6 +357,8 @@ function isSolved(){
             txt = "You pressed Cancel!";
           }
         return true;
+    }else if(turns>5 && gameOn == false){
+        window.alert('Press "Start New Game" button to start the game');
     }else{
         return false;
     }
