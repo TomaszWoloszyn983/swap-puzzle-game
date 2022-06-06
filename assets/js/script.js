@@ -1,4 +1,3 @@
-console.log("Run js script");
 
 // Numbers of rows and columns in the main board
 var rows = 5;
@@ -14,12 +13,16 @@ var pieces = [];
 
 window.onload = function(){
 
+
+
     let boardElement = document.getElementById("board");
     setPieces();
         /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
+
+
             
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
@@ -28,6 +31,7 @@ window.onload = function(){
             boardElement.appendChild(tile);
             // console.log("Initialize tiles "+tile+" id = "+tile.id);
             
+            //HOVERING OVER TILES
             tile.addEventListener("mouseover", highlight);
             tile.addEventListener("mouseleave", mouseLeave);
 
@@ -48,7 +52,6 @@ function setPieces(){
     for (let i=1; i <= rows*columns; i++) {
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
     }
-    console.log("setPieces display array: "+pieces);
 }
 
 /*
@@ -77,7 +80,7 @@ function fillInOrder(){
     let tiles = board.children;
 
     for (let i = 0; i < pieces.length; i++) {
-        console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + pieces[i] + ".jpg");
+        // console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + pieces[i] + ".jpg");
         tiles[i].src = "assets/images/" + pieces[i] + ".jpg";
     }
 }
@@ -103,17 +106,21 @@ function startNewGame(){
     document.getElementById("turns").innerText = turns;
 }
 
-function stopThisGame(){
+function QuitGame(){
     fillInOrder();
 }
 
-function toggleStartButton(){
-    let button = document.getElementById("btn_new_game");
+function toggleStartButton(button){
+
+    // let button = document.getElementById("btn_new_game");
+    // button.addEventListener('click', toggleStartButton());
+    console.log("Toggling runs for: "+button.innerHTML);
+
     if(button.getAttribute(onclick) == startNewGame()){
-        button.innerHTML = "Stop This Game";
-        console.log("Chanding button to stop");
-        button.onclick = stopThisGame();
-    }else{
+        button.innerHTML = "Quit Game";
+        console.log("Chanding button to quit");
+        button.onclick = QuitGame();
+    }else{   //  if(button.getAttribute(onclick) == QuitGame())
         button.innerHTML = "Start New Game";
         console.log("Chanding button to start");
         button.onclick = startNewGame();
@@ -146,29 +153,23 @@ function mouseLeave(event){
 }
 
 /**
- * 
+ * Checks if tile2 is on the tile1 neighbours list
+ * if it is the function returns true. If it's not returns false.
  * 
  * @param tile id 
  * @returns boolean
  */ 
 function isNeighbour(tile1, tile2){
 
-    console.log("isNeibour0"+tile1);
     let list = neighboursList(tile1);
-    console.log(tile1+" neibour are: "+list);
 
-    //  I deliver neighbours list. All I need is to find out if the target tile is in that list.
- 
     for(let l of list){
-        console.log("Compare: "+l+" to "+tile1);
+        // console.log("Compare: "+l+" to "+tile1);
         if("tile"+l == tile2){
-            console.log("Good");
             return true;
-            
         }
-        console.log("No good");
     }
-    // return false;
+    return false;
 }
 
 /*
@@ -217,20 +218,21 @@ function neighbours(tile){
  * Returns: list of integers
  */ 
 function neighboursList(tile){
-    console.log("isNeib: "+tile);
     
     let index = parseInt(tile.substring(4));
     let list = [];
-    console.log("isNeib2: "+tile.substring(4));
 
     (upperNeighbour(index) > 0) ?  list.push(upperNeighbour(index)) : 0;
     (leftNeighbour(index) > 0) ?  list.push(leftNeighbour(index)) : 0;
     (rightNeighbour(index) > 0) ?  list.push(rightNeighbour(index)) : 0;
     (lowerNeighbour(index) > 0) ?  list.push(lowerNeighbour(index)) : 0;
     
-    console.log("Return neighnours list for: "+tile+" at index: "+index+" : "+list);
+    // console.log("Return neighnours list for: "+tile+" at index: "+index+" : "+list);
     return list;
 }
+
+
+        // FINDING NEIGHBOURS
 
 function upperNeighbour(tileIndex){
     let upperTile = tileIndex + 4;
@@ -271,10 +273,10 @@ function rightNeighbour(tileIndex){
     }
 }
 
-//DRAG TILES
+                //DRAG TILES
+
 function dragStart() {
     currTile = this; //this refers to image that was clicked on for dragging
-    // let currTileId = this.id;
 }
 
 function dragOver(e) {
@@ -291,33 +293,28 @@ function dragLeave() {
 
 function dragDrop() {
     otherTile = this; //this refers to image that is being dropped on
-    // let otherTileId = this.id;
+    // otherTile.src.style.border = "2px solid red";
 }
 
 function dragEnd() {
-    if (currTile.src.includes("blank")) {
-        return;
-    }
+    // if (currTile.src.includes("blank")) {
+    //     return;
+    // }
 
-        // These two reference to the image not to the tile
     let currImg = currTile.src;
     let otherImg = otherTile.src;
 
-    console.log("Display this image: "+currTile.id+" and the other one: "+otherTile.id);
-    // currTile.src = otherImg;
-    // otherTile.src = currImg;
+    // console.log("Display this image: "+currTile.id+" and the other one: "+otherTile.id);
 
-    console.log("Drag end : "+currTile+" id = "+currTile.id);
-
-    if(isNeighbour(currTile.id, otherTile.id)){ // I deliver id of the current tile, not the target tile
-                                // I need the current tiles neighbours
+    if(isNeighbour(currTile.id, otherTile.id)){
         currTile.src = otherImg;
         otherTile.src = currImg;
-
+        turns += 1;
+    }else{
+        console.log("You only can drop drop this tile on its neighbouring tile: left, right, upper or lower");
+        // otherTile.src.style.border = "2px solid red";
     }
   
-
-    turns += 1;
     document.getElementById("turns").innerText = turns;
 
     isSolved();
@@ -330,20 +327,31 @@ function dragEnd() {
     Function return false when meets the first not equal pair of elements
 */ 
 function isSolved(){
-    let currentOrder =  document.getElementById("board").children;
-    let url = currentOrder[0].src.toString();
-    let result = url.split('/assets');
-    // console.log("New turn!")
-    for(let i=0; i<pieces.length; i++){
-        let orderedPiece = result[0]+"/assets/images/" + [i+1] + ".jpg";
-        // console.log("Compare: "+currentOrder[i].src.substring(74)+" to : "+ orderedPiece.substring(74));
-        if(currentOrder[i].src == orderedPiece){
-            // console.log("Element: "+currentOrder[i].src.substring(74)+" is equal to element "+ orderedPiece.substring(74));
-        }else{
-            console.log("Element: "+currentOrder[i].src.substring(74)+" is equal NOT to element "+ orderedPiece.substring(74));
-            return false;
+    if(turns > 0){
+        let currentOrder =  document.getElementById("board").children;
+        let url = currentOrder[0].src.toString();
+        let result = url.split('/assets');
+        // console.log("New turn!")
+        for(let i=0; i<pieces.length; i++){
+            let orderedPiece = result[0]+"/assets/images/" + [i+1] + ".jpg";
+            // console.log("Compare: "+currentOrder[i].src.substring(74)+" to : "+ orderedPiece.substring(74));
+            if(currentOrder[i].src == orderedPiece){
+                // console.log("Element: "+currentOrder[i].src.substring(74)+" is equal to element "+ orderedPiece.substring(74));
+            }else{
+                console.log("Element: "+currentOrder[i].src.substring(74)+" is equal NOT to element "+ orderedPiece.substring(74));
+                return false;
+            }
         }
+        console.log("The jigsaw has been solved!!!");
+        // window.confirm("Well Done\n You've solved the puzzles in "+turns+" turns");
+        if (confirm("Well Done!!!\nYou've solved the puzzles in "+turns+" turns!\n Would You like to play again?")) {
+            txt = "You pressed OK!";
+            startNewGame();
+          } else {
+            txt = "You pressed Cancel!";
+          }
+        return true;
+    }else{
+        return false;
     }
-    console.log("The jigsaw has been solved!!!");
-    return true;
 }
