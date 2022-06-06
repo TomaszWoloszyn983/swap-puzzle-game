@@ -8,6 +8,7 @@ var columns = 4;
 var currTile;
 var otherTile;
 
+
 var turns = 0;
 var pieces = [];
 
@@ -145,23 +146,22 @@ function mouseLeave(event){
 }
 
 /**
- * Compares tile
+ * 
  * 
  * @param tile id 
  * @returns boolean
  */ 
-function isNeighbour(tile){
+function isNeighbour(tile1, tile2){
 
-    console.log("isNeibour0"+tile);
-    let list = neighboursList(tile);
-    console.log(tile+" neibour are: "+list);
+    console.log("isNeibour0"+tile1);
+    let list = neighboursList(tile1);
+    console.log(tile1+" neibour are: "+list);
 
     //  I deliver neighbours list. All I need is to find out if the target tile is in that list.
-    //  Może lepiej wykonać całą tą operację na funkcji dragEnd
-
+ 
     for(let l of list){
-        console.log("Compare: "+l+" to "+tile);
-        if("tile"+l == tile){
+        console.log("Compare: "+l+" to "+tile1);
+        if("tile"+l == tile2){
             console.log("Good");
             return true;
             
@@ -274,6 +274,7 @@ function rightNeighbour(tileIndex){
 //DRAG TILES
 function dragStart() {
     currTile = this; //this refers to image that was clicked on for dragging
+    // let currTileId = this.id;
 }
 
 function dragOver(e) {
@@ -290,6 +291,7 @@ function dragLeave() {
 
 function dragDrop() {
     otherTile = this; //this refers to image that is being dropped on
+    // let otherTileId = this.id;
 }
 
 function dragEnd() {
@@ -300,14 +302,17 @@ function dragEnd() {
         // These two reference to the image not to the tile
     let currImg = currTile.src;
     let otherImg = otherTile.src;
-    currTile.src = otherImg;
-    otherTile.src = currImg;
+
+    console.log("Display this image: "+currTile.id+" and the other one: "+otherTile.id);
+    // currTile.src = otherImg;
+    // otherTile.src = currImg;
 
     console.log("Drag end : "+currTile+" id = "+currTile.id);
 
-    if(isNeighbour(this.id)){ // I deliver id of the current tile, not the target tile
+    if(isNeighbour(currTile.id, otherTile.id)){ // I deliver id of the current tile, not the target tile
                                 // I need the current tiles neighbours
-
+        currTile.src = otherImg;
+        otherTile.src = currImg;
 
     }
   
