@@ -3,6 +3,13 @@ body {
     text-align: center;
 }
 
+li {
+    font-size: 9px;
+    border-bottom: 1px solid black;
+    padding: 0;
+    margin: 0 0 0 -25px;
+}
+
 #board {
     width: 480px;
     height: 600px;
@@ -75,5 +82,6 @@ body {
     flex-wrap: wrap;
     float: left;
 }
+
 
 

@@ -11,9 +11,10 @@ var gameOn = false;
 var turns = 0;
 var pieces = [];
 
+let player = {}; // Stores two values: name and number of turns.
+var ranking = [];
+
 window.onload = function(){
-
-
 
     let boardElement = document.getElementById("board");
     setPieces();
@@ -107,7 +108,7 @@ function startNewGame(){
     document.getElementById("turns").innerText = turns;
 }
 
-function QuitGame(){
+function quitGame(){
     fillInOrder();
     gameOn = false;
 }
@@ -121,7 +122,7 @@ function toggleStartButton(button){
     if(button.getAttribute(onclick) == startNewGame()){
         button.innerHTML = "Quit Game";
         console.log("Chanding button to quit");
-        button.onclick = QuitGame();
+        button.onclick = quitGame();
     }else{   //  if(button.getAttribute(onclick) == QuitGame())
         button.innerHTML = "Start New Game";
         console.log("Chanding button to start");
@@ -362,4 +363,19 @@ function isSolved(){
     }else{
         return false;
     }
+}
+
+function addToRanking(){
+    let turnsNumber = player().turnsNumber;
+    for(let player of ranking){
+        if(player.turnsNumber < ranking.lastIndexOf){
+            ranking.push(player);
+            ranking.sort((a, b) => {
+                    return a.age - b.age;
+                    })
+            
+            // If 
+        }
+    }
+
 }
