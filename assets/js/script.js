@@ -11,7 +11,10 @@ var gameOn = false;
 var turns = 0;
 var pieces = [];
 
-let player = {}; // Stores two values: name and number of turns.
+let player = {
+    name: "",
+    turnsNumber: 0
+}; // Stores two values: name and number of turns.
 var ranking = [];
 
 window.onload = function(){
@@ -351,12 +354,65 @@ function isSolved(){
         }
         console.log("The jigsaw has been solved!!!");
         // window.confirm("Well Done\n You've solved the puzzles in "+turns+" turns");
-        if (confirm("Well Done!!!\nYou've solved the puzzles in "+turns+" turns!\n Would You like to play again?")) {
-            txt = "You pressed OK!";
-            startNewGame();
-          } else {
-            txt = "You pressed Cancel!";
-          }
+
+        console.log("Ranking: "+ranking.length);          
+   
+
+        if(ranking.length < 10){               // if the result list isn't full
+            let setname = prompt("Well Done!!!"+
+            "\nYou've solved the puzzles in "+turns+" turns!"+
+            "\nthat is our new record."+
+            "\nWould you like to write your name to our best results list?");
+            if(setname == null || setname == ""){
+                txt = "Anonymous";
+            }else{
+                txt = "Your result has been added to the best results list";
+                let player  = {name: setname, turnsNumber: turns};
+                ranking.push(player);
+                updateHtmlList(ranking);
+            }
+
+        }else if(turns < ranking.lastIndexOf){ // if player qualify to the best results
+            let setname = prompt("Well Done!!!"+
+            "\nYou've solved the puzzles in "+turns+" turns!"+
+            "\nthat is our new record."+
+            "\nWould you like to write your name to our best results list?");
+            if(setname == null || setname == ""){
+                txt = "Anonymous";
+            }else{
+                txt = "Your result has been added to the best results list";
+                let player  = {name: setname, turnsNumber: turns};
+                addToRanking(player);
+            }
+                
+
+        }else{                                 // if player doesn't qualify to the best results
+            if (confirm("Well Done!!!"+
+            "\nYou've solved the puzzles in "+turns+" turns!"+
+            "\nWould You like to play again?")) {
+                txt = "You pressed OK!";
+                startNewGame();
+            } else {
+                txt = "You pressed Cancel!";
+            }
+        }
+
+
+        console.log("Ranking after: "+ranking.length+" :"+ranking[0].name+". Ranking last member "+ranking[ranking.length-1].name);   
+
+        //  if(ranking.find(null)){
+            
+        //     let name = prompt("Write your name");
+        //     if(name == null || name == ""){
+        //         txt = "Unknown";
+        //     }else{
+        //         txt = "Your result has been added to the best results list";
+        //     }
+          
+        
+    // }
+       
+       
         return true;
     }else if(turns>5 && gameOn == false){
         window.alert('Press "Start New Game" button to start the game');
@@ -365,17 +421,39 @@ function isSolved(){
     }
 }
 
-function addToRanking(){
-    let turnsNumber = player().turnsNumber;
-    for(let player of ranking){
-        if(player.turnsNumber < ranking.lastIndexOf){
-            ranking.push(player);
-            ranking.sort((a, b) => {
-                    return a.age - b.age;
-                    })
-            
-            // If 
-        }
-    }
+/**
+    If players turnsnumber is lower than the last members of the 
+    ranking list, then add the new player to the ranking list.
+    Sort the the list ascendingly to the turnsNumber.
+    If the aaray length is getting bigger than 10 delete the last member.
 
+ * @param {*} player 
+ */ 
+function addToRanking(player){
+    let turnsNumber = player.turnsNumber;
+
+        if(player.turnsNumber < ranking[ranking.length-1].turnsNumber){
+            ranking.push(player);
+            console.log("player "+player.name+" added to ranking");
+            ranking.sort((a, b) => {
+                return a.turnsNumber - b.turnsNumber;
+                })
+            
+            if(ranking.length>10){
+                ranking.pop();
+            }
+        }
+        console.log("ranking contains now :"+ranking);
+        updateHtmlList(ranking);
+}
+
+function updateHtmlList(ranking){
+    console.log("Updating ranking");
+    let array = ranking;
+    let list = "<ol>";
+    for (i = 0; i < array.length; i++){
+        list += '<li>' + array[i].name+" : "+array[i].turnsNumber+" turns" + '</li>';
+    }
+    list += "</ol>";
+    document.getElementById("ranking").innerHTML = list;
 }

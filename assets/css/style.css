@@ -3,11 +3,25 @@ body {
     text-align: center;
 }
 
+h3 {
+    text-align: center;
+}
+
+ol {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 0;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 15px;
+}
+
 li {
     font-size: 9px;
     border-bottom: 1px solid black;
     padding: 0;
-    margin: 0 0 0 -25px;
+    margin: 0 10px 0 10px;
 }
 
 #board {
@@ -78,7 +92,7 @@ li {
     max-height: 300px;
     border: 2px solid blue;
     margin: 0 10px;
-    display: flex;
+    /* display: flex; */
     flex-wrap: wrap;
     float: left;
 }
