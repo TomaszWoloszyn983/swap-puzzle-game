@@ -19,6 +19,7 @@ var ranking = [];
 
 window.onload = function(){
 
+    getRankingFromLocalStorage();
     let boardElement = document.getElementById("board");
     setPieces();
         /*Initialize the main board with tiles made of croped image*/ 
@@ -370,6 +371,10 @@ function isSolved(){
                 let player  = {name: setname, turnsNumber: turns};
                 ranking.push(player);
                 updateHtmlList(ranking);
+
+                updateLocalStorage(ranking);
+
+                
             }
 
         }else if(turns < ranking.lastIndexOf){ // if player qualify to the best results
@@ -445,8 +450,18 @@ function addToRanking(player){
         }
         console.log("ranking contains now :"+ranking);
         updateHtmlList(ranking);
-}
 
+        console.log("Adding ranking to te local starage");
+
+        Storage.prototype.setObj = function(bestResults, ranking) {
+            console.log("Adding ranking to te local starage");
+            return this.setItem(key, JSON.stringify(ranking))
+        }
+}
+/**
+ *Synchronizig list doesnt work!
+  which means that the result are not displayed in the right order
+ * */ 
 function updateHtmlList(ranking){
     console.log("Updating ranking");
     let array = ranking;
@@ -456,4 +471,20 @@ function updateHtmlList(ranking){
     }
     list += "</ol>";
     document.getElementById("ranking").innerHTML = list;
+}
+
+function updateLocalStorage(ranking){
+    console.log("Update local storage");
+    localStorage.setItem('swapPuzzle', JSON.stringify(ranking));
+}
+
+function getRankingFromLocalStorage(){
+    let items = JSON.parse(localStorage.getItem('swapPuzzle')) || [];
+
+    console.log("Data downloaded from local storage: "+ranking);
+    for(player of items){
+        console.log("Data downloaded from local storage: name: "+player.name+" turns: "+player.turnsNumber);
+    }
+    ranking = items;
+    updateHtmlList(items);
 }

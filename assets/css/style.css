@@ -89,11 +89,12 @@ li {
 }
 
 #rules, #results{
-    max-height: 300px;
+    height: fit-content;
+    width: fit-content;
     border: 2px solid blue;
     margin: 0 10px;
     /* display: flex; */
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     float: left;
 }
 
