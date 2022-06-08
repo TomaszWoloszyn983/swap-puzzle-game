@@ -481,3 +481,4 @@ function getRankingFromLocalStorage(){
 //                  Bugs
 
 // turns < 0 shuold be one of the winning conditions.
+// Synchronising with local storage has gaps.

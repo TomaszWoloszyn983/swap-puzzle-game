@@ -14,7 +14,7 @@ ol {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    padding-inline-start: 15px;
+    padding-inline-start: 5px;
 }
 
 li {
@@ -99,5 +99,45 @@ li {
     /* float: left; */
 }
 
+#results {
+    /* margin: auto; */
+    text-align: justify
+}
 
+@media screen and (max-width: 1200px){
+    #game_container {
+        border: 1px solid blue;
+        display: block;
+        /* grid-template-columns: 0.25fr 0.25fr 0.25fr 0.25fr; */
+        grid-template-columns: none;
+        grid-template-rows: none;
+        height: fit-content;
+        line-height: 20px;
+        margin: 20px 5% 0 5%; 
+        padding: 10px;
+    }
+
+    #game_window {
+        width: fit-content;
+        border: 1px solid yellow;
+        text-align: center;
+        padding: 20px, 10%;
+        margin: auto;
+    
+    }
+
+    #board {
+        width: 480px;
+        height: 600px;
+        border: 2px solid blue;
+        /* padding: 10%; */
+    }
+
+    #results {
+        width: 0.5fr;
+        margin: auto;
+        text-align: justify
+    }
+    
+}
 
