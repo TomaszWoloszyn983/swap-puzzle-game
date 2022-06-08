@@ -91,11 +91,12 @@ li {
 #rules, #results{
     height: fit-content;
     width: fit-content;
+    padding: 10px, 10%;
     border: 2px solid blue;
     margin: 0 10px;
     /* display: flex; */
     flex-wrap: nowrap;
-    float: left;
+    /* float: left; */
 }
 
 

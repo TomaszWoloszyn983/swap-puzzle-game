@@ -358,7 +358,6 @@ function isSolved(){
 
         console.log("Ranking: "+ranking.length);          
    
-
         if(ranking.length < 10){               // if the result list isn't full
             let setname = prompt("Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
@@ -371,26 +370,25 @@ function isSolved(){
                 let player  = {name: setname, turnsNumber: turns};
                 ranking.push(player);
                 updateHtmlList(ranking);
-
                 updateLocalStorage(ranking);
-
-                
             }
 
-        }else if(turns < ranking.lastIndexOf){ // if player qualify to the best results
+        }else if(turns < ranking[9].turnsNumber){ // if player qualify to the best results
             let setname = prompt("Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
-            "\nthat is our new record."+
-            "\nWould you like to write your name to our best results list?");
+            "\nThis qualify to the Best Results ranking."+
+            "\nWould you like to write your name?");
             if(setname == null || setname == ""){
-                txt = "Anonymous";
+                txt = "You were added to the Best Result ranking as a Anonymous";
+                setname = "Anonymous";
+                let player  = {name: setname, turnsNumber: turns};
+                addToRanking(player);
             }else{
                 txt = "Your result has been added to the best results list";
                 let player  = {name: setname, turnsNumber: turns};
                 addToRanking(player);
             }
                 
-
         }else{                                 // if player doesn't qualify to the best results
             if (confirm("Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
@@ -402,23 +400,9 @@ function isSolved(){
             }
         }
 
-
         console.log("Ranking after: "+ranking.length+" :"+ranking[0].name+". Ranking last member "+ranking[ranking.length-1].name);   
-
-        //  if(ranking.find(null)){
-            
-        //     let name = prompt("Write your name");
-        //     if(name == null || name == ""){
-        //         txt = "Unknown";
-        //     }else{
-        //         txt = "Your result has been added to the best results list";
-        //     }
-          
-        
-    // }
-       
-       
         return true;
+
     }else if(turns>5 && gameOn == false){
         window.alert('Press "Start New Game" button to start the game');
     }else{
@@ -459,11 +443,14 @@ function addToRanking(player){
         }
 }
 /**
- *Synchronizig list doesnt work!
-  which means that the result are not displayed in the right order
+ * Synchronizig list doesn't work!
+ * which means that the result are not displayed in the right order
  * */ 
 function updateHtmlList(ranking){
     console.log("Updating ranking");
+    ranking.sort((a, b) => {
+        return a.turnsNumber - b.turnsNumber;
+        })
     let array = ranking;
     let list = "<ol>";
     for (i = 0; i < array.length; i++){
@@ -488,3 +475,9 @@ function getRankingFromLocalStorage(){
     ranking = items;
     updateHtmlList(items);
 }
+
+
+
+//                  Bugs
+
+// turns < 0 shuold be one of the winning conditions.
