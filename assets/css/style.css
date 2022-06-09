@@ -27,6 +27,7 @@ li {
 #header {
     background-color: lightgray;
     height: fit-content;
+    padding: 25px;
 }
 
 #board {
@@ -80,7 +81,7 @@ li {
     grid-template-rows: 1fr;
     height: fit-content;
     line-height: 20px;
-    margin: 20px 5% 0 5%; 
+    margin: 0 5% 50px 5%; 
     padding: 10px;
 }
 
@@ -111,6 +112,16 @@ li {
 
 #footer{
     background-color: lightgrey;
+    text-align: center;
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 3;
+
 }
 
 @media screen and (max-width: 1200px){
