@@ -364,7 +364,12 @@ function isSolved(){
             "\nthat is our new record."+
             "\nWould you like to write your name to our best results list?");
             if(setname == null || setname == ""){
-                txt = "Anonymous";
+                txt = "You were added to the Best Result ranking as a Anonymous";
+                setname = "Anonymous";
+                let player  = {name: setname, turnsNumber: turns};
+                ranking.push(player);
+                updateHtmlList(ranking);
+                updateLocalStorage(ranking);
             }else{
                 txt = "Your result has been added to the best results list";
                 let player  = {name: setname, turnsNumber: turns};
@@ -415,7 +420,6 @@ function isSolved(){
     ranking list, then add the new player to the ranking list.
     Sort the the list ascendingly to the turnsNumber.
     If the aaray length is getting bigger than 10 delete the last member.
-
  * @param {*} player 
  */ 
 function addToRanking(player){
@@ -436,11 +440,9 @@ function addToRanking(player){
         updateHtmlList(ranking);
 
         console.log("Adding ranking to te local starage");
-
-        Storage.prototype.setObj = function(bestResults, ranking) {
-            console.log("Adding ranking to te local starage");
-            return this.setItem(key, JSON.stringify(ranking))
-        }
+        updateHtmlList(ranking);
+        updateLocalStorage(ranking);
+    
 }
 /**
  * Synchronizig list doesn't work!
@@ -481,4 +483,3 @@ function getRankingFromLocalStorage(){
 //                  Bugs
 
 // turns < 0 shuold be one of the winning conditions.
-// Synchronising with local storage has gaps.
