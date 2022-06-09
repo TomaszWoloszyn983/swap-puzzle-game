@@ -24,6 +24,11 @@ li {
     margin: 0 10px 0 10px;
 }
 
+#header {
+    background-color: lightgray;
+    height: fit-content;
+}
+
 #board {
     width: 480px;
     height: 600px;
@@ -104,7 +109,18 @@ li {
     text-align: justify
 }
 
+#footer{
+    background-color: lightgrey;
+}
+
 @media screen and (max-width: 1200px){
+    #game_container {
+        margin: 20px 5px 0 5px; 
+    }
+
+}
+
+@media screen and (max-width: 992px){
     #game_container {
         border: 1px solid blue;
         display: block;
@@ -113,7 +129,7 @@ li {
         grid-template-rows: none;
         height: fit-content;
         line-height: 20px;
-        margin: 20px 5% 0 5%; 
+        margin: 20px 5px 0 5px; 
         padding: 10px;
     }
 
@@ -140,4 +156,9 @@ li {
     }
     
 }
+
+@media screen and (max-width: 768px){
+
+}
+
 

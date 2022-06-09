@@ -120,17 +120,17 @@ function quitGame(){
 function toggleStartButton(button){
 
     // let button = document.getElementById("btn_new_game");
-    // button.addEventListener('click', toggleStartButton());
-    console.log("Toggling runs for: "+button.innerHTML);
+    // this.addEventListener('click', toggleStartButton());
+    console.log("Toggling runs from: "+button.innerHTML+"...");
 
     if(button.getAttribute(onclick) == startNewGame()){
         button.innerHTML = "Quit Game";
-        console.log("Chanding button to quit");
-        button.onclick = quitGame();
-    }else{   //  if(button.getAttribute(onclick) == QuitGame())
+        console.log("...to quit");
+        this.onclick = quitGame();
+    }else if(button.getAttribute(onclick) == quitGame()){   //  
         button.innerHTML = "Start New Game";
-        console.log("Chanding button to start");
-        button.onclick = startNewGame();
+        console.log("...to start");
+        this.onclick = startNewGame();
     }
 }
 

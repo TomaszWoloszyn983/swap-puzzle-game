@@ -10,7 +10,7 @@
     <title>Tile Swap Puzzle</title>
 </head>
 <body>
-    <h1>Tile Swap Puzzle</h1>
+    <h1 id="header">Tile Swap Puzzle</h1>
 
     <section id="game_container">
         <br>
@@ -20,16 +20,14 @@
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
                 nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat 
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-                sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                reprehenderit "</p>
         </div>
         
         <div id="game_window">
             <div id="board"></div>
 
             <h2>Turns: <span id="turns">0</span></h2>
-            <button type="button" onclick="startNewGame()" id="btn_new_game">Start New Game</button>
+            <button type="button" onclick="toggleStartButton(this)" id="btn_new_game">Start New Game</button>
         </div>
         
         <div id="results">
@@ -48,7 +46,8 @@
             </ol>
         </div>
     </section>
-    
+
+    <footer id="footer">Footer</footer>
 
 
     <script src="assets/js/script.js"></script>
