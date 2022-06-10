@@ -362,8 +362,12 @@ function isSolved(){
 
         console.log("Ranking: "+ranking.length);          
    
-        if(ranking.length < 10){  
-            togglePopup();             // if the result list isn't full
+        if(ranking.length < 10){ 
+            document.getElementById("popupContent").innerHTML = "Well Done!!!"+
+            "\nYou've solved the puzzles in "+turns+" turns!"+
+            "\nThat is our new record."+
+            "\nWould you like to write your name to our best results list?";                // if the result list isn't full
+            togglePopup();             
             let setname = prompt("Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\nthat is our new record."+

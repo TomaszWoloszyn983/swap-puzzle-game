@@ -12,18 +12,18 @@
 <body>
     <h1 id="header">Tile Swap Puzzle</h1>
 
-    <section id="game_container">
+    <main id="game_container">
         <br>
-        <div id="rules">
+        <section id="rules">
             <h3>Rules</h3>
             <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
                 nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
                 reprehenderit "</p>
-        </div>
+        </section>
         
-        <div id="game_window">
+        <section id="game_window">
             <div id="board"></div>
 
             <h2>Turns: <span id="turns">0</span></h2>
@@ -34,28 +34,19 @@
                 <div class="content">
                     <div class="close-btn" onclick="togglePopup()">&times;</div>
                     <h1>Title</h1>
-                    <p>Popup windows Content</p>
+                    <p id="popupContent">Popup windows Content</p>
+                    <input type="text" placeholder="Your name">
+                    <button type="submit">OK</button>
                 </div>
                
             </div>
-        </div>
+        </section>
         
-        <div id="results">
+        <section id="results">
             <h3>Best results</h3>
-            <ol id="ranking">
-                <li>--------------</li>
-                <li>--------------</li>
-                <li>--------------</li>
-                <li>--------------</li>
-                <li>--------------</li>
-                <li>--------------</li>
-                <li>--------------</li>
-                <li>--------------</li>
-                <li>--------------</li>
-                <li>--------------</li>
-            </ol>
-        </div>
-    </section>
+            <ol id="ranking"></ol>
+        </section>
+    </main>
 
     <footer id="footer">Footer</footer>
 
