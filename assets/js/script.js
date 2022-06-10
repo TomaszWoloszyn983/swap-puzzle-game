@@ -53,6 +53,10 @@ window.onload = function(){
     }
 }
 
+function togglePopup(){
+    document.getElementById("popup-1").classList.toggle("active");
+}
+
 function setPieces(){
     for (let i=1; i <= rows*columns; i++) {
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
@@ -358,7 +362,8 @@ function isSolved(){
 
         console.log("Ranking: "+ranking.length);          
    
-        if(ranking.length < 10){               // if the result list isn't full
+        if(ranking.length < 10){  
+            togglePopup();             // if the result list isn't full
             let setname = prompt("Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\nthat is our new record."+
