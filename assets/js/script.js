@@ -53,9 +53,29 @@ window.onload = function(){
     }
 }
 
+let subminBtn = document.getElementById("submit_name");
+subminBtn.addEventListener('click' , togglePopup2);
+let inputName;
+
+function togglePopup2(){
+    console.log("Toggle popup2 launched");
+    let name = document.getElementById("name_box").value;
+    setName(inputName);
+    console.log("Name: "+name+" captured from textbox");
+    document.getElementById("popup-2").classList.toggle("active");
+    return name;
+}
+
 function togglePopup(){
+    console.log("Toggle popup launched");
     document.getElementById("popup-1").classList.toggle("active");
 }
+
+function setName(name){
+    inputName = name;
+    console.log("Input name  = "+ inputName);
+}
+
 
 function setPieces(){
     for (let i=1; i <= rows*columns; i++) {
@@ -346,7 +366,10 @@ function isSolved(){
         let currentOrder =  document.getElementById("board").children;
         let url = currentOrder[0].src.toString();
         let result = url.split('/assets');
+        let setname;
         // console.log("New turn!")
+
+        //  CHECK WINNIG CONDITIONS
         for(let i=0; i<pieces.length; i++){
             let orderedPiece = result[0]+"/assets/images/" + [i+1] + ".jpg";
             // console.log("Compare: "+currentOrder[i].src.substring(74)+" to : "+ orderedPiece.substring(74));
@@ -360,18 +383,24 @@ function isSolved(){
         console.log("The jigsaw has been solved!!!");
         // window.confirm("Well Done\n You've solved the puzzles in "+turns+" turns");
 
-        console.log("Ranking: "+ranking.length);          
+        console.log("Ranking: "+ranking.length);   
+        
+  
    
         if(ranking.length < 10){ 
+            
+            console.log("Ranking < 10");
             document.getElementById("popupContent").innerHTML = "Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\nThat is our new record."+
             "\nWould you like to write your name to our best results list?";                // if the result list isn't full
-            togglePopup();             
-            let setname = prompt("Well Done!!!"+
-            "\nYou've solved the puzzles in "+turns+" turns!"+
-            "\nthat is our new record."+
-            "\nWould you like to write your name to our best results list?");
+            setname = togglePopup2();
+            console.log("togglepopup is closing. Setname is: "+setname);        
+            // setname = prompt("Well Done!!!"+
+            // "\nYou've solved the puzzles in "+turns+" turns!"+
+            // "\nthat is our new record."+
+            // "\nWould you like to write your name to our best results list?");
+            
             if(setname == null || setname == ""){
                 txt = "You were added to the Best Result ranking as a Anonymous";
                 setname = "Anonymous";
@@ -382,13 +411,15 @@ function isSolved(){
             }else{
                 txt = "Your result has been added to the best results list";
                 let player  = {name: setname, turnsNumber: turns};
+                console.log(player.name+" "+txt);
                 ranking.push(player);
                 updateHtmlList(ranking);
                 updateLocalStorage(ranking);
             }
 
         }else if(turns < ranking[9].turnsNumber){ // if player qualify to the best results
-            let setname = prompt("Well Done!!!"+
+            console.log("Ranking 10");
+            setname = prompt("Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\nThis qualify to the Best Results ranking."+
             "\nWould you like to write your name?");
@@ -402,8 +433,10 @@ function isSolved(){
                 let player  = {name: setname, turnsNumber: turns};
                 addToRanking(player);
             }
+            
                 
-        }else{                                 // if player doesn't qualify to the best results
+        }else{                                  // if player doesn't qualify to the best results
+            console.log("Ranking poza zasięgiem");                               
             if (confirm("Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\nWould You like to play again?")) {
@@ -412,6 +445,9 @@ function isSolved(){
             } else {
                 txt = "You pressed Cancel!";
             }
+            togglePopup();   
+            document.getElementById("popupContent").innerHTML = "You've solved the puzzles in "+turns+" turns!"+
+            "\nWould You like to play again?";
         }
 
         console.log("Ranking after: "+ranking.length+" :"+ranking[0].name+". Ranking last member "+ranking[ranking.length-1].name);   
