@@ -7,6 +7,18 @@ h3 {
     text-align: center;
 }
 
+button {
+    background: #535353;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+}
+button:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+}
+
 ol {
     display: block;
     list-style-type: decimal;
@@ -112,11 +124,8 @@ li {
 
 #game_window {
     width: fit-content;
-    border: 1px solid yellow;
     text-align: center;
     padding: 20px;
-    /* margin: auto; */
-
 }
 
 #rules, #results{
@@ -179,10 +188,9 @@ li {
     position: absolute;
     right: 20px;
     top: 20px;
-    width: 30px;
-    height: 30px;
-    background: #222;
-    color: #fff;
+    /* width: 30px;
+    height: 30px; */
+
     font-size: 25px;
     font-weight: 600;
     line-height: 30px;
