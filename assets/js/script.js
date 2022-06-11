@@ -24,6 +24,7 @@ window.onload = function(){
     setPieces();
         /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
+    
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
 
@@ -33,6 +34,7 @@ window.onload = function(){
             tile.src = "assets/images/"+(++i)+".jpg";
             let tileId = "tile"+i;
             tile.setAttribute("id", tileId);  // Add id attribute to the tile.
+            tile.setAttribute('class', 'tiles'); // Add class attribute to the tile.
             boardElement.appendChild(tile);
             // console.log("Initialize tiles "+tile+" id = "+tile.id);
             
@@ -179,19 +181,21 @@ function toggleStartButton(button){
 }
 
 /*
-This function highlights the hovered tile and its neighbours instead of 
-the function in css.
+Highlights the hovered tile and its neighbours.
+The hovered tile is highlighted with green solid line
+whereas its neighbours sre highlighted with dotted line.
 */ 
 function highlight(event){
-    // let tile = this.src;
     let hoveredTile = this.id;
-    let neiList = neighboursList(hoveredTile);
-    // console.log("I'm highlighting piece no. "+tile);
+    let list = neighboursList(hoveredTile);
 
     // Highlighting the hovered tile and its neighbours
     this.style.border = "2px solid green";
-    for(let nei of neiList){
-        let element = document.getElementById("tile"+nei).style.border = "2px dotted green";
+    // this.classList.add('highlightTile'); //I was trying to add css class but it didn't work
+    for(let tile of list){
+        document.getElementById("tile"+tile).style.border = "2px dotted green";
+        // let element = document.getElementById("tile"+nei).classList.add("neighbours"); 
+            // ^^^  I was trying to add css class but it didn't work
     }   
 }
 
