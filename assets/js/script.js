@@ -55,10 +55,18 @@ window.onload = function(){
 
 let subminBtn = document.getElementById("submit_name");
 subminBtn.addEventListener('click' , togglePopup2);
-let inputName;
+
+document.getElementById("about_btn").addEventListener('click', togglePopupAbout);
+let closeAboutBtn = document.getElementById("closeAbout");
+closeAboutBtn.addEventListener('click', togglePopupAbout);
 
 document.getElementById("help_btn").addEventListener('click', togglePopupHelp);
-document.getElementById("about_btn").addEventListener('click', togglePopupAbout);
+let closeHelpBtn = document.getElementById("closeHelp");
+closeHelpBtn.addEventListener('click', togglePopupHelp);
+let inputName;
+
+
+
 
 function togglePopup2(){
     console.log("Toggle popup2 launched");

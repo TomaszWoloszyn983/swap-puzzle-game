@@ -12,8 +12,8 @@
 <body>
     <h1 id="header">
         <nav id="nav_bar">
-            <button class="nav_button" id="popup-help">About</button>
-            <button class="nav_button" id="popup-about">Help</button>
+            <button class="nav_button" id="help_btn" onclick="togglePopupHelp">Help</button>
+            <button class="nav_button" id="about_btn">About</button>
         </nav>
         <label>Tile Swap Puzzle</label>
 
@@ -61,19 +61,24 @@
             <div class = "popup" id="popup-help"> 
                 <div class="overlay"></div>
                 <div class="content">
-                    <div class="close-btn">&times;</div>
+                    <div class="close-btn" >&times;</div>
                     <h1>Help</h1>
-                    <p id="popupContent"></p>
-                    <button type="button" >OK</button>
+                    <p>     Rules
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
+                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
+                            commodo consequat. Duis aute irure dolor in reprehenderit
+                    </p>
+                    <button type="button" id="closeHelp">Close</button>
                 </div>
             </div>
             <div class = "popup" id="popup-about"> 
                 <div class="overlay"></div>
                 <div class="content">
-                    <div class="close-btn">&times;</div>
+                    <div class="close-btn" >&times;</div>
                     <h1>About</h1>
                     <p id="popupContent"></p>
-                    <button type="submit" >OK</button>
+                    <button type="button" id="closeAbout">Close</button>
                 </div>
             </div>
 
