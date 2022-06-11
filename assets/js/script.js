@@ -55,6 +55,7 @@ window.onload = function(){
     }
 }
 
+// 
 let subminBtn = document.getElementById("submit_name");
 subminBtn.addEventListener('click' , togglePopup2);
 
@@ -180,7 +181,7 @@ function toggleStartButton(button){
     }
 }
 
-/*
+/**
 Highlights the hovered tile and its neighbours.
 The hovered tile is highlighted with green solid line
 whereas its neighbours sre highlighted with dotted line.
@@ -189,26 +190,41 @@ function highlight(event){
     let hoveredTile = this.id;
     let list = neighboursList(hoveredTile);
 
+    let tiles = document.getElementById("board").children;
+    for(let tile of tiles){
+        tile.style.opacity = "0.8";
+    }
+
     // Highlighting the hovered tile and its neighbours
     this.style.border = "2px solid green";
-    // this.classList.add('highlightTile'); //I was trying to add css class but it didn't work
+    this.style.opacity = "1";
+            // this.classList.add('highlightTile'); //I was trying to add css class but it didn't work
+            // for(let i=0; i>pieces.length; i++){
+            //     document.getElementById("tile"+[i]).style.opacity = "0.7";
+            // }
+    
     for(let tile of list){
         document.getElementById("tile"+tile).style.border = "2px dotted green";
-        // let element = document.getElementById("tile"+nei).classList.add("neighbours"); 
+        document.getElementById("tile"+tile).style.opacity = "1";
+            // let element = document.getElementById("tile"+nei).classList.add("neighbours"); 
             // ^^^  I was trying to add css class but it didn't work
     }   
 }
 
+/**
+ * 
+ */
 function mouseLeave(event){
     let tiles = document.getElementById("board").children;
     for(let tile of tiles){
         tile.style.border = "2px solid blue";
+        tile.style.opacity = "1";
     }
     this.style.border = "2px solid blue";
 }
 
 /**
- * Checks if tile2 is on the tile1 neighbours list
+ * Checks if tile2 is an element of the tile1 neighbours list
  * if it is the function returns true. If it's not returns false.
  * 
  * @param tile id 
@@ -270,7 +286,8 @@ function neighbours(tile){
 
 /**
  * Takes: tile id
- * Returns: list of integers
+ * Finds neighbouring tiles Ids
+ * Returns: list of integers that corespond with neighbouring tiles ids 
  */ 
 function neighboursList(tile){
     
@@ -282,46 +299,64 @@ function neighboursList(tile){
     (rightNeighbour(index) > 0) ?  list.push(rightNeighbour(index)) : 0;
     (lowerNeighbour(index) > 0) ?  list.push(lowerNeighbour(index)) : 0;
     
-    // console.log("Return neighnours list for: "+tile+" at index: "+index+" : "+list);
     return list;
 }
 
 
         // FINDING NEIGHBOURS
 
+/*
+Finds id of the tile that is located in the row above the tile given as a parameter
+If it finds it, the function returns the id of the tile. 
+If it doesn't it returns 0 
+ */
 function upperNeighbour(tileIndex){
     let upperTile = tileIndex + 4;
     if(upperTile > 0 && (upperTile <= columns*rows)){
-        // console.log(upperTile+" is a neighbour");
         return upperTile;
     }else{
         return 0;
     }
 }
+
+/*
+Finds id of the tile that is located directly below the tile given as a parameter
+If it finds it, the function returns the id of the tile. 
+If it doesn't it returns 0 
+ */
 function lowerNeighbour(tileIndex){
     let lowerTile = tileIndex - 4;
     if(lowerTile > 0 && (lowerTile <= columns*rows)){
-        // console.log(lowerTile+" is a neighbour");
         return lowerTile;
     }else{
         return 0;
     }
 }
+
+/*
+Finds id of the tile that is located directly on the left to the tile given as a parameter
+If it finds it, the function returns the id of the tile. 
+If it doesn't it returns 0 
+ */
 function leftNeighbour(tileIndex){
     let leftTile = tileIndex - 1;
     if(leftTile > 0 && leftTile <= columns*rows 
         && leftTile != 4  && leftTile != 8  && leftTile != 12  && leftTile != 16){
-            // console.log(leftTile+" is a neighbour");
         return leftTile;
     }else{
         return 0;
     }
 }
+
+/*
+Finds id of the tile that is located directly on the right to the the tile given as a parameter
+If it finds it, the function returns the id of the tile. 
+If it doesn't it returns 0 
+ */
 function rightNeighbour(tileIndex){
     let rightTile = tileIndex + 1;
     if(rightTile > 0 && rightTile <= columns*rows 
         && rightTile != 5  && rightTile != 9  && rightTile != 13  && rightTile != 17){
-            // console.log(rightTile+" is a neighbour");
         return rightTile;
     }else{
         return 0;
