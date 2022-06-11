@@ -26,8 +26,30 @@ li {
 
 #header {
     background-color: lightgray;
-    height: fit-content;
-    padding: 25px;
+    height: 100px;
+    width: 100%;
+    padding: 0, 15px;
+    margin: 0, auto;
+}  
+#header label {
+    padding: 10px;
+
+}
+
+#nav_bar {
+    padding: 0, 10px;
+    margin: 0 10px;
+    text-align: right;
+}
+.nav_button {
+    padding: 0;
+    margin: 0;
+    display: inline;
+    /* background-color: #4CAF50;
+    color: red; */
+}
+.nav_button:hover {
+    background-color: rgba(255,255,255, .3);
 }
 
 #board {

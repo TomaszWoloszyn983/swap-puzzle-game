@@ -10,7 +10,15 @@
     <title>Tile Swap Puzzle</title>
 </head>
 <body>
-    <h1 id="header">Tile Swap Puzzle</h1>
+    <h1 id="header">
+        <nav id="nav_bar">
+            <button class="nav_button" id="popup-help">About</button>
+            <button class="nav_button" id="popup-about">Help</button>
+        </nav>
+        <label>Tile Swap Puzzle</label>
+
+       
+    </h1>
 
     <main id="game_container">
         <br>
@@ -42,13 +50,33 @@
             <div class = "popup" id="popup-2"> 
                 <div class="overlay"></div>
                 <div class="content">
-                    <div class="close-btn" >&times;</div> <!-- temporarly removed onclick="togglePopup2()" -->
+                    <div class="close-btn" >&times;</div> <!-- temporarly removed function onclick="togglePopup2()" -->
                     <h1>Well Done</h1>
                     <p id="popupContent"></p>
                     <input type="text" id="name_box" placeholder="Your name">
                     <button type="submit" id="submit_name" >OK</button>
                 </div>
             </div>
+
+            <div class = "popup" id="popup-help"> 
+                <div class="overlay"></div>
+                <div class="content">
+                    <div class="close-btn">&times;</div>
+                    <h1>Help</h1>
+                    <p id="popupContent"></p>
+                    <button type="button" >OK</button>
+                </div>
+            </div>
+            <div class = "popup" id="popup-about"> 
+                <div class="overlay"></div>
+                <div class="content">
+                    <div class="close-btn">&times;</div>
+                    <h1>About</h1>
+                    <p id="popupContent"></p>
+                    <button type="submit" >OK</button>
+                </div>
+            </div>
+
         </section>
         
         <section id="results">

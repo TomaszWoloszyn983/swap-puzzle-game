@@ -57,6 +57,9 @@ let subminBtn = document.getElementById("submit_name");
 subminBtn.addEventListener('click' , togglePopup2);
 let inputName;
 
+document.getElementById("help_btn").addEventListener('click', togglePopupHelp);
+document.getElementById("about_btn").addEventListener('click', togglePopupAbout);
+
 function togglePopup2(){
     console.log("Toggle popup2 launched");
     let name = document.getElementById("name_box").value;
@@ -69,6 +72,15 @@ function togglePopup2(){
 function togglePopup(){
     console.log("Toggle popup launched");
     document.getElementById("popup-1").classList.toggle("active");
+}
+
+function togglePopupHelp(){
+    console.log("Toggle popupHelp launched");
+    document.getElementById("popup-help").classList.toggle("active");
+}
+function togglePopupAbout(){
+    console.log("Toggle popupAbout launched");
+    document.getElementById("popup-about").classList.toggle("active");
 }
 
 function setName(name){
