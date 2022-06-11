@@ -344,13 +344,9 @@ function dragLeave() {
 
 function dragDrop() {
     otherTile = this; //this refers to image that is being dropped on
-    // otherTile.src.style.border = "2px solid red";
 }
 
 function dragEnd() {
-    // if (currTile.src.includes("blank")) {
-    //     return;
-    // }
 
     let currImg = currTile.src;
     let otherImg = otherTile.src;
