@@ -18,24 +18,38 @@ The project includes only one main page, divided into three main sections:
 - **Header** 
 Where the name of the project is displayed.
 Header section also encloses the navigation bar that constains two buttons.
+
 ![Navigation image](assets/images/readMe/puzzle_nav_bar.jpg)
-    * **Help** Clicking the Help button displays Popup box that contains more specific 
+
+  * **Help** Clicking the Help button displays Popup box that contains more specific 
     information about working the application. 
-    ![Help_section image](assets/images/readMe/puzzle_help_window.jpg)
-    * **About** About section contains some information about version of the program and
+
+![Help section image](assets/images/readMe/puzzle_help_window.jpg)
+
+  * **About** About section contains some information about version of the program and
     contact with the author.
 
-- **Game main board** It is the main window of the game. A box that contains a picture 
+- **Game Main Board** It is the main window of the game. A box that contains a picture 
 divided into twenty tiles arranged in four columns and five rows. The tiles can be swapped 
 only with another tile that is located directly in the left or right to the clicked tile and as well above or below it. Hovering over the tiles highlights its neighbouring tiles that 
 our tile can be swapped with.
+
+![Board image](assets/images/readMe/puzzle_game_board.jpg)
+
+Future feature about this section would be to implement keyboard control option. SO it would be possible to control the game with directional keys and another key to swap tiles. 
+Another 
+
   * **Start New Game** Clicking this button is causing that the tiles are arranged in the 
   random order, the Turns counter is set to zero and the game starts.
+
+![Start image](assets/images/readMe/puzzle_start_button.jpg)
+
   * **Turns counter** Turns Counter display how many movements the player has to make to complete the puzzles. The number increase everytime we make a correct swap.
 
 - **Side bars** 
   * **Greeting bar** Displays greeting and brief introduction to the game and its rules.
   * **Best Results** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stores in the Local Storage and they as restored after each entry to the game.
+ 
  
 - **Footer** Contains information about Copyrights. 
 
