@@ -16,13 +16,15 @@
 <body>
 
             <!-- Header Section -->
-    <h1 id="header">
+    <div id="header">
         <nav id="nav_bar">
-            <button class="nav_button" id="help_btn" >Help</button>
-            <button class="nav_button" id="about_btn">About</button>
+            <button class="nav_button" id="help_btn" href="*">Help</button>
+            <button class="nav_button" id="about_btn" href="*">About</button>
         </nav>
-        <label>Tile Swap Puzzle</label> 
-    </h1>
+        <h1>
+            <label>Tile Swap Puzzle</label> 
+        </h1>
+    </div>
 
              <!-- Main section containing: Game board, info panel and Best Results list -->
     <main id="game_container">
@@ -57,7 +59,7 @@
                 <div class="content">
                     <!-- <div class="close-btn" >&times;</div> temporarly removed function onclick="togglePopup2()" -->
                     <h1>Well Done</h1>
-                    <p id="popupContent"></p>
+                    <p id="popupContent-2"></p>
                     <input type="text" id="name_box" placeholder="Your name">
                     <button type="submit" id="submit_name" >OK</button>
                 </div>
@@ -127,6 +129,7 @@
         <!-- Footer -->
     <footer id="footer">
         <label>All Copyrights Reserved</label>
+    </footer>
 
     <script rel="script" src="assets/js/script.js" ></script>
 </body>

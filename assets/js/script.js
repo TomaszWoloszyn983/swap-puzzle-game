@@ -442,10 +442,10 @@ function isSolved(){
         
   
    
-        if(ranking.length < 10){ 
+        if(ranking.length < 10){ // I had to change id popupContent to popupContent2 so pay attention
             
             console.log("Ranking < 10");
-            document.getElementById("popupContent").innerHTML = "Well Done!!!"+
+            document.getElementById("popupContent2").innerHTML = "Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\nThat is our new record."+
             "\nWould you like to write your name to our best results list?";                // if the result list isn't full
