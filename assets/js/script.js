@@ -34,7 +34,7 @@ window.onload = function(){
             tile.src = "assets/images/"+(++i)+".jpg";
             let tileId = "tile"+i;
             tile.setAttribute("id", tileId);  // Add id attribute to the tile.
-            tile.setAttribute('class', 'tiles'); // Add class attribute to the tile.
+            tile.setAttribute('alt', tileId); // Add alt attribute to the tile.
             boardElement.appendChild(tile);
             // console.log("Initialize tiles "+tile+" id = "+tile.id);
             

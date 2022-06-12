@@ -1,10 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Send+Flowers&display=swap');
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
 
+h1 {
+    font-family: 'Alfa Slab One', cursive;
+    color: rgba(255, 251, 0, 0.88);
+    font-size: 40px;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.801);
+    letter-spacing: 6px;
+}
+
+h2 {
+   
+}
+
 h3 {
     text-align: center;
+    text-decoration: underline;
+    margin-bottom: 20px;
 }
 
 button {
@@ -18,6 +34,7 @@ button {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     -webkit-transition-duration: 0.3s;
+    -webkit-text-stroke: 0;
 }
 button:hover {
     background-color: rgba(107, 107, 107, 0.3);
@@ -27,6 +44,7 @@ button:hover {
     -webkit-transform: scale(1.1);
 }
 
+        /* Best Results lists ordered elements */
 ol {
     display: block;
     list-style-type: decimal;
@@ -44,8 +62,9 @@ li {
     margin: 0 10px 0 10px;
 }
 
+        /* Header and title */
 #header {
-    background-color: lightgray;
+    background-color: rgb(124, 124, 124);
     height: fit-content;
     width: 100%;
     padding: 10px 0 15px 0;
@@ -56,6 +75,7 @@ li {
     margin: 0 auto;
 }
 
+        /* Navigation section */
 #nav_bar {
     height: fit-content;
     margin: 0 10px;
@@ -67,6 +87,24 @@ li {
     margin: 0;
     display: inline;
     background-color: #4CAF50;
+}
+
+        /* Main game section */
+#game_container {
+    border: 2px solid blue;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: fit-content;
+    line-height: 20px;
+    margin: 15px 5% 15px 5%;
+    padding: 10px;
+}
+
+#game_window {
+    width: fit-content;
+    text-align: center;
+    padding: 20px;
 }
 
 #board {
@@ -89,7 +127,7 @@ li {
     opacity: 1;
 }
 
-
+        /* Start New Game/Quit Game Button */
 #btn_new_game {
     background-color: #4CAF50; /* Green */
     border: 2px solid black;
@@ -102,37 +140,19 @@ li {
 }
 
 #btn_new_game:hover{
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     border: 4px solid black;
     color: yellow;
 }
-#btn_new_game:active {
-    background-color: gray;
-}
 
-#game_container {
-    border: 2px solid blue;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    height: fit-content;
-    line-height: 20px;
-    margin: 15px 5% 15px 5%;
-    padding: 10px;
-}
-
-#game_window {
-    width: fit-content;
-    text-align: center;
-    padding: 20px;
-}
 
 #rules, #results{
     height: fit-content;
     min-width: 150px;
     padding: 10px 10%;
     margin-top: 20px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
+    background-color: #adaa7713;
     flex-wrap: nowrap;
 }
 
@@ -141,6 +161,7 @@ li {
     margin-bottom: 100px;
 }
 
+        /* Footer */
 #footer{
     background-color: lightgrey;
     text-align: center;
@@ -155,6 +176,7 @@ li {
     z-index: 3;
 }
 
+        /* Popup Boxes section */
 .popup .overlay {
     position: fixed;
     top: 0px;
@@ -201,6 +223,7 @@ li {
     transform: translate(-50%, -50%) scale(1);
 }
 
+        /* Highlighting hovered tiles */
 #highlightTile {
     border-bottom: 2px solid red;
 }
