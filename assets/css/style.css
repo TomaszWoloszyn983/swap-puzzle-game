@@ -13,9 +13,6 @@ h1 {
     letter-spacing: 6px;
 }
 
-h2 {
-   
-}
 
 h3 {
     text-align: center;
@@ -254,7 +251,7 @@ li {
     #game_window {
         width: fit-content;
         text-align: center;
-        padding: 20px, 10%;
+        padding: 20px 10%;
         margin: auto;
     }
 
@@ -265,7 +262,6 @@ li {
     }
 
     #results {
-        width: 0.5fr;
         margin: auto;
         text-align: justify
     }
@@ -330,7 +326,7 @@ li {
     }
     
     #board img {
-        margin: 0, auto;
+        margin: 0 auto;
         max-width: 82px;
         height: 82px;
         border: 2px solid blue;
@@ -367,11 +363,8 @@ li {
     }
     
     #board img {
-        margin: 0, auto;
         width: 69px;
         height: 69px;
-        border: 2px solid blue;
-        /* opacity: 0.7; */
     }
 }
 

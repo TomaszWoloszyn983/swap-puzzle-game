@@ -53,7 +53,7 @@ window.onload = function(){
             document.getElementById("board").append(tile);
         }
     }
-}
+};
 
 // 
 let subminBtn = document.getElementById("submit_name");
@@ -186,7 +186,7 @@ Highlights the hovered tile and its neighbours.
 The hovered tile is highlighted with green solid line
 whereas its neighbours sre highlighted with dotted line.
 */ 
-function highlight(event){
+function highlight(){
     let hoveredTile = this.id;
     let list = neighboursList(hoveredTile);
 
@@ -214,7 +214,7 @@ function highlight(event){
 /**
  * 
  */
-function mouseLeave(event){
+function mouseLeave(){
     let tiles = document.getElementById("board").children;
     for(let tile of tiles){
         tile.style.border = "2px solid blue";
@@ -294,10 +294,11 @@ function neighboursList(tile){
     let index = parseInt(tile.substring(4));
     let list = [];
 
-    (upperNeighbour(index) > 0) ?  list.push(upperNeighbour(index)) : 0;
-    (leftNeighbour(index) > 0) ?  list.push(leftNeighbour(index)) : 0;
-    (rightNeighbour(index) > 0) ?  list.push(rightNeighbour(index)) : 0;
-    (lowerNeighbour(index) > 0) ?  list.push(lowerNeighbour(index)) : 0;
+    
+    if(upperNeighbour(index) > 0){list.push(upperNeighbour(index));}   
+    if(leftNeighbour(index) > 0){list.push(leftNeighbour(index));}
+    if(rightNeighbour(index) > 0){list.push(rightNeighbour(index));}
+    if(lowerNeighbour(index) > 0){list.push(lowerNeighbour(index));}
     
     return list;
 }
@@ -340,8 +341,7 @@ If it doesn't it returns 0
  */
 function leftNeighbour(tileIndex){
     let leftTile = tileIndex - 1;
-    if(leftTile > 0 && leftTile <= columns*rows 
-        && leftTile != 4  && leftTile != 8  && leftTile != 12  && leftTile != 16){
+    if(leftTile > 0 && leftTile <= columns*rows && leftTile != 4 && leftTile != 8 && leftTile != 12 && leftTile != 16){
         return leftTile;
     }else{
         return 0;
@@ -355,13 +355,14 @@ If it doesn't it returns 0
  */
 function rightNeighbour(tileIndex){
     let rightTile = tileIndex + 1;
-    if(rightTile > 0 && rightTile <= columns*rows 
-        && rightTile != 5  && rightTile != 9  && rightTile != 13  && rightTile != 17){
+    if(rightTile > 0 && rightTile <= columns*rows && rightTile != 5  && rightTile != 9  && rightTile != 13  && rightTile != 17){
         return rightTile;
     }else{
         return 0;
     }
 }
+
+
 
                 //DRAG TILES
 
@@ -422,6 +423,7 @@ function isSolved(){
         let url = currentOrder[0].src.toString();
         let result = url.split('/assets');
         let setname;
+        let txt;
         // console.log("New turn!")
 
         //  CHECK WINNIG CONDITIONS
@@ -444,8 +446,9 @@ function isSolved(){
    
         if(ranking.length < 10){ // I had to change id popupContent to popupContent2 so pay attention
             
+            
             console.log("Ranking < 10");
-            document.getElementById("popupContent2").innerHTML = "Well Done!!!"+
+            document.getElementById("popupContent").innerHTML = "Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\nThat is our new record."+
             "\nWould you like to write your name to our best results list?";                // if the result list isn't full
@@ -523,50 +526,52 @@ function isSolved(){
  * @param {*} player 
  */ 
 function addToRanking(player){
-    let turnsNumber = player.turnsNumber;
 
         if(player.turnsNumber < ranking[ranking.length-1].turnsNumber){
             ranking.push(player);
-            console.log("player "+player.name+" added to ranking");
-            ranking.sort((a, b) => {
-                return a.turnsNumber - b.turnsNumber;
-                })
-            
+            ranking.sort(function(a, b) {
+                    return a.turnsNumber - b.turnsNumber;
+                });
+
             if(ranking.length>10){
                 ranking.pop();
             }
         }
-        console.log("ranking contains now :"+ranking);
-        updateHtmlList(ranking);
 
-        console.log("Adding ranking to te local starage");
         updateHtmlList(ranking);
         updateLocalStorage(ranking);
     
 }
 /**
- * Synchronizig list doesn't work!
- * which means that the result are not displayed in the right order
+ * Function is sorting the ranking and then it adds
+ * elements from ranking to the HTML ordered list.
  * */ 
 function updateHtmlList(ranking){
-    console.log("Updating ranking");
-    ranking.sort((a, b) => {
-        return a.turnsNumber - b.turnsNumber;
-        })
+    ranking.sort(function (a, b) {
+            return a.turnsNumber - b.turnsNumber;
+        });
     let array = ranking;
     let list = "<ol>";
-    for (i = 0; i < array.length; i++){
+    for (let i = 0; i < array.length; i++){
         list += '<li>' + array[i].name+" : "+array[i].turnsNumber+" turns" + '</li>';
     }
     list += "</ol>";
     document.getElementById("ranking").innerHTML = list;
 }
 
+/**
+ * Function uploads ranking of the best results to the Local Storage.
+ * 
+ * @param ranking 
+ */
 function updateLocalStorage(ranking){
     console.log("Update local storage");
     localStorage.setItem('swapPuzzle', JSON.stringify(ranking));
 }
 
+/**
+ * Dowwnload the list of the best results from the Local Storage.
+ */
 function getRankingFromLocalStorage(){
     let items = JSON.parse(localStorage.getItem('swapPuzzle')) || [];
 
