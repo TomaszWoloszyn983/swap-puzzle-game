@@ -11,10 +11,11 @@ var gameOn = false;
 var turns = 0;
 var pieces = [];
 
-let player = {
+// Class player stores two values: name and number of turns.
+let player = {    
     name: "",
     turnsNumber: 0
-}; // Stores two values: name and number of turns.
+}; 
 var ranking = [];
 
 window.onload = function(){
@@ -29,7 +30,6 @@ window.onload = function(){
         for (let c = 0; c < columns; c++) {
 
 
-            
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
             let tileId = "tile"+i;
@@ -68,18 +68,46 @@ let closeHelpBtn = document.getElementById("closeHelp");
 closeHelpBtn.addEventListener('click', togglePopupHelp);
 let inputName;
 
+let startBtn = document.getElementById("btn_new_game");
+startBtn.addEventListener('click' , toggleStartButton);
 
 
 
+
+/**
+ * Displays Popup up window when the puzzles are solved.
+ * The window contains a text box that takes text value.
+ * 
+ * Also create a player object and adds it to the Best Results list
+ * 
+ * @returns Players name taken from the text box in the Popup window.
+ */
 function togglePopup2(){
     console.log("Toggle popup2 launched");
-    let name = document.getElementById("name_box").value;
-    setName(inputName);
-    console.log("Name: "+name+" captured from textbox");
+    let setName = document.getElementById("name_box").value;
+
+    console.log("Name: "+setName+" captured from textbox");
     document.getElementById("popup-2").classList.toggle("active");
-    return name;
+
+    if(setName === null || setName === ""){
+        txt = "You were added to the Best Result ranking as an Anonymous";
+        setName = "Anonymous";
+    }else{
+        txt = "Your result has been added to the best results list";
+    }
+
+    let player  = {name: setName, turnsNumber: turns};
+        console.log(player.name+" "+txt);
+        ranking.push(player);
+        updateHtmlList(ranking);
+        updateLocalStorage(ranking);
+
+    console.log("Function popup2 adds player "+setName+" to the list.");
 }
 
+/**
+ * Display Popup window that.
+ */
 function togglePopup(){
     console.log("Toggle popup launched");
     document.getElementById("popup-1").classList.toggle("active");
@@ -170,14 +198,14 @@ function toggleStartButton(button){
     // this.addEventListener('click', toggleStartButton());
     console.log("Toggling runs from: "+button.innerHTML+"...");
 
-    if(button.getAttribute(onclick) == startNewGame()){
+    if(button.innerHTML == startNewGame()){
         button.innerHTML = "Quit Game";
         console.log("...to quit");
-        this.onclick = quitGame();
-    }else if(button.getAttribute(onclick) == quitGame()){   //  
+        this.getAttribute = quitGame(); // How to change the function?
+    }else if(button.getAttribute(onclick) == quitGame()){  
         button.innerHTML = "Start New Game";
         console.log("...to start");
-        this.onclick = startNewGame();
+        this.getAttribute = startNewGame(); // How to change the function?
     }
 }
 
@@ -294,7 +322,6 @@ function neighboursList(tile){
     let index = parseInt(tile.substring(4));
     let list = [];
 
-    
     if(upperNeighbour(index) > 0){list.push(upperNeighbour(index));}   
     if(leftNeighbour(index) > 0){list.push(leftNeighbour(index));}
     if(rightNeighbour(index) > 0){list.push(rightNeighbour(index));}
@@ -422,75 +449,36 @@ function isSolved(){
         let currentOrder =  document.getElementById("board").children;
         let url = currentOrder[0].src.toString();
         let result = url.split('/assets');
-        let setname;
         let txt;
         // console.log("New turn!")
 
         //  CHECK WINNIG CONDITIONS
         for(let i=0; i<pieces.length; i++){
             let orderedPiece = result[0]+"/assets/images/" + [i+1] + ".jpg";
-            // console.log("Compare: "+currentOrder[i].src.substring(74)+" to : "+ orderedPiece.substring(74));
             if(currentOrder[i].src == orderedPiece){
-                // console.log("Element: "+currentOrder[i].src.substring(74)+" is equal to element "+ orderedPiece.substring(74));
             }else{
                 console.log("Element: "+currentOrder[i].src.substring(74)+" is equal NOT to element "+ orderedPiece.substring(74));
                 return false;
             }
         }
         console.log("The jigsaw has been solved!!!");
-        // window.confirm("Well Done\n You've solved the puzzles in "+turns+" turns");
-
-        console.log("Ranking: "+ranking.length);   
         
-  
-   
-        if(ranking.length < 10){ // I had to change id popupContent to popupContent2 so pay attention
-            
-            
+
+        if(ranking.length < 10){                // if the result list isn't full
+
             console.log("Ranking < 10");
             document.getElementById("popupContent").innerHTML = "Well Done!!!"+
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\nThat is our new record."+
-            "\nWould you like to write your name to our best results list?";                // if the result list isn't full
-            setname = togglePopup2();
-            console.log("togglepopup is closing. Setname is: "+setname);        
-            // setname = prompt("Well Done!!!"+
-            // "\nYou've solved the puzzles in "+turns+" turns!"+
-            // "\nthat is our new record."+
-            // "\nWould you like to write your name to our best results list?");
-            
-            if(setname == null || setname == ""){
-                txt = "You were added to the Best Result ranking as a Anonymous";
-                setname = "Anonymous";
-                let player  = {name: setname, turnsNumber: turns};
-                ranking.push(player);
-                updateHtmlList(ranking);
-                updateLocalStorage(ranking);
-            }else{
-                txt = "Your result has been added to the best results list";
-                let player  = {name: setname, turnsNumber: turns};
-                console.log(player.name+" "+txt);
-                ranking.push(player);
-                updateHtmlList(ranking);
-                updateLocalStorage(ranking);
-            }
+            "\nWould you like to write your name to our best results list?";  
 
-        }else if(turns < ranking[9].turnsNumber){ // if player qualify to the best results
+            togglePopup2();
+            console.log("togglepopup is closing. Setname is: "+setName);        
+
+        }else if(turns < ranking[9].turnsNumber && ranking.length>=10){ // if player qualify to the best results
             console.log("Ranking 10");
-            setname = prompt("Well Done!!!"+
-            "\nYou've solved the puzzles in "+turns+" turns!"+
-            "\nThis qualify to the Best Results ranking."+
-            "\nWould you like to write your name?");
-            if(setname == null || setname == ""){
-                txt = "You were added to the Best Result ranking as a Anonymous";
-                setname = "Anonymous";
-                let player  = {name: setname, turnsNumber: turns};
-                addToRanking(player);
-            }else{
-                txt = "Your result has been added to the best results list";
-                let player  = {name: setname, turnsNumber: turns};
-                addToRanking(player);
-            }
+            togglePopup2();
+            ranking.pop;
             
                 
         }else{                                  // if player doesn't qualify to the best results

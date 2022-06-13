@@ -32,7 +32,7 @@
             <h3>Welcome to the game</h3>
             <p>Drag tiles to swap them with their nearest neighbouring tiles.
                 Put them in the right order to build the image in the board.<br><br>
-                Fewer attempts You will make the better!<br>
+                The fewer attempts You will make the better!<br>
             </p>
         </section>
         
@@ -41,13 +41,13 @@
             <div id="board"></div>
 
             <h2>Turns: <span id="turns">0</span></h2>
-            <button type="button" onclick="toggleStartButton(this)" id="btn_new_game">Start New Game</button>
+            <button type="button" id="btn_new_game">Start New Game</button>
 
                     <!-- Popup boxes section -->
             <div class = "popup" id="popup-1"> 
                 <div class="overlay"></div>
                 <div class="content">
-                    <div class="close-btn" onclick="togglePopup()">&times;</div>
+                    <!-- <div class="close-btn" onclick="togglePopup()">&times;</div> -->
                     <h3>Well Done!</h3>
                     <p id="popupContent"></p>
                     <button type="submit" >OK</button>
@@ -64,7 +64,7 @@
                     <button type="submit" id="submit_name" >OK</button>
                 </div>
             </div>
-
+                <!-- Help Popup box -->
             <div class = "popup" id="popup-help"> 
                 <div class="overlay"></div>
                 <div class="content">
@@ -87,7 +87,7 @@
                     <button type="button" id="closeHelp">Close</button>
                 </div>
             </div>
-
+                <!-- About Popup box -->
             <div class = "popup" id="popup-about"> 
                 <div class="overlay"></div>
                 <div class="content">
