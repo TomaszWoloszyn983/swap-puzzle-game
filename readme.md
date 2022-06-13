@@ -99,5 +99,13 @@ Alternatively, if using Gitpod, you can click below to create your own workspace
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/TomaszWoloszyn983/swap-puzzle-game)
 
 
-## Credits
+## References and Credits:
+Drag and Drop swap puzzle: https://www.youtube.com/watch?v=S6GNtMGNcUE&t=583s
+Grid Layout: https://www.youtube.com/watch?v=68O6eOGAGqA&t=395s
+Local Storage: https://www.youtube.com/watch?v=YL1F4dCUlLc&t=1189s
+               https://www.youtube.com/watch?v=rVyTjFofok0
+Modal popup windows: https://www.youtube.com/watch?v=XH5OW46yO8I
+Stack Overflow: https://stackoverflow.com/
 
+## Credits:
+<!-- Many thanks to Tim Nelson from Code Institute for great support, many  -->

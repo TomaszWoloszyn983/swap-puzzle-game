@@ -6,7 +6,7 @@
 ## **Validator Testing**
 - HTML
     * No errors were detected when passing through the [W3C validator](https://validator.w3.org/nu/).
-    ![html_validation](../assets/images/testing/html_validator.jpg).
+    ![html_validation](documentation/images/validation_html.jpg).
     * Link to the validation testing for my Html file:
     https://validator.w3.org/nu/?doc=https%3A%2F%2Ftomaszwoloszyn983.github.io%2Fswap-puzzle-game
 
@@ -19,7 +19,9 @@
          https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Ftomaszwoloszyn983.github.io%2Fswap-puzzle-game
 
 - JAVASCRIPT
-    * https://beautifytools.com/javascript-validator.php
+    * No errors were detected when passing through the [jshint](https://jshint.com/) validator.
+
+    ![Javascript Validation](documentation/images/validation_js.jpg)
 
 
 ## **Browsers compatibility**
