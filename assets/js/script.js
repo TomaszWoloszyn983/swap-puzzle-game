@@ -56,9 +56,6 @@ window.onload = function(){
 };
 
 // buttons functionalities
-// let subminBtn = document.getElementById("submit_name");         // New button must be created this one cant be used two times because it calls two functions
-// subminBtn.addEventListener('click' , togglePopup2);
-
 let submitNoRecord = document.getElementById("submit_no_record");
 submitNoRecord.addEventListener('click', popUpWin3);
 
@@ -72,7 +69,6 @@ closeAboutBtn.addEventListener('click', togglePopupAbout);
 document.getElementById("help_btn").addEventListener('click', togglePopupHelp);
 let closeHelpBtn = document.getElementById("closeHelp");
 closeHelpBtn.addEventListener('click', togglePopupHelp);
-// let inputName;                                                          // Not sure if needed.
 
 let startBtn = document.getElementById("btn_new_game");
 startBtn.addEventListener('click' , toggleStartButton);
@@ -82,8 +78,6 @@ startBtn.addEventListener('click' , toggleStartButton);
  */
 function togglePopup(){
     console.log("Toggle popupHelp launched");
-    document.getElementById("popupContentOne").innerText = "You've solved the puzzles in "+turns+" turns!"+
-            "\nStart a new game to try again.";
     document.getElementById("popup-1").classList.toggle("active");
 }
 
@@ -99,10 +93,7 @@ function togglePopup(){
  */
 function togglePopup2(){
     console.log("Toggle popup2 launched");
-    document.getElementById("popupContentTwo").innerHTML = "Well Done!!!"+
-    "\nYou've solved the puzzles in "+turns+" turns!"+
-    "\nThis qualify to our Best Results."+
-    "\nWould you like to write your name to our best results list?"; 
+
     document.getElementById("popup-2").classList.toggle("active");
 }
 
@@ -190,14 +181,10 @@ function fillInOrder(){
 function fillShuffle(){
     let board = document.getElementById("board");
     let tiles = board.children;
-    console.log("Fill shuffle: "+pieces);
     let orderedPieces = pieces;
     let shuffledPieces = shuffle(orderedPieces);
 
-    console.log("Fill shuffle after: "+pieces);
-
     for (let i = 0; i < shuffledPieces.length; i++) {
-        // console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + shuffledPieces[i] + ".jpg");
         tiles[i].src = "assets/images/" + shuffledPieces[i] + ".jpg";
     }
 }
@@ -221,20 +208,17 @@ function quitGame(){
     gameOn = false;
 }
 
+/**
+ * Toggling betwen Start New Game button and Quit Game button.
+ * @param {*} button 
+ */
 function toggleStartButton(button){
-
-    // let button = document.getElementById("btn_new_game");
-    // this.addEventListener('click', toggleStartButton());
-    console.log("Toggling runs from: "+button.target.innerHTML+"...");
-    button.target.innerHTML
 
     if(button.target.innerText == "Start New Game"){
         button.target.innerText = "Quit Game";
-        console.log("...to quit");
         startNewGame();
     }else if(button.target.innerText == "Quit Game"){  
         button.target.innerText = "Start New Game";
-        console.log("...to start");
         quitGame();
     }
 }
@@ -310,37 +294,37 @@ function isNeighbour(tile1, tile2){
 
     Returns the array of the neighbours elements
 */ 
-function neighbours(tile){
-    let neighbours = [];
-    let thisTile = tile;
-    let url = tile.toString();
-    let result = url.split('/assets');
-    // console.log(result);
+// function neighbours(tile){
+//     let neighbours = [];
+//     let thisTile = tile;
+//     let url = tile.toString();
+//     let result = url.split('/assets');
+//     // console.log(result);
 
-    for (let i=1; i<=columns*rows; i++){
-        let tile2 = result[0]+"/assets/images/"+[i]+".jpg";
-        // console.log("compare thisTile "+thisTile+ " to "+tile2);
-            if(tile2 === thisTile){
+//     for (let i=1; i<=columns*rows; i++){
+//         let tile2 = result[0]+"/assets/images/"+[i]+".jpg";
+//         // console.log("compare thisTile "+thisTile+ " to "+tile2);
+//             if(tile2 === thisTile){
 
-                if(upperNeighbour(i)>0){
-                    neighbours.push(result[0]+"/assets/images/"+upperNeighbour(i)+".jpg");
-                }
-                if(lowerNeighbour(i)>0){
-                    neighbours.push(result[0]+"/assets/images/"+lowerNeighbour(i)+".jpg");
-                }
-                if(leftNeighbour(i)>0){
-                    neighbours.push(result[0]+"/assets/images/"+leftNeighbour(i)+".jpg");
-                }
-                if(rightNeighbour(i)>0){
-                    neighbours.push(result[0]+"/assets/images/"+rightNeighbour(i)+".jpg");
-                }
-                break;
-            }else{
-                // console.log("Tile " +[i]+ " not found");
-            }
-        }   
-        return neighbours;
-}
+//                 if(upperNeighbour(i)>0){
+//                     neighbours.push(result[0]+"/assets/images/"+upperNeighbour(i)+".jpg");
+//                 }
+//                 if(lowerNeighbour(i)>0){
+//                     neighbours.push(result[0]+"/assets/images/"+lowerNeighbour(i)+".jpg");
+//                 }
+//                 if(leftNeighbour(i)>0){
+//                     neighbours.push(result[0]+"/assets/images/"+leftNeighbour(i)+".jpg");
+//                 }
+//                 if(rightNeighbour(i)>0){
+//                     neighbours.push(result[0]+"/assets/images/"+rightNeighbour(i)+".jpg");
+//                 }
+//                 break;
+//             }else{
+//                 // console.log("Tile " +[i]+ " not found");
+//             }
+//         }   
+//         return neighbours;
+// }
 
 /**
  * Takes: tile id
@@ -420,9 +404,10 @@ function rightNeighbour(tileIndex){
 }
 
 
-
-                //DRAG TILES
-
+                    //   SWAP TILES SECTION
+/**
+ * Drag and Drop swapping process.
+ */
 function dragStart() {
     currTile = this; //this refers to image that was clicked on for dragging
 }
@@ -443,37 +428,37 @@ function dragDrop() {
     otherTile = this; //this refers to image that is being dropped on
 }
 
+/**
+ * Concludes the Drag And Drop swap process.
+ * Swap tiles.
+ * Check if condition to win the game is met.
+ */
 function dragEnd() {
 
     let currImg = currTile.src;
     let otherImg = otherTile.src;
 
-    // console.log("Display this image: "+currTile.id+" and the other one: "+otherTile.id);
-
     if(isNeighbour(currTile.id, otherTile.id)){
         currTile.src = otherImg;
         otherTile.src = currImg;
         turns += 1;
-    }else{
-        console.log("You only can drop drop this tile on its neighbouring tile: left, right, upper or lower");
-        // otherTile.src.style.border = "2px solid red";
-    }
+    }else{}                                                     // Maybe some warning about swapping
   
     document.getElementById("turns").innerText = turns;
-
     isSolved();
 }
 
-/*
-    Compare the current pieces order to the required order.
+/**
+ *  Compare the current pieces order to the required order.
     If every piece is in the required order then the function 
     returns true.
     Function return false when meets the first not equal pair of elements
 
     Add condition below besides the turns > 0 condition.
-     && gameOn == true
-
-*/ 
+    && gameOn == true
+ * 
+ * @returns 
+ */
 function isSolved(){
     if(turns > 0){
         let currentOrder =  document.getElementById("board").children;
@@ -490,20 +475,31 @@ function isSolved(){
             }
         }
 
-        // If the condition is met and the game is won the next part of the dunction is executed.
-        console.log("The jigsaw has been solved!!!");
-        if(ranking.length < 10){                // if the result list isn't full
+        // If the condition is met and the game is won the code below is executed.
 
-            console.log("Ranking < 10: "+ranking.length);
+        if(turns<ranking[0].turnsNumber && ranking.length!=0){  // If the result is better than the first result in the ranking.
+            document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
+            "\nThis is our new record. Write your name";
+            console.log("New Record!!!");
+            togglePopup2(); 
+        }else if(ranking.length < 10){                          // if the result list isn't full/it's length is smaller than 10.
+            document.getElementById("popupContentTwo").innerHTML = "Well Done!!!"+
+            "\nYou've solved the puzzles in "+turns+" turns!"+
+            "\nThis qualify to our Best Results."+
+            "\nWould you like to write your name to our best results list?"; 
             togglePopup2();       
 
         }else if(turns < ranking[9].turnsNumber && ranking.length>=10){ // if player qualify to the best results
-            console.log("Ranking 10. The last result in the ranking is "+ranking[9].turnsNumber+". Ranking length "+ranking.length);
+            document.getElementById("popupContentTwo").innerHTML = "Well Done!!!"+
+            "\nYou've solved the puzzles in "+turns+" turns!"+
+            "\You result qualify to our Best Results."+
+            "\nWould you like to write your name to our best results list?"; 
             togglePopup2();
             ranking.pop();  
             console.log("One out of the ranking :"+ ranking.length);
-        }else{                                  // if player doesn't qualify to the best results
-            console.log("Doesn't qualify");                               
+        }else{                                                  // if player doesn't qualify to the best results  
+            document.getElementById("popupContentOne").innerText = "You've solved the puzzles in "+turns+" turns!"+
+            "\nStart a new game to try again.";                           
             togglePopup();   
             
         }
@@ -584,8 +580,3 @@ function getRankingFromLocalStorage(){
     updateHtmlList(items);
 }
 
-
-
-//                  Bugs
-
-// turns < 0 shuold be one of the winning conditions.
