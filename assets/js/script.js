@@ -36,7 +36,6 @@ window.onload = function(){
             tile.setAttribute("id", tileId);  // Add id attribute to the tile.
             tile.setAttribute('alt', tileId); // Add alt attribute to the tile.
             boardElement.appendChild(tile);
-            // console.log("Initialize tiles "+tile+" id = "+tile.id);
             
             //HOVERING OVER TILES
             tile.addEventListener("mouseover", highlight);
@@ -477,7 +476,7 @@ function isSolved(){
 
         // If the condition is met and the game is won the code below is executed.
 
-        if(turns<ranking[0].turnsNumber && ranking.length!=0){  // If the result is better than the first result in the ranking.
+        if(ranking.length != 0 && turns < ranking[0].turnsNumber){  // If the result is better than the first result in the ranking.
             document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
             "\nThis is our new record. Write your name";
             console.log("New Record!!!");
@@ -521,23 +520,21 @@ function isSolved(){
     If the aaray length is getting bigger than 10 delete the last member.
  * @param {*} player 
  */ 
-function addToRanking(player){
+// function addToRanking(player){
 
-        if(player.turnsNumber < ranking[ranking.length-1].turnsNumber){
-            ranking.push(player);
-            ranking.sort(function(a, b) {
-                    return a.turnsNumber - b.turnsNumber;
-                });
+//         if(player.turnsNumber < ranking[ranking.length-1].turnsNumber){
+//             ranking.push(player);
+//             ranking.sort(function(a, b) {
+//                     return a.turnsNumber - b.turnsNumber;
+//                 });
 
-            if(ranking.length>10){
-                ranking.pop();
-            }
-        }
-
-        updateHtmlList(ranking);
-        updateLocalStorage(ranking);
-    
-}
+//             if(ranking.length>10){
+//                 ranking.pop();
+//             }
+//         }
+//         updateHtmlList(ranking);
+//         updateLocalStorage(ranking);
+// }
 
 /**
  * Function is sorting the ranking and then it adds

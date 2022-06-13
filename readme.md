@@ -2,7 +2,7 @@
 
 ## Welcome to my Project! 
 
-![Title image](assets/images/readMe/AmIResponsive_s.jpg)
+![Title image](documentation/images/am_i_responsive.jpg)
 
 
 
@@ -19,27 +19,35 @@ The project includes only one main page, divided into three main sections:
 Where the name of the project is displayed.
 Header section also encloses the navigation bar that constains two buttons.
 
-![Navigation image](assets/images/readMe/puzzle_nav_bar.jpg)
+![Navigation image](documentation/images/puzzle_nav_bar.jpg)
 
   * **Help** Clicking the Help button displays Popup box that contains more specific 
     information about working the application. 
 
-![Help section image](assets/images/readMe/puzzle_help_window.jpg)
+![Help section image](documentation/images/puzzle_help_window.jpg)
 
   * **About** About section contains some information about version of the program and
     contact with the author.
 
-- **Game Main Board** It is the main window of the game. A box that contains a picture 
+- **Game Main Board** 
+
+![Board image](documentation/images/puzzle_game_board.jpg)
+
+It is the main window of the game. A box that contains a picture 
 divided into twenty tiles arranged in four columns and five rows. The tiles can be swapped 
 only with another tile that is located directly in the left or right to the clicked tile and as well above or below it. Hovering over the tiles highlights its neighbouring tiles that 
 our tile can be swapped with.
 
-![Board image](assets/images/readMe/puzzle_game_board.jpg)
+The game uses Drag and Drop functionality to click selected tile to drag it and move it over its neighbouring tile to drop it.
 
-  * **Start New Game** Clicking this button is causing that the tiles are arranged in the 
-  random order, the Turns counter is set to zero and the game starts.
+![Drag and Drop](documentation/images/dnd_functionality.jpg)
 
-![Start image](assets/images/readMe/puzzle_start_button.jpg)
+
+
+  * **Start New Game/Quit Game** Clicking this button is causing that the tiles are arranged in the random order, the Turns counter is set to zero and the game starts. Thanks to the use of toggle button function the Start New Game button changes its functionality to Quit Game and allows to quit current game and put the pieces into the starting position.
+
+![Start image](documentation/images/puzzle_start_button.jpg)
+![Start image](documentation/images/puzzle_quit_game.jpg)
 
   * **Turns counter** Turns Counter display how many movements the player has to make to complete the puzzles. The number increase everytime we make a correct swap.
 
@@ -66,7 +74,7 @@ our tile can be swapped with.
 
 ## Testing
 Every page in this project was validation tested and it is responsive for every type of devices from desktop computers to mobile phone screen.
-More details about tesings are available in the separate testing section [here](documentation/TESTING.md) or in the dedicated directory documentation/TESTING.md
+More details about tesings are available in the separate testing section [here](testing.md) or in the dedicated directory documentation/TESTING.md
 
 
 
