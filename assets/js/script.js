@@ -158,10 +158,12 @@ function shuffle(piecesList){
 function fillInOrder(){
     let board = document.getElementById("board");
     let tiles = board.children;
+    // 
 
     for (let i = 0; i < pieces.length; i++) {
         // console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + pieces[i] + ".jpg");
         tiles[i].src = "assets/images/" + pieces[i] + ".jpg";
+        console.log(tiles[i].src = "assets/images/" + pieces[i] + ".jpg");
     }
 }
 
@@ -196,16 +198,17 @@ function toggleStartButton(button){
 
     // let button = document.getElementById("btn_new_game");
     // this.addEventListener('click', toggleStartButton());
-    console.log("Toggling runs from: "+button.innerHTML+"...");
+    console.log("Toggling runs from: "+button.target.innerHTML+"...");
+    button.target.innerHTML
 
-    if(button.innerHTML == startNewGame()){
-        button.innerHTML = "Quit Game";
+    if(button.target.innerText == "Start New Game"){
+        button.target.innerText = "Quit Game";
         console.log("...to quit");
-        this.getAttribute = quitGame(); // How to change the function?
-    }else if(button.getAttribute(onclick) == quitGame()){  
-        button.innerHTML = "Start New Game";
+        startNewGame(); // How to change the function?
+    }else if(button.target.innerText == "Quit Game"){  
+        button.target.innerText = "Start New Game";
         console.log("...to start");
-        this.getAttribute = startNewGame(); // How to change the function?
+        quitGame(); // How to change the function?
     }
 }
 
@@ -478,7 +481,7 @@ function isSolved(){
         }else if(turns < ranking[9].turnsNumber && ranking.length>=10){ // if player qualify to the best results
             console.log("Ranking 10");
             togglePopup2();
-            ranking.pop;
+            ranking.pop();
             
                 
         }else{                                  // if player doesn't qualify to the best results
