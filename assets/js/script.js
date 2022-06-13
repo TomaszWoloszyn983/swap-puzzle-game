@@ -56,8 +56,14 @@ window.onload = function(){
 };
 
 // buttons functionalities
-let subminBtn = document.getElementById("submit_name");
-subminBtn.addEventListener('click' , togglePopup2);
+// let subminBtn = document.getElementById("submit_name");         // New button must be created this one cant be used two times because it calls two functions
+// subminBtn.addEventListener('click' , togglePopup2);
+
+let submitNoRecord = document.getElementById("submit_no_record");
+submitNoRecord.addEventListener('click', popUpWin3);
+
+let submitName = document.getElementById("submit_name");        // Here is the bug. Click submit name twice
+submitName.addEventListener('click', popUpWin1);            
 
 document.getElementById("about_btn").addEventListener('click', togglePopupAbout);
 let closeAboutBtn = document.getElementById("closeAbout");
@@ -66,17 +72,26 @@ closeAboutBtn.addEventListener('click', togglePopupAbout);
 document.getElementById("help_btn").addEventListener('click', togglePopupHelp);
 let closeHelpBtn = document.getElementById("closeHelp");
 closeHelpBtn.addEventListener('click', togglePopupHelp);
-let inputName;
+// let inputName;                                                          // Not sure if needed.
 
 let startBtn = document.getElementById("btn_new_game");
 startBtn.addEventListener('click' , toggleStartButton);
 
-
-
+/**
+ * Display Popup window when the turns result doesn't qualify to the Bast Results list.
+ */
+function togglePopup(){
+    console.log("Toggle popupHelp launched");
+    document.getElementById("popupContentOne").innerText = "You've solved the puzzles in "+turns+" turns!"+
+            "\nStart a new game to try again.";
+    document.getElementById("popup-1").classList.toggle("active");
+}
 
 /**
- * Displays Popup up window when the puzzles are solved.
- * The window contains a text box that takes text value.
+ * Displays Popup up window when the puzzles are solved and the reuslt 
+ * qualifies to the Best Results list.
+ * 
+ * The window contains a text input box that takes text value.
  * 
  * Also create a player object and adds it to the Best Results list
  * 
@@ -84,32 +99,35 @@ startBtn.addEventListener('click' , toggleStartButton);
  */
 function togglePopup2(){
     console.log("Toggle popup2 launched");
-    let setName = document.getElementById("name_box").value;
-
-    console.log("Name: "+setName+" captured from textbox");
+    document.getElementById("popupContentTwo").innerHTML = "Well Done!!!"+
+    "\nYou've solved the puzzles in "+turns+" turns!"+
+    "\nThis qualify to our Best Results."+
+    "\nWould you like to write your name to our best results list?"; 
     document.getElementById("popup-2").classList.toggle("active");
+}
+
+function popUpWin1(){
+    let setName = document.getElementById("name_box").value;
+        console.log("Name: "+setName+" captured from textbox");
 
     if(setName === null || setName === ""){
-        txt = "You were added to the Best Result ranking as an Anonymous";
         setName = "Anonymous";
-    }else{
-        txt = "Your result has been added to the best results list";
     }
 
     let player  = {name: setName, turnsNumber: turns};
-        console.log(player.name+" "+txt);
         ranking.push(player);
         updateHtmlList(ranking);
         updateLocalStorage(ranking);
 
-    console.log("Function popup2 adds player "+setName+" to the list.");
+    console.log("Function popwin1 adds player "+setName+" to the list.");
+    document.getElementById("popup-2").classList.toggle("active");
 }
 
 /**
  * Display Popup window that.
  */
-function togglePopup(){
-    console.log("Toggle popup launched");
+function popUpWin3(){
+    console.log("Win without record");
     document.getElementById("popup-1").classList.toggle("active");
 }
 
@@ -122,12 +140,9 @@ function togglePopupAbout(){
     document.getElementById("popup-about").classList.toggle("active");
 }
 
-function setName(name){
-    inputName = name;
-    console.log("Input name  = "+ inputName);
-}
-
-
+/**
+ * Used in onLoad function to initialize the pieces array.
+ */
 function setPieces(){
     for (let i=1; i <= rows*columns; i++) {
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
@@ -136,7 +151,7 @@ function setPieces(){
 
 /*
     Shuffle takes an Array of pieces and return a new 
-    array of pieces in random order.
+    array of pieces ordered randomly.
 */ 
 function shuffle(piecesList){
    
@@ -464,51 +479,33 @@ function isSolved(){
         let currentOrder =  document.getElementById("board").children;
         let url = currentOrder[0].src.toString();
         let result = url.split('/assets');
-        let txt;
-        // console.log("New turn!")
 
-        //  CHECK WINNIG CONDITIONS
+        //  Check if the condition to win the game is met. If it isn't the function returns false and the rest of the code isn't executed.
         for(let i=0; i<pieces.length; i++){
             let orderedPiece = result[0]+"/assets/images/" + [i+1] + ".jpg";
             if(currentOrder[i].src == orderedPiece){
             }else{
-                console.log("Element: "+currentOrder[i].src.substring(74)+" is equal NOT to element "+ orderedPiece.substring(74));
+                console.log("Element: "+currentOrder[i].src.substring(74)+" is NOT equal to element "+ orderedPiece.substring(74));
                 return false;
             }
         }
-        console.log("The jigsaw has been solved!!!");
-        
 
+        // If the condition is met and the game is won the next part of the dunction is executed.
+        console.log("The jigsaw has been solved!!!");
         if(ranking.length < 10){                // if the result list isn't full
 
-            console.log("Ranking < 10");
-            document.getElementById("popupContent").innerHTML = "Well Done!!!"+
-            "\nYou've solved the puzzles in "+turns+" turns!"+
-            "\nThat is our new record."+
-            "\nWould you like to write your name to our best results list?";  
-
-            togglePopup2();
-            console.log("togglepopup is closing. Setname is: "+setName);        
+            console.log("Ranking < 10: "+ranking.length);
+            togglePopup2();       
 
         }else if(turns < ranking[9].turnsNumber && ranking.length>=10){ // if player qualify to the best results
-            console.log("Ranking 10");
+            console.log("Ranking 10. The last result in the ranking is "+ranking[9].turnsNumber+". Ranking length "+ranking.length);
             togglePopup2();
-            ranking.pop();
-            
-                
+            ranking.pop();  
+            console.log("One out of the ranking :"+ ranking.length);
         }else{                                  // if player doesn't qualify to the best results
-            console.log("Ranking poza zasięgiem");                               
-            if (confirm("Well Done!!!"+
-            "\nYou've solved the puzzles in "+turns+" turns!"+
-            "\nWould You like to play again?")) {
-                txt = "You pressed OK!";
-                startNewGame();
-            } else {
-                txt = "You pressed Cancel!";
-            }
+            console.log("Doesn't qualify");                               
             togglePopup();   
-            document.getElementById("popupContent").innerHTML = "You've solved the puzzles in "+turns+" turns!"+
-            "\nWould You like to play again?";
+            
         }
 
         console.log("Ranking after: "+ranking.length+" :"+ranking[0].name+". Ranking last member "+ranking[ranking.length-1].name);   
