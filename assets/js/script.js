@@ -1,22 +1,22 @@
 
 // Numbers of rows and columns in the main board
-var rows = 5;
-var columns = 4;
+const rows = 5;
+const columns = 4;
 
 // Used for drag functionality
-var currTile;
-var otherTile;
+let currTile;
+let otherTile;
 
-var gameOn = false;
-var turns = 0;
-var pieces = [];
+let gameOn = false;
+let turns = 0;
+let pieces = [];
 
 // Class player stores two values: name and number of turns.
 let player = {    
     name: "",
     turnsNumber: 0
 }; 
-var ranking = [];
+let ranking = [];
 
 window.onload = function(){
 
@@ -55,7 +55,7 @@ window.onload = function(){
     }
 };
 
-// 
+// buttons functionalities
 let subminBtn = document.getElementById("submit_name");
 subminBtn.addEventListener('click' , togglePopup2);
 
@@ -142,7 +142,7 @@ function shuffle(piecesList){
    
     let newList = piecesList;
 
-    pieces.reverse();
+    newList.reverse();
     for (let i =0; i < newList.length; i++) {
         let j = Math.floor(Math.random() * newList.length);
 
@@ -155,26 +155,31 @@ function shuffle(piecesList){
     return newList;
 }
 
+/**
+ * Fills the game board with ordered pieces.
+ */
 function fillInOrder(){
     let board = document.getElementById("board");
     let tiles = board.children;
-    // 
 
-    for (let i = 0; i < pieces.length; i++) {
-        // console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + pieces[i] + ".jpg");
-        tiles[i].src = "assets/images/" + pieces[i] + ".jpg";
-        console.log(tiles[i].src = "assets/images/" + pieces[i] + ".jpg");
+    console.log("Fill ordered after: "+pieces);
+    for (let i = 0; i < pieces.length; i++) {    // Put pieces in the order. From 1 to 10.
+        tiles[i].src = "assets/images/" + (i+1) + ".jpg";
     }
 }
 
 /*
-    FillBoard calls shuffle() function and fills up the board with 
-    shuffled pieces.
+    FillBoard calls shuffle() function to put pieces int random order and fills up the board 
+    with shuffled pieces.
 */ 
 function fillShuffle(){
     let board = document.getElementById("board");
     let tiles = board.children;
-    let shuffledPieces = shuffle(pieces);
+    console.log("Fill shuffle: "+pieces);
+    let orderedPieces = pieces;
+    let shuffledPieces = shuffle(orderedPieces);
+
+    console.log("Fill shuffle after: "+pieces);
 
     for (let i = 0; i < shuffledPieces.length; i++) {
         // console.log("Trying to replace: "+tiles[i].src+" with: "+"assets/images/" + shuffledPieces[i] + ".jpg");
@@ -182,6 +187,10 @@ function fillShuffle(){
     }
 }
 
+/**
+ * Start new game and fiil up the board with randomly ordered pieces.
+ * Reset the turn value to 0.
+ */
 function startNewGame(){
     fillShuffle();
     turns = 0;
@@ -189,6 +198,9 @@ function startNewGame(){
     document.getElementById("turns").innerText = turns;
 }
 
+/**
+ * Reset the current game and restore the pieces to the order from 1 to 10.
+ */
 function quitGame(){
     fillInOrder();
     gameOn = false;
@@ -204,11 +216,11 @@ function toggleStartButton(button){
     if(button.target.innerText == "Start New Game"){
         button.target.innerText = "Quit Game";
         console.log("...to quit");
-        startNewGame(); // How to change the function?
+        startNewGame();
     }else if(button.target.innerText == "Quit Game"){  
         button.target.innerText = "Start New Game";
         console.log("...to start");
-        quitGame(); // How to change the function?
+        quitGame();
     }
 }
 
@@ -243,7 +255,7 @@ function highlight(){
 }
 
 /**
- * 
+ * Restores the tiles style to the previous settings after hovering off.
  */
 function mouseLeave(){
     let tiles = document.getElementById("board").children;
@@ -533,6 +545,7 @@ function addToRanking(player){
         updateLocalStorage(ranking);
     
 }
+
 /**
  * Function is sorting the ranking and then it adds
  * elements from ranking to the HTML ordered list.
