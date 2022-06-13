@@ -36,9 +36,6 @@ our tile can be swapped with.
 
 ![Board image](assets/images/readMe/puzzle_game_board.jpg)
 
-Future feature about this section would be to implement keyboard control option. SO it would be possible to control the game with directional keys and another key to swap tiles. 
-Another 
-
   * **Start New Game** Clicking this button is causing that the tiles are arranged in the 
   random order, the Turns counter is set to zero and the game starts.
 
@@ -53,12 +50,18 @@ Another
  
 - **Footer** Contains information about Copyrights. 
 
+## Future Features
+- Keyboard control function. So the game would be able to control with keyboard arrow keys. 
+- Adding your own images to the board that could be split into tiles and used in the game.
+- Mobile devices compatibility. At the moment the game is not working on devices used touch screens. Our future feature would be to implement such a functionality.
+
 ## Technologies used:
-  - Javascript
-  - HTML5
-  - CSS3
-  - Gitpod
-  - GitHub
+  - Javascript - High-level programming language.
+  - HTML5 - Markup language used to make webpages.
+  - CSS3 - A language used to style HTML and XHTML documents presentations in web development.
+  - Gitpod - Online integrated development environment.
+  - GitHub - Version control service used for storing and sharing projects.
+  - Drag and Drop - Functionality that allows to select a virtual object by "grapping" it and "dragging" it to a different location or onto another virtual object
 
 
 ## Testing
