@@ -42,8 +42,30 @@
 
         ![Netbox Browser](documentation/images/resp_netbox.jpg)
 
-- The game is also responsive on every mobile devices as Tablets or Smart Phones however game Drag and Drop functionality does NOT support devices using Touch Screen, so it is recommended to use mouse to 
-    * Mobile phone Google Chrome Browser 
+## **Lighthouse Inspection reports**
+ - There are some issues when the page is opening using Google Chrome browser.
+
+    * ![Google Chrome inspection](documentation/images/lighthouse_inspection.jpg)
+
+    However inspecting the page in Incognito Mode without any browser extensions shows results as follows
+
+    * ![Google Chrome inspection](documentation/images/lighthouse_inspection_without_extentions.jpg)
+
+    Making Lighthouse inspections using different browsers show very similar results. 
+    
+    * ![Microsoft Egde inspection](documentation/images/lighthouse_inspection_edge.jpg)
+
+    This is an example of Lighthouse inspection in Microsort Edge browser made using inPrivate mode.
+
+
+- Although the game is also responsive on every mobile devices as Tablets or Smart Phones, most of the devices using touch screen don't support Drag and Drop functionality, so it is recommended to use a mouse to play this game.
+
+    ![Mobile phone](documentation/images/resp_mobile_2.jpg)
+    ![Mobile phone](documentation/images/mobile_issue.jpg)
+    
+    ![Mobile phone](documentation/images/resp_mobile_4.jpg)
+
+ 
 
 
 ## *There are no unfixed bugs that I am aware of.

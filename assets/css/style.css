@@ -336,7 +336,6 @@ li {
         max-width: 82px;
         height: 82px;
         border: 2px solid blue;
-        /* opacity: 0.7; */
     }
 
     .popup .content {
@@ -352,6 +351,7 @@ li {
         text-align: center;
         padding: 20px;
         box-sizing: border-box;
+        overflow: auto;
     }
 
     .popup .content {
