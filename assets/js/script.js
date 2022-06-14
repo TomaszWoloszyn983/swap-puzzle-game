@@ -90,8 +90,6 @@ function togglePopup(){
  * @returns Players name taken from the text box in the Popup window.
  */
 function togglePopup2(){
-    console.log("Toggle popup2 launched");
-
     document.getElementById("popup-2").classList.toggle("active");
 }
 
@@ -208,7 +206,8 @@ function startNewGame(){
  */
 function quitGame(){
     fillInOrder();
-    document.getElementById("turns").innerText = 0;
+    turns = 0;
+    document.getElementById("turns").innerText = turns;
     gameOn = false;
 }
 
@@ -235,26 +234,23 @@ whereas its neighbours sre highlighted with dotted line.
 function highlight(){
     let hoveredTile = this.id;
     let list = neighboursList(hoveredTile);
-
-    let tiles = document.getElementById("board").children;
-    for(let tile of tiles){
-        tile.style.opacity = "0.8";
-    }
-
-    // Highlighting the hovered tile and its neighbours
-    this.style.border = "2px solid green";
-    this.style.opacity = "1";
-            // this.classList.add('highlightTile'); //I was trying to add css class but it didn't work
-            // for(let i=0; i>pieces.length; i++){
-            //     document.getElementById("tile"+[i]).style.opacity = "0.7";
-            // }
     
-    for(let tile of list){
-        document.getElementById("tile"+tile).style.border = "2px dotted green";
-        document.getElementById("tile"+tile).style.opacity = "1";
-            // let element = document.getElementById("tile"+nei).classList.add("neighbours"); 
-            // ^^^  I was trying to add css class but it didn't work
-    }   
+    if(gameOn == true){
+        let tiles = document.getElementById("board").children;
+        for(let tile of tiles){
+            tile.style.opacity = "0.8";
+        }
+
+        // Highlighting the hovered tile and its neighbours
+        this.style.border = "2px solid green";
+        this.style.opacity = "1";
+
+        for(let tile of list){
+            document.getElementById("tile"+tile).style.border = "2px dotted green";
+            document.getElementById("tile"+tile).style.opacity = "1";
+        }   
+    }
+    
 }
 
 /**
@@ -279,9 +275,7 @@ function mouseLeave(){
 function isNeighbour(tile1, tile2){
 
     let list = neighboursList(tile1);
-
     for(let l of list){
-        // console.log("Compare: "+l+" to "+tile1);
         if("tile"+l == tile2){
             return true;
         }
@@ -413,10 +407,7 @@ function rightNeighbour(tileIndex){
  * Drag and Drop swapping process.
  */
 function dragStart() {
-    // if(gameOn === true){
         currTile = this; //this refers to image that was clicked on for dragging
-    // }
-    
 }
 
 function dragOver(e) {
@@ -447,8 +438,6 @@ function dragEnd() {
     let otherImg = otherTile.src;
     
     if(gameOn === true){
-
-        
         if(isNeighbour(currTile.id, otherTile.id)){
             currTile.src = otherImg;
             otherTile.src = currImg;
@@ -502,14 +491,14 @@ function isSolved(){
             "\nThis is our new record. Write your name";
             togglePopup2(); 
         }else if(ranking.length < 10){                          // if the result list isn't full/it's length is smaller than 10.
-            document.getElementById("popupContentTwo").innerHTML = "Well Done!!!"+
-            "\nYou've solved the puzzles in "+turns+" turns!"+
+            document.getElementById("popupContentTwo").innerHTML = 
+            "You've solved the puzzles in "+turns+" turns!"+
             "\nThis qualify to our Best Results."+
             "\nWould you like to write your name to our best results list?"; 
             togglePopup2();       
 
         }else if(turns < ranking[9].turnsNumber && ranking.length>=10){ // if player qualify to the best results
-            document.getElementById("popupContentTwo").innerHTML = "Well Done!!!"+
+            document.getElementById("popupContentTwo").innerHTML = 
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\You result qualify to our Best Results."+
             "\nWould you like to write your name to our best results list?"; 
@@ -586,7 +575,7 @@ function updateLocalStorage(ranking){
 }
 
 /**
- * Dowwnload the list of the best results from the Local Storage.
+ * Download the list of the best results from the Local Storage.
  */
 function getRankingFromLocalStorage(){
     let items = JSON.parse(localStorage.getItem('swapPuzzle')) || [];

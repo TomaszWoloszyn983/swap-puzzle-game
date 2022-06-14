@@ -13,7 +13,6 @@ h1 {
     letter-spacing: 6px;
 }
 
-
 h3 {
     text-align: center;
     text-decoration: underline;
@@ -119,14 +118,9 @@ li {
     border: 2px solid blue;
 }
 
-#board img:hover {
-    border: 2px solid red;
-    opacity: 1;
-}
-
         /* Start New Game/Quit Game Button */
 #btn_new_game {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     border: 2px solid black;
     color: white;
     padding: 15px 32px;
@@ -222,15 +216,6 @@ li {
     transform: translate(-50%, -50%) scale(1);
 }
 
-        /* Highlighting hovered tiles */
-#highlightTile {
-    border-bottom: 2px solid red;
-}
-
-.neighbours {
-    background-color: red;
-    border: 2px dotted green;
-}
 
 @media screen and (max-width: 1200px){
     #game_container {
@@ -306,10 +291,10 @@ li {
         margin: auto;
     }
 
-    #board img:hover {
+    /* #board img:hover {
         border: 2px solid red;
         opacity: 1;
-    }
+    } */
 
     #btn_new_game {
         padding: 15px 32px;
