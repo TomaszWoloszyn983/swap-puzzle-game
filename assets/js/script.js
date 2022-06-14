@@ -469,7 +469,6 @@ function isSolved(){
             let orderedPiece = result[0]+"/assets/images/" + [i+1] + ".jpg";
             if(currentOrder[i].src == orderedPiece){
             }else{
-                console.log("Element: "+currentOrder[i].src.substring(74)+" is NOT equal to element "+ orderedPiece.substring(74));
                 return false;
             }
         }
@@ -501,9 +500,7 @@ function isSolved(){
             "\nStart a new game to try again.";                           
             togglePopup();   
             
-        }
-
-        console.log("Ranking after: "+ranking.length+" :"+ranking[0].name+". Ranking last member "+ranking[ranking.length-1].name);   
+        }  
         return true;
 
     }else if(turns>5 && gameOn == false){
@@ -559,7 +556,6 @@ function updateHtmlList(ranking){
  * @param ranking 
  */
 function updateLocalStorage(ranking){
-    console.log("Update local storage");
     localStorage.setItem('swapPuzzle', JSON.stringify(ranking));
 }
 
@@ -569,7 +565,6 @@ function updateLocalStorage(ranking){
 function getRankingFromLocalStorage(){
     let items = JSON.parse(localStorage.getItem('swapPuzzle')) || [];
 
-    console.log("Data downloaded from local storage: "+ranking);
     for(player of items){
         console.log("Data downloaded from local storage: name: "+player.name+" turns: "+player.turnsNumber);
     }
