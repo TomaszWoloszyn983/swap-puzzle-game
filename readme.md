@@ -61,9 +61,10 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 - **Footer** Contains information about Copyrights. 
 
 ## Future Features
-- Keyboard control function. So the game would be able to control with keyboard arrow keys. 
-- Adding your own images to the board that could be split into tiles and used in the game.
-- Mobile devices compatibility. At the moment the game is not working on devices used touch screens. Our future feature would be to implement such a functionality.
+  - Keyboard control function. So the game would be able to control with keyboard arrow keys. 
+  - Adding your own images to the board that could be split into tiles and used in the game.
+  - Mobile devices compatibility. At the moment the game is not working on devices used touch screens. Our future feature would be to implement such a functionality.
+  - Add confirm popup box to make sure that the player really wants to quit the current game.
 
 ## Technologies used:
   - Javascript - High-level programming language.
@@ -110,6 +111,8 @@ Local Storage: https://www.youtube.com/watch?v=YL1F4dCUlLc&t=1189s
                https://www.youtube.com/watch?v=rVyTjFofok0
 
 Modal popup windows: https://www.youtube.com/watch?v=XH5OW46yO8I
+
+A simple tutorial how to display a timing out text: https://www.youtube.com/watch?v=wK0HgL-UTgY
 
 Stack Overflow: https://stackoverflow.com/
 

@@ -148,9 +148,12 @@ li {
     min-width: 150px;
     padding: 10px 10%;
     margin-top: 20px;
-    /* border: 1px solid blue; */
     background-color: #adaa7713;
     flex-wrap: nowrap;
+}
+
+#message_box {
+    color: rgb(204, 0, 0);
 }
 
 #results {

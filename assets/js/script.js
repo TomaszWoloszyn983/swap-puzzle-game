@@ -76,7 +76,6 @@ startBtn.addEventListener('click' , toggleStartButton);
  * Display Popup window when the turns result doesn't qualify to the Bast Results list.
  */
 function togglePopup(){
-    console.log("Toggle popupHelp launched");
     document.getElementById("popup-1").classList.toggle("active");
 }
 
@@ -96,9 +95,12 @@ function togglePopup2(){
     document.getElementById("popup-2").classList.toggle("active");
 }
 
+/**
+ * Takes a value from input text box and use it ot initialize players name.
+ * Then adds the player to the best results list.
+ */
 function popUpWin1(){
     let setName = document.getElementById("name_box").value;
-        console.log("Name: "+setName+" captured from textbox");
 
     if(setName === null || setName === ""){
         setName = "Anonymous";
@@ -109,24 +111,28 @@ function popUpWin1(){
         updateHtmlList(ranking);
         updateLocalStorage(ranking);
 
-    console.log("Function popwin1 adds player "+setName+" to the list.");
     document.getElementById("popup-2").classList.toggle("active");
 }
 
 /**
- * Display Popup window that.
+ * Activate and deactivate Popup window when the game is won but the result doesn't 
+ * qualify to the Best Resluts.
  */
 function popUpWin3(){
-    console.log("Win without record");
     document.getElementById("popup-1").classList.toggle("active");
 }
 
+/**
+ * Activate and deactivate Help popup window.
+ */
 function togglePopupHelp(){
-    console.log("Toggle popupHelp launched");
     document.getElementById("popup-help").classList.toggle("active");
 }
+
+/**
+ * Activate and deactivate About popup window.
+ */
 function togglePopupAbout(){
-    console.log("Toggle popupAbout launched");
     document.getElementById("popup-about").classList.toggle("active");
 }
 
@@ -156,7 +162,6 @@ function shuffle(piecesList){
         newList[i] = newList[j];
         newList[j] = tmp;
     }
-    console.log("Shuffle!");
     return newList;
 }
 
@@ -167,7 +172,6 @@ function fillInOrder(){
     let board = document.getElementById("board");
     let tiles = board.children;
 
-    console.log("Fill ordered after: "+pieces);
     for (let i = 0; i < pieces.length; i++) {    // Put pieces in the order. From 1 to 10.
         tiles[i].src = "assets/images/" + (i+1) + ".jpg";
     }
@@ -204,6 +208,7 @@ function startNewGame(){
  */
 function quitGame(){
     fillInOrder();
+    document.getElementById("turns").innerText = 0;
     gameOn = false;
 }
 
@@ -216,7 +221,7 @@ function toggleStartButton(button){
     if(button.target.innerText == "Start New Game"){
         button.target.innerText = "Quit Game";
         startNewGame();
-    }else if(button.target.innerText == "Quit Game"){  
+    }else if((button.target.innerText == "Quit Game") || (button.target.innerText == "Game Completed")){  
         button.target.innerText = "Start New Game";
         quitGame();
     }
@@ -408,7 +413,10 @@ function rightNeighbour(tileIndex){
  * Drag and Drop swapping process.
  */
 function dragStart() {
-    currTile = this; //this refers to image that was clicked on for dragging
+    // if(gameOn === true){
+        currTile = this; //this refers to image that was clicked on for dragging
+    // }
+    
 }
 
 function dragOver(e) {
@@ -434,19 +442,24 @@ function dragDrop() {
  */
 function dragEnd() {
 
+    
     let currImg = currTile.src;
     let otherImg = otherTile.src;
+    
+    if(gameOn === true){
 
-    if(isNeighbour(currTile.id, otherTile.id)){
-        currTile.src = otherImg;
-        otherTile.src = currImg;
-        turns += 1;
-    }else{
-        document.getElementById('message_box').innerText = "Remember that you can only swap a tile with their nearest neighbouring tiles";
-        setTimeout(() => {
-            document.getElementById('message_box').innerText = "";
-        }, 2000);
-    }                                                     // Maybe some warning about swapping
+        
+        if(isNeighbour(currTile.id, otherTile.id)){
+            currTile.src = otherImg;
+            otherTile.src = currImg;
+            turns += 1;
+        }else{
+            document.getElementById('message_box').innerText = "You can only swap a tile with their nearest neighbouring tiles";
+            setTimeout(() => {
+                document.getElementById('message_box').innerText = "";
+            }, 3000);
+        }                                                     // Maybe some warning about swapping
+    }
   
     document.getElementById("turns").innerText = turns;
     isSolved();
@@ -464,7 +477,7 @@ function dragEnd() {
  * @returns 
  */
 function isSolved(){
-    if(turns > 0){
+    if(turns > 0 && gameOn === true){
         let currentOrder =  document.getElementById("board").children;
         let url = currentOrder[0].src.toString();
         let result = url.split('/assets');
@@ -481,7 +494,8 @@ function isSolved(){
         /**
          * If the condition is met and the game is won the code below is executed.
          * 
-         * Depending on what condition is met Popup modal box will be initialized with a String value.
+         * Depending on what condition is met Popup modal box will be initialized with a different String value
+         * and corresponding functions will be called.
          */
         if(ranking.length != 0 && turns < ranking[0].turnsNumber){  // If the result is better than the first result in the ranking.
             document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
@@ -508,10 +522,15 @@ function isSolved(){
             togglePopup();   
             
         }  
+        document.getElementById('btn_new_game').innerText = "Game Completed";
+        gameOn = false;
         return true;
 
-    }else if(turns>5 && gameOn == false){
-        window.alert('Press "Start New Game" button to start the game');
+    }else if(gameOn == false){
+        document.getElementById('message_box').innerText = "Click Start New Game button.";
+            setTimeout(() => {
+                document.getElementById('message_box').innerText = "";
+            }, 3000);
     }else{
         return false;
     }
