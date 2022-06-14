@@ -221,6 +221,23 @@ li {
     #game_container {
         margin: 20px 0 0 0; 
     }
+
+    /* For smaller size screens not only width is important but also height of the screen.  
+       The board should also fit verticaly to the size of the screen*/
+    #board {
+        width: 436px;
+        height: 545px;
+        border: 2px solid blue;
+    
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    #board img {
+        width: 105px;
+        height: 105px;
+        border: 2px solid blue;
+    }
 }
 
 @media screen and (max-width: 992px){
@@ -243,8 +260,8 @@ li {
     }
 
     #board {
-        width: 480px;
-        height: 600px;
+        width: 436px;
+        height: 545px;
         border: 2px solid blue;
     }
 

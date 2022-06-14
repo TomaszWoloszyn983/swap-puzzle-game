@@ -43,6 +43,7 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 ![Drag and Drop](documentation/images/swap_1.jpg)
 ![Drag and Drop](documentation/images/swap_2.jpg)
 ![Drag and Drop](documentation/images/swap_3.jpg)
+![Drag and Drop](documentation/images/swap_4.jpg)
 
 
 

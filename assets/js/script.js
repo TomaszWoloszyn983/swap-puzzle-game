@@ -29,7 +29,7 @@ window.onload = function(){
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
 
-
+            // INITIALIZE TILES WITH PIECES OF IMAGE
             let tile = document.createElement("img");
             tile.src = "assets/images/"+(++i)+".jpg";
             let tileId = "tile"+i;
@@ -37,7 +37,7 @@ window.onload = function(){
             tile.setAttribute('alt', tileId); // Add alt attribute to the tile.
             boardElement.appendChild(tile);
             
-            //HOVERING OVER TILES
+            //HOVERING OVER AND HIGHLIGHTING TILES
             tile.addEventListener("mousedown", highlight);
             tile.addEventListener("mouseleave", mouseLeave);
 
@@ -54,7 +54,7 @@ window.onload = function(){
     }
 };
 
-// buttons functionalities
+// buttons Event Listeners.
 let submitNoRecord = document.getElementById("submit_no_record");
 submitNoRecord.addEventListener('click', popUpWin3);
 
@@ -80,14 +80,7 @@ function togglePopup(){
 }
 
 /**
- * Displays Popup up window when the puzzles are solved and the reuslt 
- * qualifies to the Best Results list.
- * 
- * The window contains a text input box that takes text value.
- * 
- * Also create a player object and adds it to the Best Results list
- * 
- * @returns Players name taken from the text box in the Popup window.
+ * Activates and deactivates Popup window.
  */
 function togglePopup2(){
     document.getElementById("popup-2").classList.toggle("active");
@@ -144,7 +137,7 @@ function setPieces(){
 }
 
 /*
-    Shuffle takes an Array of pieces and return a new 
+    Take an Array of pieces and return a new 
     array of pieces ordered randomly.
 */ 
 function shuffle(piecesList){
@@ -238,7 +231,7 @@ function highlight(){
     if(gameOn == true){
         let tiles = document.getElementById("board").children;
         for(let tile of tiles){
-            tile.style.opacity = "0.8";
+            tile.style.opacity = "0.7";
         }
 
         // Highlighting the hovered tile and its neighbours
@@ -250,7 +243,6 @@ function highlight(){
             document.getElementById("tile"+tile).style.opacity = "1";
         }   
     }
-    
 }
 
 /**
@@ -366,7 +358,7 @@ function rightNeighbour(tileIndex){
  * Drag and Drop swapping process.
  */
 function dragStart() {
-        currTile = this; //this refers to image that was clicked on for dragging
+    currTile = this; //this refers to image that was clicked on for dragging
 }
 
 function dragOver(e) {
@@ -392,7 +384,6 @@ function dragDrop() {
  */
 function dragEnd() {
 
-    
     let currImg = currTile.src;
     let otherImg = otherTile.src;
     
@@ -406,7 +397,7 @@ function dragEnd() {
             setTimeout(() => {
                 document.getElementById('message_box').innerText = "";
             }, 3000);
-        }                                                     // Maybe some warning about swapping
+        }                                                    
     }
   
     document.getElementById("turns").innerText = turns;
