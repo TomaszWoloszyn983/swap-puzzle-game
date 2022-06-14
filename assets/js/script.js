@@ -393,7 +393,7 @@ function dragEnd() {
             otherTile.src = currImg;
             turns += 1;
         }else{
-            document.getElementById('message_box').innerText = "You can only swap a tile with their nearest neighbouring tiles";
+            document.getElementById('message_box').innerText = "You can only swap a tile with the highlighted tiles";
             setTimeout(() => {
                 document.getElementById('message_box').innerText = "";
             }, 3000);
