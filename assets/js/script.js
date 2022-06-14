@@ -441,7 +441,12 @@ function dragEnd() {
         currTile.src = otherImg;
         otherTile.src = currImg;
         turns += 1;
-    }else{}                                                     // Maybe some warning about swapping
+    }else{
+        document.getElementById('message_box').innerText = "Remember that you can only swap a tile with their nearest neighbouring tiles";
+        setTimeout(() => {
+            document.getElementById('message_box').innerText = "";
+        }, 2000);
+    }                                                     // Maybe some warning about swapping
   
     document.getElementById("turns").innerText = turns;
     isSolved();
@@ -567,9 +572,6 @@ function updateLocalStorage(ranking){
 function getRankingFromLocalStorage(){
     let items = JSON.parse(localStorage.getItem('swapPuzzle')) || [];
 
-    for(player of items){
-        console.log("Data downloaded from local storage: name: "+player.name+" turns: "+player.turnsNumber);
-    }
     ranking = items;
     updateHtmlList(items);
 }
