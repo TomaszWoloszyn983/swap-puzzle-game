@@ -68,4 +68,5 @@
  
 
 
-## *There are no unfixed bugs that I am aware of.
+## **Unfixed Bugs**
+- The main unfixed bug is the lack of support for mobile devices, such as mobile phone using touch screens.

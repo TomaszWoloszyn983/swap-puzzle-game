@@ -40,14 +40,16 @@ our tile can be swapped with.
 
 The game uses Drag and Drop functionality to click selected tile to drag it and move it over its neighbouring tile to drop it.
 
-![Drag and Drop](documentation/images/dnd_functionality.jpg)
+![Drag and Drop](documentation/images/swap_1.jpg)
+![Drag and Drop](documentation/images/swap_2.jpg)
+![Drag and Drop](documentation/images/swap_3.jpg)
 
 
 
   * **Start New Game/Quit Game** Clicking this button is causing that the tiles are arranged in the random order, the Turns counter is set to zero and the game starts. Thanks to the use of toggle button function the Start New Game button changes its functionality to Quit Game and allows to quit current game and put the pieces into the starting position.
 
-![Start image](documentation/images/puzzle_start_button.jpg)
-![Start image](documentation/images/puzzle_quit_game.jpg)
+![Start image](documentation/images/start_quit_1.jpg)
+![Start image](documentation/images/start_quit_2.jpg)
 
   * **Turns counter** Turns Counter display how many movements the player has to make to complete the puzzles. The number increase everytime we make a correct swap.
 
@@ -74,7 +76,7 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 
 ## Testing
 Every page in this project was validation tested and it is responsive for every type of devices from desktop computers to mobile phone screen.
-More details about tesings are available in the separate testing section [here](testing.md) or in the dedicated directory documentation/TESTING.md
+More details about tesings are available in the separate testing section [here](testing.md) or in the dedicated file testing.md
 
 
 
@@ -101,10 +103,14 @@ Alternatively, if using Gitpod, you can click below to create your own workspace
 
 ## References and Credits:
 Drag and Drop swap puzzle: https://www.youtube.com/watch?v=S6GNtMGNcUE&t=583s
+
 Grid Layout: https://www.youtube.com/watch?v=68O6eOGAGqA&t=395s
+
 Local Storage: https://www.youtube.com/watch?v=YL1F4dCUlLc&t=1189s
                https://www.youtube.com/watch?v=rVyTjFofok0
+
 Modal popup windows: https://www.youtube.com/watch?v=XH5OW46yO8I
+
 Stack Overflow: https://stackoverflow.com/
 
 ## Credits:
