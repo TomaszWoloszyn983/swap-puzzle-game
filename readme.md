@@ -117,4 +117,4 @@ A simple tutorial how to display a timing out text: https://www.youtube.com/watc
 Stack Overflow: https://stackoverflow.com/
 
 ## Credits:
-<!-- Many thanks to Tim Nelson from Code Institute for great support, many  -->
+I'd like to especially thank to Tim Nelson from Code Institute for his great support.

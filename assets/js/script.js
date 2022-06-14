@@ -38,7 +38,7 @@ window.onload = function(){
             boardElement.appendChild(tile);
             
             //HOVERING OVER TILES
-            tile.addEventListener("mouseover", highlight);
+            tile.addEventListener("mousedown", highlight);
             tile.addEventListener("mouseleave", mouseLeave);
 
             //DRAG FUNCTIONALITY
@@ -220,7 +220,7 @@ function toggleStartButton(button){
     if(button.target.innerText == "Start New Game"){
         button.target.innerText = "Quit Game";
         startNewGame();
-    }else if((button.target.innerText == "Quit Game") || (button.target.innerText == "Game Completed")){  
+    }else if((button.target.innerText == "Quit Game") || (button.target.innerText == "Game Complete")){  
         button.target.innerText = "Start New Game";
         quitGame();
     }
@@ -242,11 +242,11 @@ function highlight(){
         }
 
         // Highlighting the hovered tile and its neighbours
-        this.style.border = "2px solid green";
+        this.style.border = "2px solid yellow";
         this.style.opacity = "1";
 
         for(let tile of list){
-            document.getElementById("tile"+tile).style.border = "2px dotted green";
+            document.getElementById("tile"+tile).style.border = "2px dotted yellow";
             document.getElementById("tile"+tile).style.opacity = "1";
         }   
     }
@@ -282,47 +282,6 @@ function isNeighbour(tile1, tile2){
     }
     return false;
 }
-
-/*
-    Searches for tiles neighbours which are elements below, above and on the sides of the tile.
-    The function finds the neighbours by adding 1 for the right neighbour, subtracting 1 for the 
-    left one, adding 4 for lower one and subtracting 4 for the upper one.
-    It checking if the number of the tile isn't lower that 0 or higher than the number of all tiles
-    in the board.
-
-    Returns the array of the neighbours elements
-*/ 
-// function neighbours(tile){
-//     let neighbours = [];
-//     let thisTile = tile;
-//     let url = tile.toString();
-//     let result = url.split('/assets');
-//     // console.log(result);
-
-//     for (let i=1; i<=columns*rows; i++){
-//         let tile2 = result[0]+"/assets/images/"+[i]+".jpg";
-//         // console.log("compare thisTile "+thisTile+ " to "+tile2);
-//             if(tile2 === thisTile){
-
-//                 if(upperNeighbour(i)>0){
-//                     neighbours.push(result[0]+"/assets/images/"+upperNeighbour(i)+".jpg");
-//                 }
-//                 if(lowerNeighbour(i)>0){
-//                     neighbours.push(result[0]+"/assets/images/"+lowerNeighbour(i)+".jpg");
-//                 }
-//                 if(leftNeighbour(i)>0){
-//                     neighbours.push(result[0]+"/assets/images/"+leftNeighbour(i)+".jpg");
-//                 }
-//                 if(rightNeighbour(i)>0){
-//                     neighbours.push(result[0]+"/assets/images/"+rightNeighbour(i)+".jpg");
-//                 }
-//                 break;
-//             }else{
-//                 // console.log("Tile " +[i]+ " not found");
-//             }
-//         }   
-//         return neighbours;
-// }
 
 /**
  * Takes: tile id
@@ -511,7 +470,7 @@ function isSolved(){
             togglePopup();   
             
         }  
-        document.getElementById('btn_new_game').innerText = "Game Completed";
+        document.getElementById('btn_new_game').innerText = "Game Complete";
         gameOn = false;
         return true;
 
@@ -524,29 +483,6 @@ function isSolved(){
         return false;
     }
 }
-
-/**
-    If players turnsnumber is lower than the last members of the 
-    ranking list, then add the new player to the ranking list.
-    Sort the the list ascendingly to the turnsNumber.
-    If the aaray length is getting bigger than 10 delete the last member.
- * @param {*} player 
- */ 
-// function addToRanking(player){
-
-//         if(player.turnsNumber < ranking[ranking.length-1].turnsNumber){
-//             ranking.push(player);
-//             ranking.sort(function(a, b) {
-//                     return a.turnsNumber - b.turnsNumber;
-//                 });
-
-//             if(ranking.length>10){
-//                 ranking.pop();
-//             }
-//         }
-//         updateHtmlList(ranking);
-//         updateLocalStorage(ranking);
-// }
 
 /**
  * Function is sorting the ranking and then it adds
