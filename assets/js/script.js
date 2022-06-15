@@ -438,7 +438,7 @@ function isSolved(){
          */
         if(ranking.length != 0 && turns < ranking[0].turnsNumber){  // If the result is better than the first result in the ranking.
             document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
-            "\nThis is our new record. Write your name";
+            "\nThis is our new record! Put your name down.";
             togglePopup2(); 
         }else if(ranking.length < 10){                          // if the result list isn't full/it's length is smaller than 10.
             document.getElementById("popupContentTwo").innerHTML = 
@@ -451,10 +451,9 @@ function isSolved(){
             document.getElementById("popupContentTwo").innerHTML = 
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\You result qualify to our Best Results."+
-            "\nWould you like to write your name to our best results list?"; 
+            "\nWould you like to write down your name to our best results list?"; 
             togglePopup2();
             ranking.pop();  
-            console.log("One out of the ranking :"+ ranking.length);
         }else{                                                  // if player doesn't qualify to the best results  
             document.getElementById("popupContentOne").innerText = "You've solved the puzzles in "+turns+" turns!"+
             "\nStart a new game to try again.";                           
