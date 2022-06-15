@@ -393,7 +393,7 @@ function dragEnd() {
             otherTile.src = currImg;
             turns += 1;
         }else{
-            document.getElementById('message_box').innerText = "You can only swap a tile with the highlighted tiles";
+            document.getElementById('message_box').innerText = "You can only swap a tile with an adjacent and highlighted tiles";
             setTimeout(() => {
                 document.getElementById('message_box').innerText = "";
             }, 3000);
@@ -466,7 +466,7 @@ function isSolved(){
         return true;
 
     }else if(gameOn == false){
-        document.getElementById('message_box').innerText = "Click Start New Game button.";
+        document.getElementById('message_box').innerText = 'Click "Start New Game" button.';
             setTimeout(() => {
                 document.getElementById('message_box').innerText = "";
             }, 3000);
