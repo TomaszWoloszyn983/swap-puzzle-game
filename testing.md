@@ -58,7 +58,9 @@
     This is an example of Lighthouse inspection in Microsort Edge browser made using inPrivate mode.
 
 
-- Although the game is also responsive on every mobile devices as Tablets or Smart Phones, most of the devices using touch screen don't support Drag and Drop functionality, so it is recommended to use a mouse to play this game.
+- Although the game is also responsive on every type of mobile devices as Tablets or Smart Phones, most of the devices using touch screen don't support Drag and Drop technology.
+    **On every mobile device I've tested the game, the drag and drop functionality did NOT work properly**. Even connecting a mouse for the test using a recommended adapter, did not solve the problem and the tiles were still unable to drag.
+    That's why it is NOT recommended to use mobile devices for this game.
 
     ![Mobile phone](documentation/images/resp_mobile_2.jpg)
     ![Mobile phone](documentation/images/mobile_issue.jpg)
