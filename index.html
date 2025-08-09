@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Tile Swap Puzzle">
+    <meta name="keywords" content="Puzzle, game, tile, swap, jigsaw">
+    <meta name="author" content="Tomasz Woloszyn">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <title>Tile Swap Puzzle</title>
+</head>
+<body>
+
+            <!-- Header Section -->
+    <div id="header">
+        <nav id="nav_bar">
+            <button class="nav_button" id="help_btn" >Help</button>
+            <button class="nav_button" id="about_btn" >About</button>
+        </nav>
+        <h1>
+            <label>Tile Swap Puzzle</label> 
+        </h1>
+    </div>
+
+             <!-- Main section containing: Game board, info panel and Best Results list -->
+    <main id="game_container">
+        <section id="rules">
+            <h2>Welcome to the game</h2>
+            <p>Click "Start New Game" button to begin.<br>
+                Drag tiles to swap them with their nearest adjacent tiles.
+                Put them in the right order to build the image in the board.<br><br>
+                The fewer attempts, the better result!
+                <br><br>
+                It is NOT recommended to use mobile devices with touch screen for this game.
+            </p>
+            <p id="message_box"></p>
+        </section>
+        
+                <!-- Game board -->
+        <section id="game_window">
+            <div id="board"></div>
+
+            <h2>Turns: <span id="turns">0</span></h2>
+            <button type="button" id="btn_new_game">Start New Game</button>
+
+                    <!-- Popup boxes section -->
+            <div class = "popup" id="popup-1"> 
+                <div class="overlay"></div>
+                <div class="content">
+                    <!-- <div class="close-btn" onclick="togglePopup()">&times;</div> -->
+                    <h3>Well Done!</h3>
+                    <p id="popupContentOne"></p>
+                    <button type="button" id="submit_no_record">OK</button>
+                </div>
+            </div>
+
+            <div class = "popup" id="popup-2"> 
+                <div class="overlay"></div>
+                <div class="content">
+                    <!-- <div class="close-btn" >&times;</div> temporarly removed function onclick="togglePopup2()" -->
+                    <h3>Well Done!</h3>
+                    <p id="popupContentTwo"></p>
+                    <input type="text" id="name_box" placeholder="Your name">
+                    <button type="submit" id="submit_name" >OK</button>
+                </div>
+            </div>
+                <!-- Help Popup box -->
+            <div class = "popup" id="popup-help"> 
+                <div class="overlay"></div>
+                <div class="content">
+                    <h2>Help</h2>
+                    <p> 
+                        1. Click "Start New Game" button to begin.
+                        <br>
+                        2. Swap tiles to complete the Puzzles. Remember that you can only swap a puzzle 
+                        with its adjacent tile: the nearest left, right, upper or a puzzle below 
+                        the selected puzzle. To make it easier for you the correct tiles are highlighted 
+                        so you can easily locate them.
+                        <br>
+                        3. Complete the picture of a man in a hat to finish the game. The fewer turns you 
+                        you will need to complete the task the better. 
+                        You can put your name down to be shown on Best Results.
+                        <br><br>
+                        The game does not support touch screen functionality, so it is NOT recommended using 
+                        mobile devices for this game.
+                        <br><br>
+                        Enjoy the game!
+                        <br><br>
+                    </p>
+                    <button type="button" id="closeHelp">Close</button>
+                </div>
+            </div>
+                <!-- About Popup box -->
+            <div class = "popup" id="popup-about"> 
+                <div class="overlay"></div>
+                <div class="content">
+                    <h2>About the application:</h2>
+                    <p>
+                        This is Swap Tiles Puzzle Game. Version 1.1<br>
+                        Author: Tomasz Woloszyn<br>
+                        Application was created to serve educational purposes only 
+                        and will not be used for any commercial use.<br>
+                        Images used in this project belong to the author 
+                        and are subject to copyright protection.<br><br>
+                        For more informations please visit:<br>
+                        profile TomaszWoloszyn983 on https://github.com
+                        <br>
+                        or contact the Author:
+                        <br>
+                        tomaszwoloszyn983@gmail.com
+                        <br><br>
+                    </p>
+                    <button type="button" id="closeAbout">Close</button>
+                </div>
+            </div>
+
+        </section>
+        
+            <!-- Best Results list -->
+        <section id="results">
+            <h2>Best results</h2>
+            <ol id="ranking">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ol>
+        </section>
+    </main>
+
+    <br>
+    <hr>
+        <!-- Footer -->
+    <footer id="footer">
+        <label>All Copyrights Reserved</label>
+    </footer>
+
+    <script rel="script" src="assets/js/script.js" ></script>
+</body>
+</html>
