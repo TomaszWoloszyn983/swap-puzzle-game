@@ -29,9 +29,14 @@ window.onload = function(){
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
 
+            /**
+             * 
+             */
+
             // INITIALIZE TILES WITH PIECES OF IMAGE
             let tile = document.createElement("img");
-            tile.src = "assets/images/"+(++i)+".jpg";
+            // assets\images\pieces\piece_0.jpg
+            tile.src = "assets/images/pieces/piece_"+(i++)+".jpg";
             let tileId = "tile"+i;
             tile.setAttribute("id", tileId);  // Add id attribute to the tile.
             tile.setAttribute('alt', tileId); // Add alt attribute to the tile.
@@ -131,7 +136,7 @@ function togglePopupAbout(){
  * Used in onLoad function to initialize the pieces array.
  */
 function setPieces(){
-    for (let i=1; i <= rows*columns; i++) {
+    for (let i=0; i < rows*columns; i++) {
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
     }
 }
@@ -164,7 +169,7 @@ function fillInOrder(){
     let tiles = board.children;
 
     for (let i = 0; i < pieces.length; i++) {    // Put pieces in the order. From 1 to 10.
-        tiles[i].src = "assets/images/" + (i+1) + ".jpg";
+        tiles[i].src = "assets/images/pieces/piece_" + (i) + ".jpg";
     }
 }
 
@@ -179,7 +184,7 @@ function fillShuffle(){
     let shuffledPieces = shuffle(orderedPieces);
 
     for (let i = 0; i < shuffledPieces.length; i++) {
-        tiles[i].src = "assets/images/" + shuffledPieces[i] + ".jpg";
+        tiles[i].src = "assets/images/pieces/piece_" + shuffledPieces[i] + ".jpg";
     }
 }
 
@@ -423,7 +428,7 @@ function isSolved(){
 
         //  Check if the condition to win the game is met. If it isn't the function returns false and the rest of the code isn't executed.
         for(let i=0; i<pieces.length; i++){
-            let orderedPiece = result[0]+"/assets/images/" + [i+1] + ".jpg";
+            let orderedPiece = result[0]+"/assets/images/pieces/piece_" + [i] + ".jpg";
             if(currentOrder[i].src == orderedPiece){
             }else{
                 return false;
@@ -509,4 +514,6 @@ function getRankingFromLocalStorage(){
     ranking = items;
     updateHtmlList(items);
 }
+
+
 

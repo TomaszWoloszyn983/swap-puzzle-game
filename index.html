@@ -10,8 +10,22 @@
     <meta name="author" content="Tomasz Woloszyn">
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/uploadImage.js" ></script>
 
     <title>Tile Swap Puzzle</title>
+
+    <style>
+        #piecesContainer {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-top: 20px;
+        }
+        #piecesContainer img {
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
 
@@ -24,6 +38,8 @@
         <h1>
             <label>Tile Swap Puzzle</label> 
         </h1>
+        <div id="status"></div>
+
     </div>
 
              <!-- Main section containing: Game board, info panel and Best Results list -->
@@ -46,6 +62,42 @@
 
             <h2>Turns: <span id="turns">0</span></h2>
             <button type="button" id="btn_new_game">Start New Game</button>
+
+                <!-- Upload Image -->
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" name="image" id="imageInput" accept="image/*" required>
+                <button type="submit">Upload & Split</button>
+            </form>
+
+            <div id="piecesContainer"></div>
+
+            <script>
+                document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData();
+                    console.log("Submit image upload.")
+                    formData.append("image", document.getElementById("imageInput").files[0]);
+
+                    const res = await fetch("/upload", {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    const data = await res.json();
+                    if (data.pieces) {
+                        const container = document.getElementById("piecesContainer");
+                        container.innerHTML = ""; // Clear old images
+
+                        data.pieces.forEach(url => {
+                            const img = document.createElement("img");
+                            img.src = url + "?t=" + Date.now(); // Prevent caching
+                            container.appendChild(img);
+                        });
+                    }
+                });
+            </script>
+
 
                     <!-- Popup boxes section -->
             <div class = "popup" id="popup-1"> 
@@ -139,5 +191,6 @@
     </footer>
 
     <script rel="script" src="assets/js/script.js" ></script>
+    <script src="assets/js/uploadImage.js" ></script>
 </body>
 </html>
