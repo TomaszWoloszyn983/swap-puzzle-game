@@ -1,7 +1,11 @@
-
 // Numbers of rows and columns in the main board
 const rows = 5;
 const columns = 4;
+
+// Directories where image pieces are stored
+const piecesDir = "assets/images/pieces";
+const defaultDir = "assets/images/default";
+let useDir = piecesDir;
 
 // Used for drag functionality
 let currTile;
@@ -23,25 +27,24 @@ window.onload = function(){
     getRankingFromLocalStorage();
     let boardElement = document.getElementById("board");
     setPieces();
-        /*Initialize the main board with tiles made of croped image*/ 
+    /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
-    
+
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
-
-            /**
-             * 
-             */
-
+        /**
+         * 
+         */
             // INITIALIZE TILES WITH PIECES OF IMAGE
             let tile = document.createElement("img");
             // assets\images\pieces\piece_0.jpg
-            tile.src = "assets/images/pieces/piece_"+(i++)+".jpg";
+            // console.log("Processing piece: "+useDir+"/piece_"+(i)+".jpg")
+            tile.src = useDir+"/piece_"+(i++)+".jpg";
             let tileId = "tile"+i;
             tile.setAttribute("id", tileId);  // Add id attribute to the tile.
             tile.setAttribute('alt', tileId); // Add alt attribute to the tile.
             boardElement.appendChild(tile);
-            
+
             //HOVERING OVER AND HIGHLIGHTING TILES
             tile.addEventListener("mousedown", highlight);
             tile.addEventListener("mouseleave", mouseLeave);
@@ -57,7 +60,33 @@ window.onload = function(){
             document.getElementById("board").append(tile);
         }
     }
+    
 };
+
+/**
+ * Sends request to loaclhost to check if there are any files
+ * uploaded by the user.
+ * 
+ * If so, it set the users pieces folder
+ * Otherwise it sets the folder with default pieces.
+ */
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const response = await fetch("http://localhost:3000/getPiecesDir");
+        const data = await response.json();
+        const dir = data.dir;
+
+        if(dir.includes("default")){
+            useDir = defaultDir;
+            console.log("Set to default");
+        }else{
+            useDir = piecesDir
+            console.log("Set to pieces");
+        };
+    } catch (err) {
+        console.error("❌ Failed to load pieces directory:", err);
+    }
+});
 
 // buttons Event Listeners.
 let submitNoRecord = document.getElementById("submit_no_record");
@@ -169,7 +198,7 @@ function fillInOrder(){
     let tiles = board.children;
 
     for (let i = 0; i < pieces.length; i++) {    // Put pieces in the order. From 1 to 10.
-        tiles[i].src = "assets/images/pieces/piece_" + (i) + ".jpg";
+        tiles[i].src = useDir+"/piece_" + (i) + ".jpg";
     }
 }
 
@@ -184,7 +213,7 @@ function fillShuffle(){
     let shuffledPieces = shuffle(orderedPieces);
 
     for (let i = 0; i < shuffledPieces.length; i++) {
-        tiles[i].src = "assets/images/pieces/piece_" + shuffledPieces[i] + ".jpg";
+        tiles[i].src = useDir+"/piece_" + shuffledPieces[i] + ".jpg";
     }
 }
 
@@ -428,7 +457,7 @@ function isSolved(){
 
         //  Check if the condition to win the game is met. If it isn't the function returns false and the rest of the code isn't executed.
         for(let i=0; i<pieces.length; i++){
-            let orderedPiece = result[0]+"/assets/images/pieces/piece_" + [i] + ".jpg";
+            let orderedPiece = result[0]+"/"+useDir+"/piece_" + [i] + ".jpg";
             if(currentOrder[i].src == orderedPiece){
             }else{
                 return false;

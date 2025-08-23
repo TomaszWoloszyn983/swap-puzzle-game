@@ -60,6 +60,12 @@ app.post("/upload", upload.single("image"), async (req, res) => {
       }
     }
 
+      // ✅ Delete the uploaded file after processing
+    fs.unlink(inputPath, (err) => {
+        if (err) console.error("Failed to delete temp file:", err);
+        else console.log("🗑️ Deleted uploaded file:", inputPath);
+    });
+
     res.json({ message: "Image uploaded and split!", pieces: count });
   } catch (err) {
     console.error(err);
@@ -67,6 +73,27 @@ app.post("/upload", upload.single("image"), async (req, res) => {
   }
 });
 
+
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
+});
+
+app.get("/getPiecesDir", (req, res) => {
+  const piecesDir = path.join(__dirname, "assets/images/pieces");
+  const defaultDir = path.join(__dirname, "assets/images/default");
+
+  console.log("Check if any image is uploaded ...")
+    try {
+    const files = fs.readdirSync(piecesDir);
+    if (files.length > 0) {
+      return res.json({ dir: piecesDir, files });
+    }
+  } catch (err) {
+    console.log("Unexpected error occured.")
+  }
+
+  // fallback
+  const files = fs.readdirSync(defaultDir);
+  res.json({ dir: "/" + defaultDir, files });
 });

@@ -38,5 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
         statusDiv.innerHTML = "❌ Error uploading/splitting image.";
       }
     }
+    
+    // Refresh the page/
+    window.location.reload();
   });
 });
