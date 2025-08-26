@@ -9,8 +9,8 @@
     <meta name="keywords" content="Puzzle, game, tile, swap, jigsaw">
     <meta name="author" content="Tomasz Woloszyn">
 
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/uploadImage.js" ></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="uploadImage.js" ></script>
 
     <title>Tile Swap Puzzle</title>
 
@@ -63,8 +63,11 @@
             <h2>Turns: <span id="turns">0</span></h2>
             <button type="button" id="btn_new_game">Start New Game</button>
 
-                <!-- Upload Image -->
-            <form id="uploadForm" enctype="multipart/form-data">
+            <!-- Upload Image Button -->
+            <button type="button" id="btn_upload_image">Upload Image</button>
+
+            <!-- Upload Form (hidden by default) -->
+            <form id="uploadForm" enctype="multipart/form-data" style="display:none; margin-top:10px;">
                 <input type="file" name="image" id="imageInput" accept="image/*" required>
                 <button type="submit">Upload & Split</button>
             </form>
@@ -190,7 +193,7 @@
         <label>All Copyrights Reserved</label>
     </footer>
 
-    <script rel="script" src="assets/js/script.js" ></script>
-    <script src="assets/js/uploadImage.js" ></script>
+    <script rel="script" src="script.js" ></script>
+    <script src="uploadImage.js" ></script>
 </body>
 </html>

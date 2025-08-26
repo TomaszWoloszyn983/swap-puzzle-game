@@ -8,12 +8,12 @@ const app = express();
 const PORT = 3000;
 
 // Serve static frontend files
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "assets/images/inputImages");
+    cb(null, "public/assets/images/inputImages");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -25,7 +25,7 @@ const upload = multer({ storage });
 app.post("/upload", upload.single("image"), async (req, res) => {
   try {
     const inputPath = req.file.path;
-    const outputDir = "assets/images/pieces";
+    const outputDir = "public/assets/images/pieces";
 
     // Clear old pieces
     if (fs.existsSync(outputDir)) {
@@ -80,8 +80,9 @@ app.listen(PORT, () => {
 });
 
 app.get("/getPiecesDir", (req, res) => {
-  const piecesDir = path.join(__dirname, "assets/images/pieces");
-  const defaultDir = path.join(__dirname, "assets/images/default");
+  
+  const piecesDir = path.join(__dirname, "public/assets/images/pieces");
+  const defaultDir = path.join(__dirname, "public/assets/images/default");
 
   console.log("Check if any image is uploaded ...")
     try {

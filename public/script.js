@@ -63,6 +63,21 @@ window.onload = function(){
     
 };
 
+document.addEventListener("DOMContentLoaded", () => {
+    const uploadBtn = document.getElementById("btn_upload_image");
+    const uploadForm = document.getElementById("uploadForm");
+
+    uploadBtn.addEventListener("click", () => {
+        // Toggle form visibility
+        if (uploadForm.style.display === "none") {
+            uploadForm.style.display = "block";
+        } else {
+            uploadForm.style.display = "none";
+        }
+    });
+});
+
+
 /**
  * Sends request to loaclhost to check if there are any files
  * uploaded by the user.
