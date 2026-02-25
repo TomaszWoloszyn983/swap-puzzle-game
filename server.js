@@ -26,6 +26,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
   try {
     const inputPath = req.file.path;
     const outputDir = "public/assets/images/pieces";
+    const defaultDir = "public/assets/images/default";
 
     // Clear old pieces
     if (fs.existsSync(outputDir)) {
@@ -85,13 +86,17 @@ app.get("/getPiecesDir", (req, res) => {
   const defaultDir = path.join(__dirname, "public/assets/images/default");
 
   console.log("Check if any image is uploaded ...")
-    try {
+  try {
     const files = fs.readdirSync(piecesDir);
     if (files.length > 0) {
+      console.log("Loading uploaded image.")
       return res.json({ dir: piecesDir, files });
+    }else{
+      console.log("Loading default image.")
+      return res.json({ dir: defaultDir, files });
     }
   } catch (err) {
-    console.log("Unexpected error occured.")
+    console.log("Unexpected error occured during loading image pieces.")
   }
 
   // fallback
