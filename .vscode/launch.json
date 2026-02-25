@@ -3,6 +3,15 @@
   // Hover to view descriptions of existing attributes.
   "version": "0.2.0",
   "configurations": [
+  {
+    "name": "Attach",
+    "port": 9229,
+    "request": "attach",
+    "skipFiles": [
+      "<node_internals>/**"
+    ],
+    "type": "node"
+  },
       {
             "name": "Python: Current File (Integrated Terminal)",
             "type": "python",

@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const response = await fetch("http://localhost:3000/getPiecesDir");
+        const response = await fetch("/getPiecesDir");
         const data = await response.json();
         const dir = data.dir;
 
