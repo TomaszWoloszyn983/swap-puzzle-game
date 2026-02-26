@@ -108,9 +108,9 @@ app.get("/getPiecesDir", (req, res) => {
 
     fs.readdir(piecesPath, (err, files) => {
         if (err || files.length === 0) {
-            res.json({ dir: "assets/images/default" });
+            res.json({ dir: "public/assets/images/default" });
         } else {
-            res.json({ dir: "assets/images/pieces" });
+            res.json({ dir: "public/assets/images/pieces" });
         }
     });
 });
