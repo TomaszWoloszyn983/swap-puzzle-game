@@ -26,7 +26,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
   try {
     const inputPath = req.file.path;
     const outputDir = "public/assets/images/pieces";
-    const defaultDir = "public/assets/images/default";
+    // const defaultDir = "public/assets/images/default";
 
     // Clear old pieces
     if (fs.existsSync(outputDir)) {
@@ -80,26 +80,37 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
 
-app.get("/getPiecesDir", (req, res) => {
+// app.get("/getPiecesDir", (req, res) => {
   
-  const piecesDir = path.join(__dirname, "public/assets/images/pieces");
-  const defaultDir = path.join(__dirname, "public/assets/images/default");
+//   const piecesDir = path.join(__dirname, "public/assets/images/pieces");
+//   const defaultDir = path.join(__dirname, "public/assets/images/default");
 
-  console.log("Check if any image is uploaded ...")
-  try {
-    const files = fs.readdirSync(piecesDir);
-    if (files.length > 0) {
-      console.log("Loading uploaded image.")
-      return res.json({ dir: piecesDir, files });
-    }else{
-      console.log("Loading default image.")
-      return res.json({ dir: defaultDir, files });
-    }
-  } catch (err) {
-    console.log("Unexpected error occured during loading image pieces.")
-  }
+//   console.log("Check if any image is uploaded ...")
+//   try {
+//     const files = fs.readdirSync(piecesDir);
+//     if (files.length > 0) {
+//       console.log("Loading uploaded image.")
+//       return res.json({ dir: piecesDir, files });
+//     }else{
+//       console.log("Loading default image.")
+//       return res.json({ dir: defaultDir, files });
+//     }
+//   } catch (err) {
+//     console.log("Unexpected error occured during loading image pieces.")
+//   }
 
-  // fallback
-  const files = fs.readdirSync(defaultDir);
-  res.json({ dir: "/" + defaultDir, files });
+//   // fallback
+//   const files = fs.readdirSync(defaultDir);
+//   res.json({ dir: "/" + defaultDir, files });
+// });
+app.get("/getPiecesDir", (req, res) => {
+    const piecesPath = path.join(__dirname, "public/assets/images/pieces");
+
+    fs.readdir(piecesPath, (err, files) => {
+        if (err || files.length === 0) {
+            res.json({ dir: "assets/images/default" });
+        } else {
+            res.json({ dir: "assets/images/pieces" });
+        }
+    });
 });
