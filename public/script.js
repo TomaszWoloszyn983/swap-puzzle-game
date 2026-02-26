@@ -26,7 +26,13 @@ window.onload = function(){
 
     getRankingFromLocalStorage();
     let boardElement = document.getElementById("board");
-    setPieces();
+        try{
+            console.log("Try if setPieces")
+            setPieces();
+        }catch(err){
+            console.log("setPieces failed, fill up in order.")
+            fillInOrder()
+        }
     /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
 
@@ -180,6 +186,7 @@ function togglePopupAbout(){
  * Used in onLoad function to initialize the pieces array.
  */
 function setPieces(){
+    console.log("Set pieces")
     for (let i=0; i < rows*columns; i++) {
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
     }
@@ -190,7 +197,7 @@ function setPieces(){
     array of pieces ordered randomly.
 */ 
 function shuffle(piecesList){
-   
+    console.log("Shuffle pieces")
     let newList = piecesList;
 
     newList.reverse();
@@ -209,6 +216,7 @@ function shuffle(piecesList){
  * Fills the game board with ordered pieces.
  */
 function fillInOrder(){
+    console.log("Fill in order.")
     let board = document.getElementById("board");
     let tiles = board.children;
 
