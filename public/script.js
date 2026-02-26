@@ -26,8 +26,8 @@ window.onload = function(){
 
     getRankingFromLocalStorage();
     let boardElement = document.getElementById("board");
-    // setPieces();
-    fillInOrder()   
+    setPieces();
+
     /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
 
@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             useDir = piecesDir
             console.log("Set to pieces");
         };
+        setPieces()
     } catch (err) {
         console.error("❌ Failed to load pieces directory:", err);
     }
@@ -183,6 +184,7 @@ function togglePopupAbout(){
 function setPieces(){
     console.log("Set pieces")
     for (let i=0; i < rows*columns; i++) {
+        console.log(" - piece: "+i.toString)
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
     }
 }
