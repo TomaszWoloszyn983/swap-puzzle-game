@@ -22,47 +22,83 @@ let player = {
 }; 
 let ranking = [];
 
-window.onload = function(){
+// window.onload = function(){
+
+//     getRankingFromLocalStorage();
+//     let boardElement = document.getElementById("board");
+//     setPieces();
+
+//     /*Initialize the main board with tiles made of croped image*/ 
+//     let i = 0;
+
+//     for (let r = 0; r < rows; r++) {
+//         for (let c = 0; c < columns; c++) {
+//         /**
+//          * 
+//          */
+//             // INITIALIZE TILES WITH PIECES OF IMAGE
+//             let tile = document.createElement("img");
+//             // assets\images\pieces\piece_0.jpg
+//             // console.log("Processing piece: "+useDir+"/piece_"+(i)+".jpg")
+//             tile.src = useDir+"/piece_"+(i++)+".jpg";
+//             let tileId = "tile"+i;
+//             tile.setAttribute("id", tileId);  // Add id attribute to the tile.
+//             tile.setAttribute('alt', tileId); // Add alt attribute to the tile.
+//             boardElement.appendChild(tile);
+
+//             //HOVERING OVER AND HIGHLIGHTING TILES
+//             tile.addEventListener("mousedown", highlight);
+//             tile.addEventListener("mouseleave", mouseLeave);
+
+//             //DRAG FUNCTIONALITY
+//             tile.addEventListener("dragstart", dragStart); //click on image to drag
+//             tile.addEventListener("dragover", dragOver);   //drag an image
+//             tile.addEventListener("dragenter", dragEnter); //dragging an image into another one
+//             tile.addEventListener("dragleave", dragLeave); //dragging an image away from another one
+//             tile.addEventListener("drop", dragDrop);       //drop an image onto another one
+//             tile.addEventListener("dragend", dragEnd);      //after you completed dragDrop
+
+//             document.getElementById("board").append(tile);
+//         }
+//     }
+    
+// };
+
+function initializeBoard() {
 
     getRankingFromLocalStorage();
+
     let boardElement = document.getElementById("board");
+    boardElement.innerHTML = ""; // clear board if needed
+
+    pieces = []; // reset pieces array
     setPieces();
 
-    /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
-        /**
-         * 
-         */
-            // INITIALIZE TILES WITH PIECES OF IMAGE
-            let tile = document.createElement("img");
-            // assets\images\pieces\piece_0.jpg
-            // console.log("Processing piece: "+useDir+"/piece_"+(i)+".jpg")
-            tile.src = useDir+"/piece_"+(i++)+".jpg";
-            let tileId = "tile"+i;
-            tile.setAttribute("id", tileId);  // Add id attribute to the tile.
-            tile.setAttribute('alt', tileId); // Add alt attribute to the tile.
-            boardElement.appendChild(tile);
 
-            //HOVERING OVER AND HIGHLIGHTING TILES
+            let tile = document.createElement("img");
+            tile.src = useDir + "/piece_" + (i++) + ".jpg";
+
+            let tileId = "tile" + i;
+            tile.setAttribute("id", tileId);
+            tile.setAttribute("alt", tileId);
+
             tile.addEventListener("mousedown", highlight);
             tile.addEventListener("mouseleave", mouseLeave);
+            tile.addEventListener("dragstart", dragStart);
+            tile.addEventListener("dragover", dragOver);
+            tile.addEventListener("dragenter", dragEnter);
+            tile.addEventListener("dragleave", dragLeave);
+            tile.addEventListener("drop", dragDrop);
+            tile.addEventListener("dragend", dragEnd);
 
-            //DRAG FUNCTIONALITY
-            tile.addEventListener("dragstart", dragStart); //click on image to drag
-            tile.addEventListener("dragover", dragOver);   //drag an image
-            tile.addEventListener("dragenter", dragEnter); //dragging an image into another one
-            tile.addEventListener("dragleave", dragLeave); //dragging an image away from another one
-            tile.addEventListener("drop", dragDrop);       //drop an image onto another one
-            tile.addEventListener("dragend", dragEnd);      //after you completed dragDrop
-
-            document.getElementById("board").append(tile);
+            boardElement.appendChild(tile);
         }
     }
-    
-};
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const uploadBtn = document.getElementById("btn_upload_image");
@@ -99,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             useDir = piecesDir
             console.log("Set to pieces");
         };
-        setPieces()
+        initializeBoard()
     } catch (err) {
         console.error("❌ Failed to load pieces directory:", err);
     }
