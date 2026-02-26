@@ -26,13 +26,8 @@ window.onload = function(){
 
     getRankingFromLocalStorage();
     let boardElement = document.getElementById("board");
-        try{
-            console.log("Try if setPieces")
-            setPieces();
-        }catch(err){
-            console.log("setPieces failed, fill up in order.")
-            fillInOrder()
-        }
+    // setPieces();
+    fillInOrder()   
     /*Initialize the main board with tiles made of croped image*/ 
     let i = 0;
 
