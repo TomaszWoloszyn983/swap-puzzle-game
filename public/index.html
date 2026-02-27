@@ -10,7 +10,7 @@
     <meta name="author" content="Tomasz Woloszyn">
 
     <link rel="stylesheet" href="style.css">
-    <script src="uploadImage.js" ></script>
+    <!-- <script src="uploadImage.js" ></script> -->
 
     <title>Tile Swap Puzzle</title>
 
@@ -66,11 +66,22 @@
             <!-- Upload Image Button -->
             <button type="button" id="btn_upload_image">Upload Image</button>
 
-            <!-- Upload Form (hidden by default) -->
-            <form id="uploadForm" enctype="multipart/form-data" style="display:none; margin-top:10px;">
-                <input type="file" name="image" id="imageInput" accept="image/*" required>
-                <button type="submit">Upload & Split</button>
-            </form>
+            <!-- Upload Image Popup -->
+            <div class="popup" id="popup-upload">
+                <div class="overlay"></div>
+                <div class="content">
+                    <h3>Upload New Image</h3>
+
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <input type="file" name="image" id="imageInput" accept="image/*" required>
+                        <br><br>
+                        <button type="submit">Upload & Split</button>
+                    </form>
+
+                    <br>
+                    <button type="button" id="closeUpload">Cancel</button>
+                </div>
+            </div>
 
             <div id="piecesContainer"></div>
 

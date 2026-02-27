@@ -60,17 +60,43 @@ function initializeBoard() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const uploadBtn = document.getElementById("btn_upload_image");
-    const uploadForm = document.getElementById("uploadForm");
+    // const uploadForm = document.getElementById("uploadForm");
+    const uploadForm = document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
 
-    uploadBtn.addEventListener("click", () => {
-        // Toggle form visibility
-        if (uploadForm.style.display === "none") {
-            uploadForm.style.display = "block";
-        } else {
-            uploadForm.style.display = "none";
+        const formData = new FormData();
+        formData.append("image", document.getElementById("imageInput").files[0]);
+
+        const res = await fetch("/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await res.json();
+
+        if (data.pieces) {
+            toggleUploadPopup();   // 🔥 close popup
+            location.reload();     // optional: reload board cleanly
         }
     });
-});
+
+    // uploadBtn.addEventListener("click", () => {
+    //     // Toggle form visibility
+    //     if (uploadForm.style.display === "none") {
+    //         uploadForm.style.display = "block";
+    //     } else {
+    //         uploadForm.style.display = "none";
+    //     }
+    // });
+
+    uploadBtn.addEventListener("click", toggleUploadPopup);
+    closeUploadBtn.addEventListener("click", toggleUploadPopup);
+    }
+);
+
+function toggleUploadPopup() {
+    document.getElementById("popup-upload").classList.toggle("active");
+}
 
 
 /**

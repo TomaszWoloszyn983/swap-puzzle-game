@@ -21,58 +21,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Upload route
-// app.post("/upload", upload.single("image"), async (req, res) => {
-//   try {
-//     const inputPath = req.file.path;
-//     const outputDir = "public/assets/images/pieces";
-//     // const defaultDir = "public/assets/images/default";
-
-//     // Clear old pieces
-//     if (fs.existsSync(outputDir)) {
-//       fs.readdirSync(outputDir).forEach((f) =>
-//         fs.unlinkSync(path.join(outputDir, f))
-//       );
-//     } else {
-//       fs.mkdirSync(outputDir, { recursive: true });
-//     }
-
-//     // Read metadata
-//     const metadata = await sharp(inputPath).metadata();
-
-//     // ✅ Now split into 4 columns × 5 rows
-//     const pieceWidth = Math.floor(metadata.width / 4); // 4 columns
-//     const pieceHeight = Math.floor(metadata.height / 5); // 5 rows
-
-//     let count = 0;
-//     for (let y = 0; y < 5; y++) {          // 5 rows
-//       for (let x = 0; x < 4; x++) {        // 4 columns
-//         const left = x * pieceWidth;
-//         const top = y * pieceHeight;
-
-//         const piecePath = path.join(outputDir, `piece_${count}.jpg`);
-
-//         // NEW sharp() per loop
-//         await sharp(inputPath)
-//           .extract({ left, top, width: pieceWidth, height: pieceHeight })
-//           .toFile(piecePath);
-
-//         count++;
-//       }
-//     }
-
-//       // ✅ Delete the uploaded file after processing
-//     fs.unlink(inputPath, (err) => {
-//         if (err) console.error("Failed to delete temp file:", err);
-//         else console.log("🗑️ Deleted uploaded file:", inputPath);
-//     });
-
-//     res.json({ message: "Image uploaded and split!", pieces: count });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: "Image processing failed." });
-//   }
-// });
 
 app.post("/upload", upload.single("image"), async (req, res) => {
   try {
@@ -148,9 +96,9 @@ app.get("/getPiecesDir", (req, res) => {
 
     fs.readdir(piecesPath, (err, files) => {
         if (err || files.length === 0) {
-            res.json({ dir: "public/assets/images/default" });
+            res.json({ dir: "assets/images/default" });
         } else {
-            res.json({ dir: "public/assets/images/pieces" });
+            res.json({ dir: "assets/images/pieces" });
         }
     });
 });
