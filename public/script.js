@@ -22,48 +22,6 @@ let player = {
 }; 
 let ranking = [];
 
-// window.onload = function(){
-
-//     getRankingFromLocalStorage();
-//     let boardElement = document.getElementById("board");
-//     setPieces();
-
-//     /*Initialize the main board with tiles made of croped image*/ 
-//     let i = 0;
-
-//     for (let r = 0; r < rows; r++) {
-//         for (let c = 0; c < columns; c++) {
-//         /**
-//          * 
-//          */
-//             // INITIALIZE TILES WITH PIECES OF IMAGE
-//             let tile = document.createElement("img");
-//             // assets\images\pieces\piece_0.jpg
-//             // console.log("Processing piece: "+useDir+"/piece_"+(i)+".jpg")
-//             tile.src = useDir+"/piece_"+(i++)+".jpg";
-//             let tileId = "tile"+i;
-//             tile.setAttribute("id", tileId);  // Add id attribute to the tile.
-//             tile.setAttribute('alt', tileId); // Add alt attribute to the tile.
-//             boardElement.appendChild(tile);
-
-//             //HOVERING OVER AND HIGHLIGHTING TILES
-//             tile.addEventListener("mousedown", highlight);
-//             tile.addEventListener("mouseleave", mouseLeave);
-
-//             //DRAG FUNCTIONALITY
-//             tile.addEventListener("dragstart", dragStart); //click on image to drag
-//             tile.addEventListener("dragover", dragOver);   //drag an image
-//             tile.addEventListener("dragenter", dragEnter); //dragging an image into another one
-//             tile.addEventListener("dragleave", dragLeave); //dragging an image away from another one
-//             tile.addEventListener("drop", dragDrop);       //drop an image onto another one
-//             tile.addEventListener("dragend", dragEnd);      //after you completed dragDrop
-
-//             document.getElementById("board").append(tile);
-//         }
-//     }
-    
-// };
-
 function initializeBoard() {
 
     getRankingFromLocalStorage();
@@ -130,10 +88,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if(dir.includes("default")){
             useDir = defaultDir;
-            console.log("Set to default");
+            console.log("Use defalut image.");
         }else{
             useDir = piecesDir
-            console.log("Set to pieces");
+            console.log("Use uploaded image.");
         };
         initializeBoard()
     } catch (err) {
@@ -220,7 +178,6 @@ function togglePopupAbout(){
 function setPieces(){
     console.log("Set pieces")
     for (let i=0; i < rows*columns; i++) {
-        console.log(" - piece: "+i.toString)
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
     }
 }
@@ -249,7 +206,7 @@ function shuffle(piecesList){
  * Fills the game board with ordered pieces.
  */
 function fillInOrder(){
-    console.log("Fill in order.")
+    console.log("Sort in order.")
     let board = document.getElementById("board");
     let tiles = board.children;
 

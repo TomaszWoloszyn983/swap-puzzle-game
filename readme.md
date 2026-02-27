@@ -13,6 +13,8 @@ There is also a turns counter below the main game board that counts how many mov
 did the player had to make to complete the task. If the number of turns is low enough 
 the player name can be added and displayed in the Best Results list.
 
+Link to the Swap Puzzle Game v2 [Here](https://swap-puzzle-game-2.onrender.com)
+
 ## Features
 The project includes only one main page, divided into three main sections:
 - **Header** 
