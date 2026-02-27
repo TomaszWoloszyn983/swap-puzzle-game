@@ -60,6 +60,7 @@ function initializeBoard() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const uploadBtn = document.getElementById("btn_upload_image");
+    let closeUploadBtn = document.getElementById("closeUpload");
     // const uploadForm = document.getElementById("uploadForm");
     const uploadForm = document.getElementById("uploadForm").addEventListener("submit", async function(e) {
         e.preventDefault();
@@ -79,15 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
             location.reload();     // optional: reload board cleanly
         }
     });
-
-    // uploadBtn.addEventListener("click", () => {
-    //     // Toggle form visibility
-    //     if (uploadForm.style.display === "none") {
-    //         uploadForm.style.display = "block";
-    //     } else {
-    //         uploadForm.style.display = "none";
-    //     }
-    // });
 
     uploadBtn.addEventListener("click", toggleUploadPopup);
     closeUploadBtn.addEventListener("click", toggleUploadPopup);
