@@ -42,14 +42,22 @@
 
     </div>
 
-             <!-- Main section containing: Game board, info panel and Best Results list -->
+    <!-- Main section containing: Game board, info panel and Best Results list -->
     <main id="game_container">
         <section id="rules">
             <h2>Welcome to the game</h2>
             <p>Click "Start New Game" button to begin.<br>
                 Drag tiles to swap them with their nearest adjacent tiles.
-                Put them in the right order to build the image in the board.<br><br>
+                Put them in the right order to build the image in the board.
+                <br><br>
                 The fewer attempts, the better result!
+                <br><br>
+                To upload your own image:<br>
+                 - Click Upload Image button<br>
+                 - Select image from your hard drive<br>
+                 - Submit by clicking 'Upload & Split' button.<br>
+                <br><br>
+                It is strongly recommended to use photos in a vertical position.
                 <br><br>
                 It is NOT recommended to use mobile devices with touch screen for this game.
             </p>
@@ -64,9 +72,11 @@
             <button type="button" id="btn_new_game">Start New Game</button>
 
             <!-- Upload Image Button -->
-            <button type="button" id="btn_upload_image">Upload Image</button>
+            <!-- <button type="button" id="btn_upload_image">Upload Image</button> -->
+            <button type="submit" id="uploadSubmit">Upload & Split</button>
+            <span id="uploadLoading" style="display:none;">Processing image...</span>
 
-            <!-- Upload Image Popup -->
+        <!-- Upload Image Popup -->
             <div class="popup" id="popup-upload">
                 <div class="overlay"></div>
                 <div class="content">
