@@ -6,7 +6,7 @@ Link to the Swap Puzzle Game v2 [Here](https://swap-puzzle-game-2.onrender.com)
 
 ## Project Overview 
 
-![Title image](documentation/images/am_i_responsive.jpg)
+![Title image](documentation/images/am_i_responsive.png)
 
 Tile Swap Puzzle is a full-stack web application that allows users to play a drag-and-drop tile puzzle game and dynamically generate new puzzles by uploading their own images.
 
