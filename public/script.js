@@ -58,61 +58,70 @@ function initializeBoard() {
     }
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     const uploadBtn = document.getElementById("btn_upload_image");
-//     let closeUploadBtn = document.getElementById("closeUpload");
-//     // const uploadForm = document.getElementById("uploadForm");
-//     const uploadForm = document.getElementById("uploadForm").addEventListener("submit", async function(e) {
-//         e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+    const uploadBtn = document.getElementById("btn_upload_image");
+    let closeUploadBtn = document.getElementById("closeUpload");
+    // const uploadForm = document.getElementById("uploadForm");
+    document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
 
-//         const formData = new FormData();
-//         formData.append("image", document.getElementById("imageInput").files[0]);
+        const submitBtn = document.getElementById("uploadSubmit");
+        const loadingText = document.getElementById("uploadLoading");
 
-//         const res = await fetch("/upload", {
-//             method: "POST",
-//             body: formData
-//         });
+        submitBtn.disabled = true;
+        loadingText.style.display = "inline";
 
-//         const data = await res.json();
+        const formData = new FormData();
+        formData.append("image", document.getElementById("imageInput").files[0]);
 
-//         if (data.pieces) {
-//             toggleUploadPopup();   // 🔥 close popup
-//             location.reload();     // optional: reload board cleanly
-//         }
-//     });
+        const res = await fetch("/upload", {
+            method: "POST",
+            body: formData
+        });
 
-//     uploadBtn.addEventListener("click", toggleUploadPopup);
-//     closeUploadBtn.addEventListener("click", toggleUploadPopup);
-//     }
-// );
+        const data = await res.json();
 
-document.getElementById("uploadForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+        submitBtn.disabled = false;
+        loadingText.style.display = "none";
 
-    const submitBtn = document.getElementById("uploadSubmit");
-    const loadingText = document.getElementById("uploadLoading");
-
-    submitBtn.disabled = true;
-    loadingText.style.display = "inline";
-
-    const formData = new FormData();
-    formData.append("image", document.getElementById("imageInput").files[0]);
-
-    const res = await fetch("/upload", {
-        method: "POST",
-        body: formData
+        if (data.pieces) {
+            toggleUploadPopup();
+            location.reload();
+        }
     });
 
-    const data = await res.json();
-
-    submitBtn.disabled = false;
-    loadingText.style.display = "none";
-
-    if (data.pieces) {
-        toggleUploadPopup();
-        location.reload();
+    uploadBtn.addEventListener("click", toggleUploadPopup);
+    closeUploadBtn.addEventListener("click", toggleUploadPopup);
     }
-});
+);
+
+// document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+//     e.preventDefault();
+
+//     const submitBtn = document.getElementById("uploadSubmit");
+//     const loadingText = document.getElementById("uploadLoading");
+
+//     submitBtn.disabled = true;
+//     loadingText.style.display = "inline";
+
+//     const formData = new FormData();
+//     formData.append("image", document.getElementById("imageInput").files[0]);
+
+//     const res = await fetch("/upload", {
+//         method: "POST",
+//         body: formData
+//     });
+
+//     const data = await res.json();
+
+//     submitBtn.disabled = false;
+//     loadingText.style.display = "none";
+
+//     if (data.pieces) {
+//         toggleUploadPopup();
+//         location.reload();
+//     }
+// });
 
 function toggleUploadPopup() {
     document.getElementById("popup-upload").classList.toggle("active");
