@@ -58,10 +58,13 @@ function initializeBoard() {
     }
 }
 
+/**
+ * Displays Upload New Image popup window.
+ * Handles: opening popup, uploading image, loading indicator, canceling upload
+ */
 document.addEventListener("DOMContentLoaded", () => {
     const uploadBtn = document.getElementById("btn_upload_image");
     let closeUploadBtn = document.getElementById("closeUpload");
-    // const uploadForm = document.getElementById("uploadForm");
     document.getElementById("uploadForm").addEventListener("submit", async function(e) {
         e.preventDefault();
 
@@ -95,33 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 );
 
-// document.getElementById("uploadForm").addEventListener("submit", async function(e) {
-//     e.preventDefault();
-
-//     const submitBtn = document.getElementById("uploadSubmit");
-//     const loadingText = document.getElementById("uploadLoading");
-
-//     submitBtn.disabled = true;
-//     loadingText.style.display = "inline";
-
-//     const formData = new FormData();
-//     formData.append("image", document.getElementById("imageInput").files[0]);
-
-//     const res = await fetch("/upload", {
-//         method: "POST",
-//         body: formData
-//     });
-
-//     const data = await res.json();
-
-//     submitBtn.disabled = false;
-//     loadingText.style.display = "none";
-
-//     if (data.pieces) {
-//         toggleUploadPopup();
-//         location.reload();
-//     }
-// });
 
 function toggleUploadPopup() {
     document.getElementById("popup-upload").classList.toggle("active");

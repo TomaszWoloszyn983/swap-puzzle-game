@@ -1,19 +1,23 @@
 # Tile Swap Puzzle.
 
-## Welcome to my Project! 
+## Live Application
+
+Link to the Swap Puzzle Game v2 [Here](https://swap-puzzle-game-2.onrender.com)
+
+## Project Overview 
 
 ![Title image](documentation/images/am_i_responsive.jpg)
 
+Tile Swap Puzzle is a full-stack web application that allows users to play a drag-and-drop tile puzzle game and dynamically generate new puzzles by uploading their own images.
 
+The application evolved from a front-end game into a production-ready full-stack project with:
+- Server-side image processing
+- Dynamic asset generation
+- Cloud deployment
+- Persistent client-side ranking system
+- Modal-based UI architecture
 
-The subject of the project is a puzzle game. The purpose of the game is to swap tiles
-and put then in the correct order. Displaying tiles in the right order will reveal the 
-picture and will complete the game.
-There is also a turns counter below the main game board that counts how many movements
-did the player had to make to complete the task. If the number of turns is low enough 
-the player name can be added and displayed in the Best Results list.
-
-Link to the Swap Puzzle Game v2 [Here](https://swap-puzzle-game-2.onrender.com)
+This project demonstrates practical experience with JavaScript across both client and server environments, asynchronous programming, file system management, and production debugging.
 
 ## Features
 The project includes only one main page, divided into three main sections:
@@ -54,6 +58,39 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 
   * **Turns counter** Turns Counter display how many movements have been made so far. The number increases everytime we make a swap.
 
+  * **Upload Your Own Image (New Feature)** A major new feature in Version 2 allows users to upload their own image and instantly transform it into a playable puzzle.
+
+  **How It Works:**
+
+1. Click Upload Image
+2. A modal popup window appears
+3. Select an image file from your device
+4. Click Upload & Split
+5. The server:
+  - Processes the image
+  - Splits it into 20 equal tiles (5 rows × 4 columns)
+  - Stores the pieces
+  - Reloads the board with the new image
+
+**Upload Popup Window**
+
+The upload form appears inside a modal popup for improved UI experience.
+
+**Features:**
+
+- Clean overlay design
+- Cancel button to close without uploading
+- Loading state while image is being processed
+- Automatic board refresh after successful upload
+
+**This feature is powered by:**
+- Node.js backend
+- Express server
+- Multer (file uploads)
+- Sharp (image processing & slicing)
+
+The image is processed server-side and dynamically loaded into the game board.
+
 - **Side bars** 
   * **Greeting bar** Displays greeting and brief introduction to the game and its rules.
   * **Best Results** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stored in the Local Storage and they as restored after each entry to the game.
@@ -70,12 +107,17 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 
 ## Technologies used:
   - Javascript - High-level programming language.
+  - Node.js – Backend server
+  - Express – Server framework
+  - Multer – Image upload handling
+  - Sharp – Image processing and splitting
   - HTML5 - Markup language used to make webpages.
   - CSS3 - A language used to style HTML and XHTML documents presentations in web development.
   - Gitpod - Online integrated development environment.
   - GitHub - Version control service used for storing and sharing development projects.
   - Drag and Drop - Functionality that allows to select a virtual object by "grapping" it and "dragging" it to a different location or onto another virtual object
   - Local Storage - Used for storing data such as the game results in the browsers memory.
+  - Render – Cloud hosting and deployment
 
 
 ## Testing
@@ -87,12 +129,15 @@ More details about tesings are available in the separate testing section [here](
 
 ## Deployment
 
-The site was deployed to GitHub pages. The steps to deploy are as follows: 
-  - In the [GitHub repository](https://github.com/TomaszWoloszyn983/swap-puzzle-game), navigate to the Settings tab 
-  - From the source section drop-down menu, select the **Main** Branch, then click "Save".
-  - The page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment.
+The site was deployed using Render: 
+  
+Deployment process:
+1. Push project to GitHub
+2. Connect repository to Render
+3. Set build/start command
+4. Deploy automatically from main branch
 
-The live link can be found [here](https://tomaszwoloszyn983.github.io/swap-puzzle-game/)
+Live link [here](https://swap-puzzle-game-2.onrender.com)
 
 ### Local Deployment
 
