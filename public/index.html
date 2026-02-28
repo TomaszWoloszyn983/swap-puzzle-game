@@ -72,9 +72,7 @@
             <button type="button" id="btn_new_game">Start New Game</button>
 
             <!-- Upload Image Button -->
-            <!-- <button type="button" id="btn_upload_image">Upload Image</button> -->
-            <button type="submit" id="uploadSubmit">Upload & Split</button>
-            <span id="uploadLoading" style="display:none;">Processing image...</span>
+            <button type="button" id="btn_upload_image">Upload Image</button>
 
         <!-- Upload Image Popup -->
             <div class="popup" id="popup-upload">
@@ -85,7 +83,9 @@
                     <form id="uploadForm" enctype="multipart/form-data">
                         <input type="file" name="image" id="imageInput" accept="image/*" required>
                         <br><br>
-                        <button type="submit">Upload & Split</button>
+                        <!-- <button type="submit">Upload & Split</button> -->
+                        <button type="submit" id="uploadSubmit">Upload & Split</button>
+                        <span id="uploadLoading" style="display:none;">Processing image...</span>
                     </form>
 
                     <br>
