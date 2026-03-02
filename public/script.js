@@ -482,6 +482,30 @@ function dragEnd() {
     isSolved();
 }
 
+function checkWinningCondition(){
+    // src="https://swap-puzzle-game-2.onrender.com/assets/images/pieces/piece_19.jpg"
+
+    if (turns <= 0 || !gameOn) return false;
+    const children = Array.from(document.getElementById("board").children);
+    const numbers = children.map(child => extractPieceNumber(child.src));
+
+    return isAscending(numbers);
+}
+
+function extractPieceNumber(src) {
+    const match = src.match(/piece_(\d+)\.jpg/);
+    return match ? Number(match[1]) : null;
+}
+
+function isAscending(orderArray) {
+    for (let i = 0; i < orderArray.length - 1; i++) {
+        if (orderArray[i] > orderArray[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 /**
  *  Compare the current pieces order to the required order.
     If every piece is in the required order then the function 
@@ -494,19 +518,7 @@ function dragEnd() {
  * @returns 
  */
 function isSolved(){
-    if(turns > 0 && gameOn === true){
-        let currentOrder =  document.getElementById("board").children;
-        let url = currentOrder[0].src.toString();
-        let result = url.split('/assets');
-
-        //  Check if the condition to win the game is met. If it isn't the function returns false and the rest of the code isn't executed.
-        for(let i=0; i<pieces.length; i++){
-            let orderedPiece = result[0]+"/"+useDir+"/piece_" + [i] + ".jpg";
-            if(currentOrder[i].src == orderedPiece){
-            }else{
-                return false;
-            }
-        }
+    if(turns > 0 && gameOn === true && checkWinningCondition()){
 
         /**
          * If the condition is met and the game is won the code below is executed.
