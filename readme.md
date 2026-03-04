@@ -129,7 +129,7 @@ More details about tesings are available in the separate testing section [here](
 
 ## Deployment
 
-The site was deployed using Render: 
+The site was deployed using [Render](https://render.com/): 
   
 Deployment process:
 1. Push project to GitHub
@@ -149,6 +149,8 @@ Alternatively, if using Gitpod, you can click below to create your own workspace
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/TomaszWoloszyn983/swap-puzzle-game)
 
+To run the project locally in you computer (using for example VSC) install [Node.js](https://nodejs.org/en/download), and type: ***server.js*** in your Ide command line. 
+ 
 
 ## References and Credits:
 Drag and Drop swap puzzle: https://www.youtube.com/watch?v=S6GNtMGNcUE&t=583s

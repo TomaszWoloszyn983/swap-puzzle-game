@@ -8,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Serve static frontend files
+const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
 // Multer storage

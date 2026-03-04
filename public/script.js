@@ -482,6 +482,15 @@ function dragEnd() {
     isSolved();
 }
 
+
+/**
+ * Checking if all pieces are arranged in ascending order
+ * 
+ * To achive this, pieces numbers are extracted from pieces urls,
+ * and then the pieces orders is checked. 
+ * 
+ * @returns True if the pieces are ordered or False if the pieces ale unordered
+ */
 function checkWinningCondition(){
     // src="https://swap-puzzle-game-2.onrender.com/assets/images/pieces/piece_19.jpg"
 
@@ -518,14 +527,15 @@ function isAscending(orderArray) {
  * @returns 
  */
 function isSolved(){
-    if(turns > 0 && gameOn === true && checkWinningCondition()){
 
+    if(turns > 0 && gameOn === true && checkWinningCondition()){
         /**
          * If the condition is met and the game is won the code below is executed.
          * 
          * Depending on what condition is met Popup modal box will be initialized with a different String value
          * and corresponding functions will be called.
          */
+        console.log("Solved!")
         if(ranking.length != 0 && turns < ranking[0].turnsNumber){  // If the result is better than the first result in the ranking.
             document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
             "\nThis is our new record! Put your name down.";
