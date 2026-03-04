@@ -149,7 +149,7 @@ Alternatively, if using Gitpod, you can click below to create your own workspace
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/TomaszWoloszyn983/swap-puzzle-game)
 
-To run the project locally in you computer (using for example VSC) install [Node.js](https://nodejs.org/en/download), and type: ***server.js*** in your Ide command line. 
+To run the project locally in you computer (using for example VSC) install [Node.js](https://nodejs.org/en/download), and type: ***node server.js*** in your Ide command line. 
  
 
 ## References and Credits:

@@ -8,13 +8,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Serve static frontend files
-const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static("public"));
 
 // Multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/assets/images/inputImages");
+    cb(null, "frontend/public/assets/images/inputImages");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -22,11 +22,23 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-
 app.post("/upload", upload.single("image"), async (req, res) => {
   try {
-    const inputPath = req.file.path;
-    const outputDir = path.join(__dirname, "public/assets/images/pieces");
+    const path = require("path");
+    const fs = require("fs");
+    const sharp = require("sharp");
+
+    // 🔥 Always build absolute path
+    const inputPath = path.resolve(req.file.path);
+
+    // Build output directory safely
+    const outputDir = path.join(
+      __dirname,
+      "public",
+      "assets",
+      "images",
+      "pieces"
+    );
 
     // Ensure directory exists
     if (!fs.existsSync(outputDir)) {
@@ -34,9 +46,14 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     }
 
     // Clear old pieces
-    fs.readdirSync(outputDir).forEach((f) =>
-      fs.unlinkSync(path.join(outputDir, f))
+    fs.readdirSync(outputDir).forEach((file) =>
+      fs.unlinkSync(path.join(outputDir, file))
     );
+
+    // Make sure input file really exists before sharp runs
+    if (!fs.existsSync(inputPath)) {
+      throw new Error(`Input file does not exist: ${inputPath}`);
+    }
 
     const metadata = await sharp(inputPath).metadata();
 
@@ -46,7 +63,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     const pieceHeight = Math.floor(metadata.height / rows);
 
     let count = 0;
-    let writePromises = [];
+    const writePromises = [];
 
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
@@ -55,37 +72,24 @@ app.post("/upload", upload.single("image"), async (req, res) => {
 
         const piecePath = path.join(outputDir, `piece_${count}.jpg`);
 
-        // push promise instead of awaiting immediately
         writePromises.push(
           sharp(inputPath)
             .extract({ left, top, width: pieceWidth, height: pieceHeight })
             .toFile(piecePath)
         );
-
         count++;
       }
     }
 
-    // 🔥 Wait for ALL pieces to finish writing
     await Promise.all(writePromises);
 
-    // 🔥 Double-check files exist (extra safety for cloud FS)
-    const finalFiles = fs.readdirSync(outputDir);
-    if (finalFiles.length !== rows * cols) {
-      throw new Error("Not all pieces were written.");
-    }
-
-    // Delete uploaded temp file
-    fs.unlinkSync(inputPath);
-
-    res.json({ message: "Image uploaded and split!", pieces: count });
+    res.json({ message: "Image successfully split into pieces." });
 
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Image processing failed." });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
