@@ -178,6 +178,8 @@ function popUpWin1(){
         updateHtmlList(ranking);
         updateLocalStorage(ranking);
 
+    sendResult(setName, turns)
+    console.log("Sending username and result to backend.")
     document.getElementById("popup-2").classList.toggle("active");
 }
 
@@ -480,6 +482,21 @@ function dragEnd() {
   
     document.getElementById("turns").innerText = turns;
     isSolved();
+}
+
+async function sendResult(username, moves) {
+
+  await fetch("http://localhost:8080/api/game/result", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username: username,
+      moves: moves
+    })
+  });
+
 }
 
 
