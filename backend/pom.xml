@@ -107,6 +107,17 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<!--				  keep this fragment for debugging purposes in case of Flyway problems and migrations with use of terminal	-->
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<configuration>
+					<url>jdbc:h2:file:D:/Kodowanie/H2_database/H2_database</url> <!-- Replace with your actual database path -->
+					<user></user>  <!-- Replace with actual username -->
+					<password></password>  <!-- Replace with actual password -->
+					<cleanDisabled>false</cleanDisabled>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

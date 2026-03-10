@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS DT_PRODUCTS;
+DROP TABLE IF EXISTS dt_game_result;
 
-CREATE TABLE game_result (
+CREATE TABLE dt_game_result (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
     moves INTEGER NOT NULL,
