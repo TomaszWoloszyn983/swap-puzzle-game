@@ -121,4 +121,29 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<!-- Development Profile -->
+		<profile>
+			<id>dev</id>
+			<properties>
+				<!-- You can also set the active Spring profile here -->
+				<spring.profiles.active>dev</spring.profiles.active>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.flywaydb</groupId>
+						<artifactId>flyway-maven-plugin</artifactId>
+						<configuration>
+							<!--suppress UnresolvedMavenProperty -->
+							<url>${DATABASE_URL}</url>
+							<user></user> <!-- No username needed for H2 -->
+							<password></password> <!-- No password needed for H2 -->
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
