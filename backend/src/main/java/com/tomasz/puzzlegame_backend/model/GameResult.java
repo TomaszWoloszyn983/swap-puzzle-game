@@ -9,11 +9,8 @@ public class GameResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String username;
-
     private int moves;
-
     private LocalDateTime playedAt;
 
     public GameResult() {}
@@ -23,5 +20,4 @@ public class GameResult {
         this.moves = moves;
         this.playedAt = LocalDateTime.now();
     }
-
 }

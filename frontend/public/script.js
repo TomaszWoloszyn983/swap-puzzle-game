@@ -484,6 +484,12 @@ function dragEnd() {
     isSolved();
 }
 
+/**
+ * Passes the players name and the result to the Java backend.
+ * 
+ * @param {*} username 
+ * @param {*} moves 
+ */
 async function sendResult(username, moves) {
 
   await fetch("http://localhost:8080/api/game/result", {
@@ -496,7 +502,17 @@ async function sendResult(username, moves) {
       moves: moves
     })
   });
+}
 
+/**
+ * Sends a request to the Java backend.
+ * Receives top 10 results from the database.
+ */
+async function loadLeaderboard() {
+
+  const res = await fetch("http://localhost:8080/api/game/leaderboard");
+  const data = await res.json();
+  console.log(data);
 }
 
 
