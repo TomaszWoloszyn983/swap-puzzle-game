@@ -569,6 +569,7 @@ function isSolved(){
          * and corresponding functions will be called.
          */
         console.log("Solved!")
+        loadLeaderboard();
         if(ranking.length != 0 && turns < ranking[0].turnsNumber){  // If the result is better than the first result in the ranking.
             document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
             "\nThis is our new record! Put your name down.";

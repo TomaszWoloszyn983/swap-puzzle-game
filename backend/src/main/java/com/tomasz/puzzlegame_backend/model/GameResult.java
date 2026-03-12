@@ -20,4 +20,16 @@ public class GameResult {
         this.moves = moves;
         this.playedAt = LocalDateTime.now();
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    public LocalDateTime getPlayedAt() {
+        return playedAt;
+    }
 }

@@ -40,6 +40,12 @@ public class GameController {
      */
     @GetMapping("/leaderboard")
     public List<GameResult> leaderboard() {
-        return repository.findTop10ByOrderByMovesAsc();
+        List<GameResult> bestResults = repository.findTop10ByOrderByMovesAsc();
+        int counter = 0;
+        for(GameResult result : bestResults){
+            System.out.println("Result "+(++counter)+". Name: "+result.getUsername()+
+                    ", Moves: "+result.getMoves());
+        }
+        return bestResults;
     }
 }
