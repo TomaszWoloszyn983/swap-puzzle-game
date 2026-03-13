@@ -1,8 +1,11 @@
 package com.tomasz.puzzlegame_backend.dto;
 
+import java.util.UUID;
+
 public class GameResultRequest {
     private String username;
     private int moves;
+    private UUID sessionId;
 
     public String getUsername() {
         return username;
@@ -19,4 +22,7 @@ public class GameResultRequest {
     public void setMoves(int moves) {
         this.moves = moves;
     }
+
+    public UUID getSessionId() {return sessionId;}
+    public void setSessionId(UUID sessionId) {this.sessionId = sessionId;}
 }

@@ -27,9 +27,11 @@ public class GameController {
     @PostMapping("/result")
     public String receiveResult(@RequestBody GameResultRequest result) {
 
-        GameResult gameResult = new GameResult(result.getUsername(), result.getMoves());
+        GameResult gameResult = new GameResult(result.getUsername(), result.getMoves(), result.getSessionId());
         repository.save(gameResult);
-        System.out.println("User: " + result.getUsername()+", Moves: " + result.getMoves());
+        System.out.println("User: " + result.getUsername()
+                +", Moves: " + result.getMoves()
+                +", session id"+result.getSessionId());
         return "Result received!";
     }
 

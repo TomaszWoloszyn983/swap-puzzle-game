@@ -491,7 +491,7 @@ function dragEnd() {
  * @param {*} moves 
  */
 async function sendResult(username, moves) {
-
+  const sessionId = getSessionId();
   await fetch("http://localhost:8080/api/game/result", {
     method: "POST",
     headers: {
@@ -499,7 +499,8 @@ async function sendResult(username, moves) {
     },
     body: JSON.stringify({
       username: username,
-      moves: moves
+      moves: moves,
+      sessionId: sessionId
     })
   });
 }
@@ -644,5 +645,20 @@ function getRankingFromLocalStorage(){
     updateHtmlList(items);
 }
 
+/**
+ * Get ession Id.
+ * Session Id will be added to GameResult object to prevent
+ * leaderboard spam
+ * 
+ * @returns 
+ */
+function getSessionId() {
+  let sessionId = localStorage.getItem("puzzleSessionId");
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    localStorage.setItem("puzzleSessionId", sessionId);
+  }
+  return sessionId;
+}
 
 
