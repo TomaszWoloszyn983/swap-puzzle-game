@@ -2,9 +2,13 @@ package com.tomasz.puzzlegame_backend.controller;
 import com.tomasz.puzzlegame_backend.dto.GameResultRequest;
 import com.tomasz.puzzlegame_backend.model.GameResult;
 import com.tomasz.puzzlegame_backend.repository.GameResultRepository;
+import com.tomasz.puzzlegame_backend.service.GameResultService;
+import com.tomasz.puzzlegame_backend.service.RewardService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/game")
@@ -12,9 +16,13 @@ import java.util.List;
 public class GameController {
 
     private final GameResultRepository repository;
+    private final GameResultService service;
+    private final RewardService rewardService;
 
-    public GameController(GameResultRepository repository) {
+    public GameController(GameResultRepository repository, GameResultService service, RewardService rewardService) {
         this.repository = repository;
+        this.service = service;
+        this.rewardService = rewardService;
     }
 
     /**
@@ -25,14 +33,18 @@ public class GameController {
      * @return
      */
     @PostMapping("/result")
-    public String receiveResult(@RequestBody GameResultRequest result) {
+    public ResponseEntity<?> receiveResult(@RequestBody GameResultRequest result) {
 
+        int reward = rewardService.calculateReward(result.getMoves());
         GameResult gameResult = new GameResult(result.getUsername(), result.getMoves(), result.getSessionId());
         repository.save(gameResult);
         System.out.println("User: " + result.getUsername()
                 +", Moves: " + result.getMoves()
                 +", session id"+result.getSessionId());
-        return "Result received!";
+        return ResponseEntity.ok(Map.of(
+                "message", "Result processed",
+                "reward", reward
+                ));
     }
 
     /**

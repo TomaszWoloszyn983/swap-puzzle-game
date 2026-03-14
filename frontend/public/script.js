@@ -1,3 +1,9 @@
+// Assign localhost dynamically
+const API_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:8080"
+    : "https://your-backend-url.onrender.com";
+
 // Numbers of rows and columns in the main board
 const rows = 5;
 const columns = 4;
@@ -23,8 +29,10 @@ let player = {
 let ranking = [];
 
 function initializeBoard() {
+    console.log("Start game on "+API_URL)
 
-    getRankingFromLocalStorage();
+    // getRankingFromLocalStorage();
+    getRankingFromBackend()
 
     let boardElement = document.getElementById("board");
     boardElement.innerHTML = ""; // clear board if needed
@@ -492,7 +500,7 @@ function dragEnd() {
  */
 async function sendResult(username, moves) {
   const sessionId = getSessionId();
-  await fetch("http://localhost:8080/api/game/result", {
+  await fetch(API_URL+"/api/game/result", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -511,7 +519,7 @@ async function sendResult(username, moves) {
  */
 async function loadLeaderboard() {
 
-  const res = await fetch("http://localhost:8080/api/game/leaderboard");
+  const res = await fetch(API_URL+"/api/game/leaderboard");
   const data = await res.json();
   console.log(data);
 }
@@ -620,7 +628,7 @@ function updateHtmlList(ranking){
     let array = ranking;
     let list = "<ol>";
     for (let i = 0; i < array.length; i++){
-        list += '<li>' + array[i].name+" : "+array[i].turnsNumber+" turns" + '</li>';
+        list += '<li>' + array[i].username+" : "+array[i].moves+" turns" + '</li>';
     }
     list += "</ol>";
     document.getElementById("ranking").innerHTML = list;
@@ -640,9 +648,18 @@ function updateLocalStorage(ranking){
  */
 function getRankingFromLocalStorage(){
     let items = JSON.parse(localStorage.getItem('swapPuzzle')) || [];
-
     ranking = items;
     updateHtmlList(items);
+}
+async function getRankingFromBackend() {
+    try {
+        const response = await fetch(API_URL+"/api/game/leaderboard");
+        const items = await response.json();
+        ranking = items.map(i => ({name: i.username,score: i.moves}));;
+        updateHtmlList(items);
+    } catch (error) {
+        console.error("Failed to load leaderboard:", error);
+    }
 }
 
 /**

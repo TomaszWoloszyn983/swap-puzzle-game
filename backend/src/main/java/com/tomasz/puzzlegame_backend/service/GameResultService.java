@@ -12,9 +12,13 @@ import java.util.Optional;
 @Service
 public class GameResultService {
     private final GameResultRepository repository;
+    private final RewardService rewardService;
 
-    public GameResultService(GameResultRepository repository) {
+    public GameResultService(GameResultRepository repository,
+                             RewardService rewardService) {
+
         this.repository = repository;
+        this.rewardService = rewardService;
     }
 
 //    public void saveResult(String username, int moves) {
@@ -33,8 +37,9 @@ public class GameResultService {
 //        repository.save(result);
 //    }
 
-    public void saveResult(GameResultRequest request) {
+    public int saveResult(GameResultRequest request) {
         Optional<GameResult> existing = repository.findBySessionId(request.getSessionId());
+        int reward = rewardService.calculateReward(request.getMoves());
 
         if (existing.isPresent()) {
             GameResult result = existing.get();
@@ -44,6 +49,7 @@ public class GameResultService {
                 result.setMoves(request.getMoves());
                 result.setUsername(request.getUsername());
                 result.setPlayedAt(LocalDateTime.now());
+                result.setReward(reward);
                 repository.save(result);
             }
         } else {
@@ -54,6 +60,7 @@ public class GameResultService {
             result.setPlayedAt(LocalDateTime.now());
             repository.save(result);
         }
+        return reward;
     }
 
     public List<GameResult> getLeaderboard() {

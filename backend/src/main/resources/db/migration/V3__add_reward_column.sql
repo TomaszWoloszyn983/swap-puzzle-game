@@ -1,0 +1,1 @@
+ALTER TABLE dt_game_result ADD COLUMN reward INTEGER;

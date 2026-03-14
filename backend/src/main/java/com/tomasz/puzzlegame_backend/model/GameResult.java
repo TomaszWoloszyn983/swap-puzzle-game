@@ -14,6 +14,7 @@ public class GameResult {
     private int moves;
     private LocalDateTime playedAt;
     private UUID sessionId;
+    private int reward;
 
     public GameResult() {}
 
@@ -40,6 +41,8 @@ public class GameResult {
         return sessionId;
     }
 
+    public int getReward() {return reward;}
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -55,4 +58,6 @@ public class GameResult {
     public void setSessionId(UUID sessionId) {
         this.sessionId = sessionId;
     }
+
+    public void setReward(int reward) {this.reward = reward;}
 }
