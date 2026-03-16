@@ -183,7 +183,8 @@ function popUpWin1(){
 
     let player  = {name: setName, turnsNumber: turns};
         ranking.push(player);
-        updateHtmlList(ranking);
+        getRankingFromBackend()
+        // updateHtmlList(ranking);
         updateLocalStorage(ranking);
 
     sendResult(setName, turns)
@@ -578,7 +579,7 @@ function isSolved(){
          * and corresponding functions will be called.
          */
         console.log("Solved!")
-        loadLeaderboard();
+
         if(ranking.length != 0 && turns < ranking[0].turnsNumber){  // If the result is better than the first result in the ranking.
             document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
             "\nThis is our new record! Put your name down.";
@@ -605,6 +606,8 @@ function isSolved(){
         }  
         document.getElementById('btn_new_game').innerText = "Game Complete";
         gameOn = false;
+        // getRankingFromBackend()
+        loadLeaderboard();
         return true;
 
     }else if(gameOn == false){
