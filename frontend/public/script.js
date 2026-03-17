@@ -26,7 +26,7 @@ let player = {
     name: "",
     turnsNumber: 0
 }; 
-let ranking = [];
+let ranking = []; // {name : score}
 
 function initializeBoard() {
     console.log("Start game on "+API_URL)
@@ -183,9 +183,7 @@ function popUpWin1(){
 
     let player  = {name: setName, turnsNumber: turns};
         ranking.push(player);
-        getRankingFromBackend()
-        // updateHtmlList(ranking);
-        updateLocalStorage(ranking);
+        updateLocalStorage(ranking); // To be deleted 
 
     sendResult(setName, turns)
     console.log("Sending username and result to backend.")
@@ -194,7 +192,7 @@ function popUpWin1(){
 
 /**
  * Activate and deactivate Popup window when the game is won but the result doesn't 
- * qualify to the Best Resluts.
+ * qualify to the Best Results.
  */
 function popUpWin3(){
     document.getElementById("popup-1").classList.toggle("active");
@@ -493,38 +491,6 @@ function dragEnd() {
     isSolved();
 }
 
-/**
- * Passes the players name and the result to the Java backend.
- * 
- * @param {*} username 
- * @param {*} moves 
- */
-async function sendResult(username, moves) {
-  const sessionId = getSessionId();
-  await fetch(API_URL+"/api/game/result", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      username: username,
-      moves: moves,
-      sessionId: sessionId
-    })
-  });
-}
-
-/**
- * Sends a request to the Java backend.
- * Receives top 10 results from the database.
- */
-async function loadLeaderboard() {
-
-  const res = await fetch(API_URL+"/api/game/leaderboard");
-  const data = await res.json();
-  console.log(data);
-}
-
 
 /**
  * Checking if all pieces are arranged in ascending order
@@ -558,6 +524,7 @@ function isAscending(orderArray) {
     return true;
 }
 
+
 /**
  *  Compare the current pieces order to the required order.
     If every piece is in the required order then the function 
@@ -579,8 +546,16 @@ function isSolved(){
          * and corresponding functions will be called.
          */
         console.log("Solved!")
+        console.log(ranking.keys+" "+ranking.value)
+        for (let i = 0; i < ranking.length; i++){
+            console.log("Result "+(i+1)+" - "+ranking[i].username+" "+ranking[i].moves)
+        }
+        console.log("\n -----------------")
+        for (let i = 0; i < ranking.length; i++){
+            console.log("Result "+(i+1)+" - "+ranking[i].name+" "+ranking[i].score)
+        }
 
-        if(ranking.length != 0 && turns < ranking[0].turnsNumber){  // If the result is better than the first result in the ranking.
+        if(ranking.length != 0 && turns < ranking[0].score){  // If the result is better than the first result in the ranking.
             document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
             "\nThis is our new record! Put your name down.";
             togglePopup2(); 
@@ -591,11 +566,12 @@ function isSolved(){
             "\nWould you like to write your name to our best results list?"; 
             togglePopup2();       
 
-        }else if(turns < ranking[9].turnsNumber && ranking.length>=10){ // if player qualify to the best results
+        }else if(turns < ranking[9].score && ranking.length>=10){ // if player qualify to the best results
             document.getElementById("popupContentTwo").innerHTML = 
             "\nYou've solved the puzzles in "+turns+" turns!"+
-            "\You result qualify to our Best Results."+
+            "\nYou result qualifies to our Best Results."+
             "\nWould you like to write down your name to our best results list?"; 
+
             togglePopup2();
             ranking.pop();  
         }else{                                                  // if player doesn't qualify to the best results  
@@ -606,8 +582,7 @@ function isSolved(){
         }  
         document.getElementById('btn_new_game').innerText = "Game Complete";
         gameOn = false;
-        // getRankingFromBackend()
-        loadLeaderboard();
+        // await getRankingFromBackend()
         return true;
 
     }else if(gameOn == false){
@@ -619,6 +594,63 @@ function isSolved(){
         return false;
     }
 }
+
+
+
+/*
+
+        Leaderboard hendling
+
+*/
+
+
+/**
+ * Passes the players name and the result to the Java backend.
+ * 
+ * @param {*} username 
+ * @param {*} moves 
+ */
+// async function sendResult(username, moves) {
+//   const sessionId = getSessionId();
+//   await fetch(API_URL+"/api/game/result", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//       username: username,
+//       moves: moves,
+//       sessionId: sessionId
+//     })
+//   });
+// }
+async function sendResult(username, moves) {
+    const sessionId = getSessionId();
+    try {
+
+        const response = await fetch(API_URL+"/api/game/result", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username: username,
+            moves: moves,
+            sessionId: sessionId
+        })
+        });
+
+        const data = await response.json();
+        console.log("Reward:", data.reward);
+
+        // 🔹 refresh leaderboard immediately
+        await getRankingFromBackend();
+
+    } catch (error) {
+        console.error("Failed to send result:", error);
+    }
+}
+
 
 /**
  * Function is sorting the ranking and then it adds
@@ -663,6 +695,17 @@ async function getRankingFromBackend() {
     } catch (error) {
         console.error("Failed to load leaderboard:", error);
     }
+}
+
+/**
+ * Sends a request to the Java backend.
+ * Receives top 10 results from the database.
+ */
+async function loadLeaderboard() {
+
+  const res = await fetch(API_URL+"/api/game/leaderboard");
+  const data = await res.json();
+  return data;
 }
 
 /**
