@@ -546,14 +546,6 @@ function isSolved(){
          * and corresponding functions will be called.
          */
         console.log("Solved!")
-        console.log(ranking.keys+" "+ranking.value)
-        for (let i = 0; i < ranking.length; i++){
-            console.log("Result "+(i+1)+" - "+ranking[i].username+" "+ranking[i].moves)
-        }
-        console.log("\n -----------------")
-        for (let i = 0; i < ranking.length; i++){
-            console.log("Result "+(i+1)+" - "+ranking[i].name+" "+ranking[i].score)
-        }
 
         if(ranking.length != 0 && turns < ranking[0].score){  // If the result is better than the first result in the ranking.
             document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
@@ -582,7 +574,6 @@ function isSolved(){
         }  
         document.getElementById('btn_new_game').innerText = "Game Complete";
         gameOn = false;
-        // await getRankingFromBackend()
         return true;
 
     }else if(gameOn == false){
@@ -640,10 +631,10 @@ async function sendResult(username, moves) {
         })
         });
 
-        const data = await response.json();
-        console.log("Reward:", data.reward);
+        // const data = await response.json();
+        // console.log("Reward:", data.reward);
 
-        // 🔹 refresh leaderboard immediately
+        //  refresh leaderboard immediately
         await getRankingFromBackend();
 
     } catch (error) {

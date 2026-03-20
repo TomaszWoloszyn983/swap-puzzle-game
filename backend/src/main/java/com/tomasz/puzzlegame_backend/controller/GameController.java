@@ -55,11 +55,7 @@ public class GameController {
     @GetMapping("/leaderboard")
     public List<GameResult> leaderboard() {
         List<GameResult> bestResults = repository.findTop10ByOrderByMovesAsc();
-        int counter = 0;
-        for(GameResult result : bestResults){
-            System.out.println("Result "+(++counter)+". Name: "+result.getUsername()+
-                    ", Moves: "+result.getMoves());
-        }
+        System.out.println("Loaded data from database: "+(bestResults.size()));
         return bestResults;
     }
 }

@@ -48,7 +48,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     fs.readdirSync(outputDir).forEach((file) =>
       fs.unlinkSync(path.join(outputDir, file))
     );
-
+    
     // Make sure input file really exists before sharp runs
     if (!fs.existsSync(inputPath)) {
       throw new Error(`Input file does not exist: ${inputPath}`);
@@ -81,8 +81,8 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     }
 
     await Promise.all(writePromises);
-
     res.json({ message: "Image successfully split into pieces." });
+    clearFolder("frontend/public/assets/images/inputImages");
 
   } catch (err) {
     console.error(err);
@@ -106,3 +106,21 @@ app.get("/getPiecesDir", (req, res) => {
         }
     });
 });
+
+/**
+ * Deletes previously uploaded images from inputimages folder 
+ * Keeps the default image only.
+ * 
+ * @param {*} folderPath 
+ * @returns 
+ */
+function clearFolder(folderPath) {
+  if (!fs.existsSync(folderPath)) return;
+  const files = fs.readdirSync(folderPath);
+
+  for (const file of files) {
+    if (file.includes("man_in_a_hat")) continue;
+    fs.unlinkSync(path.join(folderPath, file));
+  }
+
+}
