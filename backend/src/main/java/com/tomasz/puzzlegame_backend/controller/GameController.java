@@ -4,6 +4,7 @@ import com.tomasz.puzzlegame_backend.model.GameResult;
 import com.tomasz.puzzlegame_backend.repository.GameResultRepository;
 import com.tomasz.puzzlegame_backend.service.GameResultService;
 import com.tomasz.puzzlegame_backend.service.RewardService;
+import com.tomasz.puzzlegame_backend.service.WalletService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +19,13 @@ public class GameController {
     private final GameResultRepository repository;
     private final GameResultService service;
     private final RewardService rewardService;
+    private final WalletService walletService;
 
-    public GameController(GameResultRepository repository, GameResultService service, RewardService rewardService) {
+    public GameController(GameResultRepository repository, GameResultService service, RewardService rewardService, WalletService walletService) {
         this.repository = repository;
         this.service = service;
         this.rewardService = rewardService;
+        this.walletService = walletService;
     }
 
     /**
@@ -38,13 +41,17 @@ public class GameController {
         int reward = rewardService.calculateReward(result.getMoves());
         GameResult gameResult = new GameResult(result.getUsername(), result.getMoves(), result.getSessionId());
         repository.save(gameResult);
+        int balance = walletService.getBalance(result.getSessionId());
+
         System.out.println("User: " + result.getUsername()
                 +", Moves: " + result.getMoves()
                 +", session id"+result.getSessionId());
+
         return ResponseEntity.ok(Map.of(
-                "message", "Result processed",
-                "reward", reward
-                ));
+            "message", "Result processed",
+            "reward", reward,
+            "balance", balance
+        ));
     }
 
     /**

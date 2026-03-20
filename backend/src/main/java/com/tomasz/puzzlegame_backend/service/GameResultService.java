@@ -13,33 +13,23 @@ import java.util.Optional;
 public class GameResultService {
     private final GameResultRepository repository;
     private final RewardService rewardService;
+    private final WalletService walletService;
 
     public GameResultService(GameResultRepository repository,
-                             RewardService rewardService) {
+                             RewardService rewardService, WalletService walletService) {
 
         this.repository = repository;
         this.rewardService = rewardService;
+        this.walletService = walletService;
     }
-
-//    public void saveResult(String username, int moves) {
-//        GameResult result = new GameResult(username, moves);
-//        repository.save(result);
-//    }
-
-//    public void saveResult(GameResultRequest request) {
-//
-//        GameResult result = new GameResult();
-//        result.setUsername(request.getUsername());
-//        result.setMoves(request.getMoves());
-//        result.setSessionId(request.getSessionId());
-//        result.setPlayedAt(LocalDateTime.now());
-//
-//        repository.save(result);
-//    }
 
     public int saveResult(GameResultRequest request) {
         Optional<GameResult> existing = repository.findBySessionId(request.getSessionId());
         int reward = rewardService.calculateReward(request.getMoves());
+        int newBalance = walletService.addReward(
+                request.getSessionId(),
+                reward
+        );
 
         if (existing.isPresent()) {
             GameResult result = existing.get();
@@ -49,7 +39,7 @@ public class GameResultService {
                 result.setMoves(request.getMoves());
                 result.setUsername(request.getUsername());
                 result.setPlayedAt(LocalDateTime.now());
-                result.setReward(reward);
+                result.setReward(newBalance);
                 repository.save(result);
             }
         } else {
