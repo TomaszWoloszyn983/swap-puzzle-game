@@ -13,7 +13,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/game")
-//@CrossOrigin(origins = "http://localhost:3000")
 public class GameController {
 
     private final GameResultRepository repository;
@@ -42,15 +41,18 @@ public class GameController {
         GameResult gameResult = new GameResult(result.getUsername(), result.getMoves(), result.getSessionId());
         repository.save(gameResult);
         int balance = walletService.getBalance(result.getSessionId());
+        int newBalance = walletService.addReward(result.getSessionId(), reward);
 
         System.out.println("User: " + result.getUsername()
                 +", Moves: " + result.getMoves()
-                +", session id"+result.getSessionId());
+                +", session id: "+result.getSessionId()
+                +", previous balance: "+balance
+                +", next balance: "+newBalance);
 
         return ResponseEntity.ok(Map.of(
             "message", "Result processed",
             "reward", reward,
-            "balance", balance
+            "balance", newBalance
         ));
     }
 
