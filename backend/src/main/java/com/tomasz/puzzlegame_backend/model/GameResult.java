@@ -18,11 +18,13 @@ public class GameResult {
 
     public GameResult() {}
 
-    public GameResult(String username, int moves, UUID sessionId) {
+    public GameResult(String username, int moves, UUID sessionId, int reward) {
         this.username = username;
         this.moves = moves;
         this.playedAt = LocalDateTime.now();
-        this.sessionId = UUID.randomUUID();
+        this.sessionId = sessionId;
+        this.reward = reward;
+//        this.sessionId = UUID.randomUUID();
     }
 
     public String getUsername() {

@@ -36,9 +36,9 @@ public class GameController {
      */
     @PostMapping("/result")
     public ResponseEntity<?> receiveResult(@RequestBody GameResultRequest result) {
-
+        System.out.println("Session Id: "+result.getSessionId());
         int reward = rewardService.calculateReward(result.getMoves());
-        GameResult gameResult = new GameResult(result.getUsername(), result.getMoves(), result.getSessionId());
+        GameResult gameResult = new GameResult(result.getUsername(), result.getMoves(), result.getSessionId(), reward);
         repository.save(gameResult);
         int balance = walletService.getBalance(result.getSessionId());
         int newBalance = walletService.addReward(result.getSessionId(), reward);
@@ -47,6 +47,7 @@ public class GameController {
                 +", Moves: " + result.getMoves()
                 +", session id: "+result.getSessionId()
                 +", previous balance: "+balance
+                +", reward: "+reward
                 +", next balance: "+newBalance);
 
         return ResponseEntity.ok(Map.of(

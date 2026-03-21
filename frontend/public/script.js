@@ -551,26 +551,26 @@ function isSolved(){
             document.getElementById("popupContentTwo").innerText = "You've solved the puzzles in "+turns+" turns!"+
             "\nThis is our new record! Put your name down.";
             togglePopup2(); 
+            ranking.pop();   
         }else if(ranking.length < 10){                          // if the result list isn't full/it's length is smaller than 10.
             document.getElementById("popupContentTwo").innerHTML = 
             "You've solved the puzzles in "+turns+" turns!"+
             "\nThis qualify to our Best Results."+
             "\nWould you like to write your name to our best results list?"; 
-            togglePopup2();       
-
+            togglePopup2(); 
+            ranking.pop();        
         }else if(turns < ranking[9].score && ranking.length>=10){ // if player qualify to the best results
             document.getElementById("popupContentTwo").innerHTML = 
             "\nYou've solved the puzzles in "+turns+" turns!"+
             "\nYou result qualifies to our Best Results."+
             "\nWould you like to write down your name to our best results list?"; 
-
             togglePopup2();
             ranking.pop();  
         }else{                                                  // if player doesn't qualify to the best results  
             document.getElementById("popupContentOne").innerText = "You've solved the puzzles in "+turns+" turns!"+
             "\nStart a new game to try again.";                           
             togglePopup();   
-            
+            ranking.pop(); 
         }  
         document.getElementById('btn_new_game').innerText = "Game Complete";
         gameOn = false;
@@ -601,20 +601,6 @@ function isSolved(){
  * @param {*} username 
  * @param {*} moves 
  */
-// async function sendResult(username, moves) {
-//   const sessionId = getSessionId();
-//   await fetch(API_URL+"/api/game/result", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({
-//       username: username,
-//       moves: moves,
-//       sessionId: sessionId
-//     })
-//   });
-// }
 async function sendResult(username, moves) {
     const sessionId = getSessionId();
     try {
