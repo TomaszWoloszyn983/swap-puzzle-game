@@ -157,6 +157,24 @@ closeHelpBtn.addEventListener('click', togglePopupHelp);
 let startBtn = document.getElementById("btn_new_game");
 startBtn.addEventListener('click' , toggleStartButton);
 
+let claimRewardBtn = document.getElementById("btn_claim_reward");
+claimRewardBtn.addEventListener('click' , toggleClaimReward);
+
+const openBtn = document.getElementById("btn_claim_reward");
+const popup = document.getElementById("popup-claimReward");
+const closeBtn = document.getElementById("closeClaimPopup");
+const overlay = document.getElementById("overlay-claim");
+openBtn.addEventListener("click", () => {
+  popup.classList.add("active");
+});
+
+function closePopup() {
+    popup.classList.remove("active");
+}
+
+closeBtn.addEventListener("click", closePopup);
+overlay.addEventListener("click", closePopup);
+
 /**
  * Display Popup window when the turns result doesn't qualify to the Bast Results list.
  */
@@ -211,6 +229,10 @@ function togglePopupHelp(){
  */
 function togglePopupAbout(){
     document.getElementById("popup-about").classList.toggle("active");
+}
+
+function toggleClaimReward(){
+    document.getElementById("popup-claimReward").classList.toggle("active");
 }
 
 /**
@@ -306,6 +328,7 @@ function toggleStartButton(button){
         quitGame();
     }
 }
+
 
 /**
 Highlights the hovered tile and its neighbours.
@@ -719,5 +742,38 @@ async function loadBalance() {
   } catch (error) {
     console.error("Failed to load balance:", error);
   }
+
+const button = document.getElementById("claimButton");
+
+  // 🔹 disable/enable based on balance
+  button.disabled = data.balance < 100;
 }
 
+
+async function claimReward() {
+
+  const sessionId = getSessionId();
+  const walletAddress = prompt("Enter your wallet address:");
+
+  if (!walletAddress) return;
+
+  const response = await fetch(API_URL+"/api/game/claim", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      sessionId,
+      walletAddress
+    })
+  });
+
+  const data = await response.json();
+
+    if (response.ok) {
+        alert(`Success! Remaining balance: ${data.balance}`);
+        document.getElementById("tokenBalance").innerText = data.balance;
+    } else {
+        alert(data.error);
+    }
+}

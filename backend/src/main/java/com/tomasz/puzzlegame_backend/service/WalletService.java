@@ -30,4 +30,12 @@ public class WalletService {
             .map(PlayerWallet::getTokenBalance)
             .orElse(0);
     }
+
+    public void updateBalance(UUID sessionId, int newBalance) {
+        PlayerWallet wallet = repository.findById(sessionId)
+                .orElseThrow(() -> new RuntimeException("Wallet not found"));
+
+        wallet.setTokenBalance(newBalance);
+        repository.save(wallet);
+    }
 }

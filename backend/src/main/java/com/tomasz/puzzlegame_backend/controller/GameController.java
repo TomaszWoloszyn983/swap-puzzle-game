@@ -1,7 +1,9 @@
 package com.tomasz.puzzlegame_backend.controller;
+import com.tomasz.puzzlegame_backend.dto.ClaimRequest;
 import com.tomasz.puzzlegame_backend.dto.GameResultRequest;
 import com.tomasz.puzzlegame_backend.model.GameResult;
 import com.tomasz.puzzlegame_backend.repository.GameResultRepository;
+import com.tomasz.puzzlegame_backend.service.ClaimService;
 import com.tomasz.puzzlegame_backend.service.GameResultService;
 import com.tomasz.puzzlegame_backend.service.RewardService;
 import com.tomasz.puzzlegame_backend.service.WalletService;
@@ -17,15 +19,15 @@ import java.util.UUID;
 public class GameController {
 
     private final GameResultRepository repository;
-    private final GameResultService service;
     private final RewardService rewardService;
     private final WalletService walletService;
+    private final ClaimService claimService;
 
-    public GameController(GameResultRepository repository, GameResultService service, RewardService rewardService, WalletService walletService) {
+    public GameController(GameResultRepository repository, RewardService rewardService, WalletService walletService, ClaimService claimService) {
         this.repository = repository;
-        this.service = service;
         this.rewardService = rewardService;
         this.walletService = walletService;
+        this.claimService = claimService;
     }
 
     /**
@@ -82,5 +84,17 @@ public class GameController {
         int balance = walletService.getBalance(sessionId);
         System.out.println("Wallet Balance: "+balance);
         return Map.of("balance", balance);
+    }
+
+    @PostMapping("/claim")
+    public ResponseEntity<?> claimReward(@RequestBody ClaimRequest request) {
+        try {
+            Map<String, Object> result = claimService.claimReward(request);
+            return ResponseEntity.ok(result);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error", e.getMessage()
+            ));
+        }
     }
 }

@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="description" content="Tile Swap Puzzle">
     <meta name="keywords" content="Puzzle, game, tile, swap, jigsaw">
     <meta name="author" content="Tomasz Woloszyn">
-
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="uploadImage.js" ></script> -->
 
     <title>Tile Swap Puzzle</title>
 
@@ -27,8 +24,8 @@
         }
     </style>
 </head>
-<body>
 
+<body>
             <!-- Header Section -->
     <div id="header">
         <nav id="nav_bar">
@@ -39,7 +36,6 @@
             <label>Tile Swap Puzzle</label> 
         </h1>
         <div id="status"></div>
-
     </div>
 
     <!-- Main section containing: Game board, info panel and Best Results list -->
@@ -123,7 +119,7 @@
             </script>
 
 
-                    <!-- Popup boxes section -->
+            <!-- Popup boxes section -->
             <div class = "popup" id="popup-1"> 
                 <div class="overlay"></div>
                 <div class="content">
@@ -208,6 +204,36 @@
             </div>
             <div id="wallet">
             💰 Currently owned tokens: <span id="tokenBalance">0</span>
+            </div>
+                <br><br>
+                <div>
+                    <button onclick="claimReward()">Claim NFT Reward</button>
+                    <!-- Claim Reward Popup -->
+                    <button type="button" id="btn_claim_reward">Claim</button>
+                        <!-- Popup -->
+                    <div class="popup" id="popup-claimReward">
+                        <div class="overlay" id="overlay-claim"></div>
+
+                        <div class="content">
+                            <h3>Claim NFT Reward</h3>
+
+                            <form id="claimForm">
+                                <input 
+                                    type="text" 
+                                    id="walletAddress" 
+                                    placeholder="Enter wallet address (0x...)" 
+                                    required
+                                >
+                                <br><br>
+
+                                <button type="submit">Claim</button>
+                            </form>
+
+                            <br>
+                            <button type="button" id="closeClaimPopup">Cancel</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
