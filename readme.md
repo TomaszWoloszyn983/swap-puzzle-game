@@ -19,6 +19,18 @@ The application evolved from a front-end game into a production-ready full-stack
 
 This project demonstrates practical experience with JavaScript across both client and server environments, asynchronous programming, file system management, and production debugging.
 
+## Architecture
+
+Frontend (game)
+      ↓
+Spring Boot backend
+      ↓
+PostgreSQL (wallet balance)
+      ↓
+[CLAIM BUTTON]
+      ↓
+Blockchain (NFT mint)
+
 ## Features
 The project includes only one main page, divided into three main sections:
 - **Header** 
@@ -90,6 +102,23 @@ The upload form appears inside a modal popup for improved UI experience.
 - Sharp (image processing & slicing)
 
 The image is processed server-side and dynamically loaded into the game board.
+
+**Collecting Tokens**
+
+**Claiming Tokens**
+
+**Connecting Wallet**
+
+### Manual wallet input
+
+### MetaMask integration
+
+When user clicks Claim:
+1. Check balance ≥ threshold (e.g. 100)
+2. Ask for wallet address (MetaMask)
+3. Call smart contract
+4. Mint NFT
+5. Reduce backend balance
 
 - **Side bars** 
   * **Greeting bar** Displays greeting and brief introduction to the game and its rules.
