@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/game")
@@ -67,5 +68,19 @@ public class GameController {
         List<GameResult> bestResults = repository.findTop10ByOrderByMovesAsc();
         System.out.println("Loaded data from database: "+(bestResults.size()));
         return bestResults;
+    }
+
+    /**
+     * Get token balance for a specific SessionId
+     *
+     * @param sessionId
+     * @return
+     */
+    @GetMapping("/wallet/{sessionId}")
+    public Map<String, Integer> getBalance(@PathVariable UUID sessionId) {
+        System.out.println("Get balance.");
+        int balance = walletService.getBalance(sessionId);
+        System.out.println("Wallet Balance: "+balance);
+        return Map.of("balance", balance);
     }
 }

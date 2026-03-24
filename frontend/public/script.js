@@ -39,6 +39,7 @@ function initializeBoard() {
 
     pieces = []; // reset pieces array
     setPieces();
+    loadBalance(); // load token balance
 
     let i = 0;
 
@@ -617,11 +618,10 @@ async function sendResult(username, moves) {
         })
         });
 
-        // const data = await response.json();
+        const data = await response.json();
+        document.getElementById("tokenBalance").innerText = data.balance; // update token balance
+        await getRankingFromBackend(); // refresh leaderboard immediately
         // console.log("Reward:", data.reward);
-
-        //  refresh leaderboard immediately
-        await getRankingFromBackend();
 
     } catch (error) {
         console.error("Failed to send result:", error);
@@ -701,4 +701,23 @@ function getSessionId() {
   return sessionId;
 }
 
+/**
+ * Loads token balance
+ * for a specific sessionId.
+ */
+async function loadBalance() {
+  const sessionId = getSessionId();
+
+  try {
+    const response = await fetch(
+      `${API_URL}/api/game/wallet/${sessionId}`
+    );
+
+    const data = await response.json();
+    document.getElementById("tokenBalance").innerText = data.balance;
+
+  } catch (error) {
+    console.error("Failed to load balance:", error);
+  }
+}
 
