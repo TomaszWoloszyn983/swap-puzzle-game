@@ -37,6 +37,13 @@ The project includes only one main page, divided into three main sections:
 Where the name of the project is displayed.
 Header section also encloses the navigation bar that constains two buttons.
 
+* **Claim Reward popup box**
+
+
+![Claim Reward popup](documentation/images/claim_reward_popup.png)
+
+[Code Snippets](codesnippets.md## Get Reward Popup box).
+
 ![Navigation image](documentation/images/puzzle_nav_bar.jpg)
 
   * **Help** Clicking the Help button displays Popup box that contains more specific information about the rules of the game.
@@ -105,7 +112,22 @@ The image is processed server-side and dynamically loaded into the game board.
 
 **Collecting Tokens**
 
-**Claiming Tokens**
+**Claiming Reward**
+
+To receive a reward in the form of NFT Tokens, collect at least 100 points.
+
+Until you have collected the required number of points, the "Claim NFT Reward" button is disabled.
+
+![Claim Reward button disabled](documentation/images/claim_reward_btn_disabled.png)
+
+Once you have collected 100 or more points, you can click the button.
+
+![Claim Reward button ensabled](documentation/images/claim_reward_btn_enabled.png)
+
+Enter your wallet address
+
+![Claim Reward popup](documentation/images/claim_reward_popup.png)
+
 
 **Connecting Wallet**
 
