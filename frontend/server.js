@@ -82,7 +82,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
 
     await Promise.all(writePromises);
     res.json({ message: "Image successfully split into pieces." });
-    clearFolder("frontend/public/assets/images/inputImages");
+    // clearFolder("frontend/public/assets/images/inputImages");
 
   } catch (err) {
     console.error(err);

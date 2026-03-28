@@ -139,7 +139,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// buttons Event Listeners.
+            // buttons Event Listeners.
+            
 let submitNoRecord = document.getElementById("submit_no_record");
 submitNoRecord.addEventListener('click', popUpWin3);
 
@@ -641,10 +642,11 @@ async function sendResult(username, moves) {
         })
         });
 
+        // Update token balance, refresh leaderboard, update 'Get Reward Buttons' state.
         const data = await response.json();
-        document.getElementById("tokenBalance").innerText = data.balance; // update token balance
-        await getRankingFromBackend(); // refresh leaderboard immediately
-        // console.log("Reward:", data.reward);
+        document.getElementById("tokenBalance").innerText = data.balance;
+        await getRankingFromBackend();
+        updateClaimButton(data.balance);
 
     } catch (error) {
         console.error("Failed to send result:", error);
@@ -739,14 +741,14 @@ async function loadBalance() {
     const data = await response.json();
     document.getElementById("tokenBalance").innerText = data.balance;
 
+    console.log("Token Balance: "+data.balance)
+
+    // 🔹 disable/enable based on balance
+    updateClaimButton(data.balance);
+
   } catch (error) {
     console.error("Failed to load balance:", error);
   }
-
-const button = document.getElementById("claimButton");
-
-  // 🔹 disable/enable based on balance
-  button.disabled = data.balance < 100;
 }
 
 
@@ -776,4 +778,12 @@ async function claimReward() {
     } else {
         alert(data.error);
     }
+    // Update 'Get Reward' buttons state
+    updateClaimButton(data.balance);
+
+}
+
+function updateClaimButton(balance) {
+  const button = document.getElementById("btn_claim_reward");
+  button.disabled = balance < 100;
 }

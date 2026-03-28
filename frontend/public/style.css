@@ -118,6 +118,19 @@ li {
     border: 2px solid blue;
 }
 
+#claimReward-container {
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+}
+
+#results {
+    width: fit-content;
+    text-align: center;
+    padding: 20px;
+}
+
         /* Start New Game/Quit Game Button */
 #btn_new_game,
 #btn_upload_image {
@@ -132,10 +145,30 @@ li {
 }
 
 #btn_new_game:hover,
+#btn_claim_reward,
 #btn_upload_image:hover{
     background-color: #4CAF50;
     border: 4px solid black;
     color: yellow;
+}
+
+#btn_claim_reward{
+    background-color: #4CAF50;
+    border: 2px solid black;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+#btn_claim_reward:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+  padding: 5px 15px;
 }
 
 
