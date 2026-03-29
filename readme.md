@@ -42,7 +42,7 @@ Header section also encloses the navigation bar that constains two buttons.
 
 ![Claim Reward popup](documentation/images/claim_reward_popup.png)
 
-[Code Snippets](codesnippets.md## Get Reward Popup box).
+[Code Snippets](codesnippets.md#get-reward-popup-box)
 
 ![Navigation image](documentation/images/puzzle_nav_bar.jpg)
 
