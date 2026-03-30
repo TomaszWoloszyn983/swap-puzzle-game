@@ -160,13 +160,13 @@ When user clicks Claim:
 
 ## Database
 
-**Database Structure**
+### Database Structure
 
 The application uses a relational database (PostgreSQL) to store game results, player progress, and reward data. The database is managed using Flyway migrations to ensure consistent schema evolution.
 
-**Tables Overview**
+### Tables Overview
 
-1. game_result
+1. **game_result**
 
 Stores the history of all completed puzzle games.
 
@@ -185,7 +185,7 @@ Used to build the Leaderboard (Top 10 best scores)
 Stores full gameplay history for analytics and tracking
 Links results to a player via session_id
 
-2. player_wallet
+2. **player_wallet**
 
 Stores the current token balance for each player.
 
@@ -200,35 +200,33 @@ Tracks player’s total rewards across multiple games
 Used to determine if a player is eligible to claim NFT rewards
 Updated after each completed game and after each claim
 
-**Relationships**
+### Relationships
 One session_id → Many game_result records
 One session_id → One player_wallet record
 
 Player (session_id)
-
    ├── Game Results (history of plays)
-
    └── Wallet (current token balance)
 
 
+### Data Flow
 
-**Data Flow**
-
-1. Game Completion
+1. **Game Completion**
 - Frontend sends username, moves, and session_id
 - Backend calculates reward and saves a record in game_result
 - Player's balance in player_wallet is updated
 
-2. Leaderboard
+2. **Leaderboard**
 - Backend queries top results from game_result
 - Returns best scores to frontend
 
-3. Reward Claim
+3. **Reward Claim**
 - Player submits a wallet address
 - Backend verifies token_balance
 - If eligible:
     - Tokens are deducted from player_wallet
     - (Future) NFT is minted to the provided wallet
+
 
 ## Future Features
   - Keyboard control function. Keyboard arrow keys to be used to swap the tiles.
