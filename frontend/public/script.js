@@ -40,6 +40,8 @@ function initializeBoard() {
     pieces = []; // reset pieces array
     setPieces();
     loadBalance(); // load token balance
+    loadWallet();
+    loadBalance();
 
     let i = 0;
 
@@ -168,6 +170,10 @@ const overlay = document.getElementById("overlay-claim");
 openBtn.addEventListener("click", () => {
   popup.classList.add("active");
 });
+
+const connectWallet_btn = document
+    .getElementById("connectWalletBtn")
+    .addEventListener("click", connectWallet);
 
 function closePopup() {
     popup.classList.remove("active");
@@ -758,6 +764,12 @@ async function claimReward() {
   const walletAddress = prompt("Enter your wallet address:");
 
   if (!walletAddress) return;
+    // const walletAddress = localStorage.getItem("walletAddress");
+
+    // if (!walletAddress) {
+    // alert("Please connect your wallet first.");
+    // return;
+    // }
 
   const response = await fetch(API_URL+"/api/game/claim", {
     method: "POST",
@@ -787,3 +799,49 @@ function updateClaimButton(balance) {
   const button = document.getElementById("btn_claim_reward");
   button.disabled = balance < 100;
 }
+
+/*
+            Connecting Wallet
+*/
+
+function isMetaMaskInstalled() {
+  return typeof window.ethereum !== "undefined";
+}
+
+async function connectWallet() {
+  if (!isMetaMaskInstalled()) {
+    alert("MetaMask is not installed. Please install it to continue.");
+    return;
+  }
+
+  try {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts"
+    });
+
+    const walletAddress = accounts[0];
+    console.log("Connected wallet:", walletAddress);
+
+    // display in UI
+    document.getElementById("walletDisplay").innerText = walletAddress;
+
+    // store for later use (important!)
+    localStorage.setItem("walletAddress", walletAddress);
+  } catch (error) {
+    console.error("User rejected connection:", error);
+  }
+}
+
+/**
+ * Load wallet from the local storage, if it
+ * already exists, so user doesn't have to
+ * reconnect every time. 
+ */
+function loadWallet() {
+  const wallet = localStorage.getItem("walletAddress");
+
+  if (wallet) {
+    document.getElementById("walletDisplay").innerText = wallet;
+  }
+}
+

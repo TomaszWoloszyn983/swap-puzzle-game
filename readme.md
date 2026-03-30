@@ -21,23 +21,17 @@ This project demonstrates practical experience with JavaScript across both clien
 
 ## Architecture
 
+```
 Frontend (game)
-
       ↓
-
 Spring Boot backend
-
       ↓
-
 PostgreSQL (wallet balance)
-
       ↓
-
 [CLAIM BUTTON]
-
       ↓
-
 Blockchain (NFT mint)
+```
 
 
 ## Features
@@ -119,9 +113,9 @@ The upload form appears inside a modal popup for improved UI experience.
 
 The image is processed server-side and dynamically loaded into the game board.
 
-**Collecting Tokens**
+## Collecting Tokens
 
-**Claiming Reward**
+### Claiming Reward
 
 To receive a reward in the form of NFT Tokens, collect at least 100 points.
 
@@ -138,13 +132,13 @@ Enter your wallet address
 ![Claim Reward popup](documentation/images/claim_reward_popup.png)
 
 
-**Connecting Wallet**
+### Connecting Wallet
 
-### Manual wallet input
+**Manual wallet input**
 
-### MetaMask integration
+**MetaMask integration**
 
-When user clicks Claim:
+When user clicks ==Claim==:
 1. Check balance ≥ threshold (e.g. 100)
 2. Ask for wallet address (MetaMask)
 3. Call smart contract
@@ -160,9 +154,7 @@ When user clicks Claim:
 
 ## Database
 
-### Database Structure
-
-The application uses a relational database (PostgreSQL) to store game results, player progress, and reward data. The database is managed using Flyway migrations to ensure consistent schema evolution.
+The application uses a ==relational database== (PostgreSQL) to store game results, player progress, and reward data. The database is managed using ==Flyway migrations== to ensure consistent schema evolution.
 
 ### Tables Overview
 
@@ -205,7 +197,9 @@ One session_id → Many game_result records
 One session_id → One player_wallet record
 
 Player (session_id)
+
    ├── Game Results (history of plays)
+
    └── Wallet (current token balance)
 
 
@@ -227,6 +221,13 @@ Player (session_id)
     - Tokens are deducted from player_wallet
     - (Future) NFT is minted to the provided wallet
 
+### Design Notes
+- session_id acts as a lightweight player identifier (no authentication required)
+- Separation of game history (game_result) and state (player_wallet) ensures clean architecture
+- The structure is designed to be easily extendable for:
+User accounts
+  - Blockchain wallet integration (e.g. MetaMask)
+  - NFT minting logic
 
 ## Future Features
   - Keyboard control function. Keyboard arrow keys to be used to swap the tiles.

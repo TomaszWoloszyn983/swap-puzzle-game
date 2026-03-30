@@ -206,7 +206,7 @@
             <div id="wallet">
             💰 Currently owned tokens: <span id="tokenBalance">0</span>
             <br>
-                <p>Collect at least 100 tokens to receive a reward.</p>
+            <p>Collect at least 100 tokens to receive a reward.</p>
             </div>
                 <div id="claimReward-container">
                     <!-- <button onclick="claimReward()">Claim NFT Reward</button> -->
@@ -217,6 +217,19 @@
                         <div class="overlay" id="overlay-claim"></div>
                         <div class="content">
                             <h3>Claim NFT Reward</h3>
+                            <div>
+                                <br>
+                                <h4>Connect your wallet</h4>
+                                <button id="connectWalletBtn">Connect Wallet</button>
+                                <br><br>
+                                <div>
+                                    Connected Wallet: <span id="walletDisplay">Not connected</span>
+                                </div>
+                            </div>
+                            <h5>Or</h5>
+                            <h4>Enter your wallet address</h4>
+
+
                             <form id="claimForm">
                                 <input 
                                     type="text" 
