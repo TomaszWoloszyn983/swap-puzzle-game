@@ -22,14 +22,23 @@ This project demonstrates practical experience with JavaScript across both clien
 ## Architecture
 
 Frontend (game)
+
       ↓
+
 Spring Boot backend
+
       ↓
+
 PostgreSQL (wallet balance)
+
       ↓
+
 [CLAIM BUTTON]
+
       ↓
+
 Blockchain (NFT mint)
+
 
 ## Features
 The project includes only one main page, divided into three main sections:
@@ -148,6 +157,78 @@ When user clicks Claim:
  
  
 - **Footer** Contains information about Copyrights. 
+
+## Database
+
+**Database Structure**
+
+The application uses a relational database (PostgreSQL) to store game results, player progress, and reward data. The database is managed using Flyway migrations to ensure consistent schema evolution.
+
+**Tables Overview**
+
+1. game_result
+
+Stores the history of all completed puzzle games.
+
+Fields:
+
+ - id (PK) – Unique identifier for each game result
+ - username – Name entered by the player after completing the puzzle
+ - moves – Number of turns taken to solve the puzzle
+ - reward – Tokens awarded for this game (based on performance)
+ - session_id – Identifier linking the result to a specific player session
+ - created_at – Timestamp of when the game was completed
+
+Usage:
+
+Used to build the Leaderboard (Top 10 best scores)
+Stores full gameplay history for analytics and tracking
+Links results to a player via session_id
+
+2. player_wallet
+
+Stores the current token balance for each player.
+
+Fields:
+
+ - session_id (PK) – Unique identifier for a player (stored in browser localStorage)
+ - token_balance – Total accumulated tokens
+
+Usage:
+
+Tracks player’s total rewards across multiple games
+Used to determine if a player is eligible to claim NFT rewards
+Updated after each completed game and after each claim
+
+**Relationships**
+One session_id → Many game_result records
+One session_id → One player_wallet record
+
+Player (session_id)
+
+   ├── Game Results (history of plays)
+
+   └── Wallet (current token balance)
+
+
+
+**Data Flow**
+
+1. Game Completion
+- Frontend sends username, moves, and session_id
+- Backend calculates reward and saves a record in game_result
+- Player's balance in player_wallet is updated
+
+2. Leaderboard
+- Backend queries top results from game_result
+- Returns best scores to frontend
+
+3. Reward Claim
+- Player submits a wallet address
+- Backend verifies token_balance
+- If eligible:
+    - Tokens are deducted from player_wallet
+    - (Future) NFT is minted to the provided wallet
 
 ## Future Features
   - Keyboard control function. Keyboard arrow keys to be used to swap the tiles.
