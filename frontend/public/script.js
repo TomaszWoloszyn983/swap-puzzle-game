@@ -760,27 +760,29 @@ async function loadBalance() {
 
 async function claimReward() {
 
-  const sessionId = getSessionId();
-  const walletAddress = prompt("Enter your wallet address:");
+    const sessionId = getSessionId();
+    // const walletAddress = prompt("Enter your wallet address:");
 
-  if (!walletAddress) return;
-    // const walletAddress = localStorage.getItem("walletAddress");
+    // if (!walletAddress) return;
+    const walletAddress = localStorage.getItem("walletAddress");
 
-    // if (!walletAddress) {
-    // alert("Please connect your wallet first.");
-    // return;
-    // }
+    if (!walletAddress) {
+        alert("Please connect your wallet first.");
+        return;
+    }else{
+        walletAddress = prompt("Enter your wallet address:")
+    }
 
-  const response = await fetch(API_URL+"/api/game/claim", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
+    const response = await fetch(API_URL+"/api/game/claim", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      sessionId,
-      walletAddress
+        sessionId,
+        walletAddress
     })
-  });
+});
 
   const data = await response.json();
 
@@ -827,6 +829,16 @@ async function connectWallet() {
 
     // store for later use (important!)
     localStorage.setItem("walletAddress", walletAddress);
+
+    // display
+    document.getElementById("walletDisplay").innerText = walletAddress;
+
+    // 🔹 autofill input
+    const input = document.getElementById("walletAddress");
+    input.value = walletAddress;
+
+    // 🔹 disable manual editing
+    input.readOnly = true;
   } catch (error) {
     console.error("User rejected connection:", error);
   }
@@ -840,8 +852,13 @@ async function connectWallet() {
 function loadWallet() {
   const wallet = localStorage.getItem("walletAddress");
 
+  const input = document.getElementById("walletAddress");
+
   if (wallet) {
     document.getElementById("walletDisplay").innerText = wallet;
+
+    input.value = wallet;
+    input.readOnly = true;
   }
 }
 

@@ -115,11 +115,21 @@ The image is processed server-side and dynamically loaded into the game board.
 
 ## Collecting Tokens
 
-### Claiming Reward
-
 To receive a reward in the form of NFT Tokens, collect at least 100 points.
 
+To earn points, you must solve the puzzle. The faster you do it (fewer moves), the more points you earn.
+
 Until you have collected the required number of points, the "Claim NFT Reward" button is disabled.
+
+## Claiming Reward
+
+When user clicks Claim:
+1. Check balance ≥ threshold (e.g. 100)
+2. Ask for wallet address (MetaMask)
+3. Call smart contract
+4. Mint NFT
+5. Reduce backend balance
+
 
 ![Claim Reward button disabled](documentation/images/claim_reward_btn_disabled.png)
 
@@ -134,16 +144,17 @@ Enter your wallet address
 
 ### Connecting Wallet
 
-**Manual wallet input**
+If MetaMask is connected:
+ - autofill input
+ - disable manual editing
+ - user just clicks "Claim"
+
+If NOT connected:
+ - user can type address manually
 
 **MetaMask integration**
 
-When user clicks ==Claim==:
-1. Check balance ≥ threshold (e.g. 100)
-2. Ask for wallet address (MetaMask)
-3. Call smart contract
-4. Mint NFT
-5. Reduce backend balance
+**Manual wallet input**
 
 - **Side bars** 
   * **Greeting bar** Displays greeting and brief introduction to the game and its rules.
@@ -154,7 +165,7 @@ When user clicks ==Claim==:
 
 ## Database
 
-The application uses a ==relational database== (PostgreSQL) to store game results, player progress, and reward data. The database is managed using ==Flyway migrations== to ensure consistent schema evolution.
+The application uses a *relational database* (PostgreSQL) to store game results, player progress, and reward data. The database is managed using *Flyway* migrations to ensure consistent schema evolution.
 
 ### Tables Overview
 
