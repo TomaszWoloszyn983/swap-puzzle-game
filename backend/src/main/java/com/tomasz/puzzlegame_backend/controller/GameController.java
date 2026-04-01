@@ -80,7 +80,6 @@ public class GameController {
      */
     @GetMapping("/wallet/{sessionId}")
     public Map<String, Integer> getBalance(@PathVariable UUID sessionId) {
-        System.out.println("Get balance.");
         int balance = walletService.getBalance(sessionId);
         System.out.println("Wallet Balance: "+balance);
         return Map.of("balance", balance);

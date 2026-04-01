@@ -171,6 +171,23 @@ li {
   padding: 5px 15px;
 }
 
+#walletAddress[readonly] {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+#claimSubmitBtn {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transition: all 0.2s ease;
+}
+
+#claimSubmitBtn.enabled {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
 
 #rules, #results{
     height: fit-content;

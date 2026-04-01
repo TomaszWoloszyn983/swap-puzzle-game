@@ -47,4 +47,11 @@
   closeBtn.addEventListener("click", closePopup);
  ```
 
+### Checking if a button click has any effect.
+ ```js
+ document.getElementById("tested_btn").addEventListener("submit", (e) => {
+  console.log("I'm working");
+});
+ ```
+
 

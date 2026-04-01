@@ -41,8 +41,7 @@ function initializeBoard() {
     setPieces();
     loadBalance(); // load token balance
     loadWallet();
-    loadBalance();
-
+    updateClaimSubmitState(); 
     let i = 0;
 
     for (let r = 0; r < rows; r++) {
@@ -179,8 +178,76 @@ function closePopup() {
     popup.classList.remove("active");
 }
 
+// document.getElementById("claimForm").addEventListener("submit", (e) => {
+//  console.log("Submitting...")
+//   updateClaimSubmitState();
+// });
+
+document.getElementById("claimForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+    const sessionId = getSessionId();
+    const walletAddress = document.getElementById("walletAddress").value;
+
+    try {
+    const response = await fetch(API_URL+"/api/game/claim", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+        sessionId,
+        walletAddress
+        })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        console.log("Claim successful");
+
+        // ✅ update UI
+        document.getElementById("tokenBalance").innerText = data.balance;
+        updateClaimButton(data.balance);
+
+        // ✅ CLOSE POPUP HERE
+        closeClaimPopup();
+    } else {
+        alert(data.error);
+    }
+    } catch (err) {
+        console.error(err);
+    }
+});
+
+function closeClaimPopup() {
+    document
+        .getElementById("popup-claimReward")
+        .classList.remove("active");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document
+        .getElementById("walletAddress")
+        .addEventListener("input", updateClaimSubmitState);
+});
+
 closeBtn.addEventListener("click", closePopup);
 overlay.addEventListener("click", closePopup);
+
+document.getElementById("claimForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+    //   const sessionId = getSessionId();
+    const walletAddress = document.getElementById("walletAddress").value;
+
+    if (!walletAddress) {
+        alert("Please connect wallet or enter address");
+        return;
+    }
+
+  // send request...
+});
 
 /**
  * Display Popup window when the turns result doesn't qualify to the Bast Results list.
@@ -759,6 +826,7 @@ async function loadBalance() {
 
 
 async function claimReward() {
+    console.log("Claim Reward")
 
     const sessionId = getSessionId();
     // const walletAddress = prompt("Enter your wallet address:");
@@ -824,14 +892,11 @@ async function connectWallet() {
     const walletAddress = accounts[0];
     console.log("Connected wallet:", walletAddress);
 
-    // display in UI
-    document.getElementById("walletDisplay").innerText = walletAddress;
+    document.getElementById("walletDisplay").innerText = walletAddress; // display in UI
 
     // store for later use (important!)
     localStorage.setItem("walletAddress", walletAddress);
-
-    // display
-    document.getElementById("walletDisplay").innerText = walletAddress;
+    document.getElementById("walletDisplay").innerText = walletAddress; // display
 
     // 🔹 autofill input
     const input = document.getElementById("walletAddress");
@@ -839,6 +904,7 @@ async function connectWallet() {
 
     // 🔹 disable manual editing
     input.readOnly = true;
+    updateClaimSubmitState(); 
   } catch (error) {
     console.error("User rejected connection:", error);
   }
@@ -860,5 +926,29 @@ function loadWallet() {
     input.value = wallet;
     input.readOnly = true;
   }
+}
+
+/**
+ * Toggles the Claim Reward buttons state
+ * to change it's style.
+ */
+function updateClaimSubmitState() {
+
+    console.log("Update Claim button")
+
+    const input = document.getElementById("walletAddress");
+    const button = document.getElementById("claimSubmitBtn");
+
+    const hasValue = input.value && input.value.trim().length > 0;
+
+    if (hasValue) {
+    console.log("Submit claim button activated")
+    button.disabled = false;
+    button.classList.add("enabled");
+    } else {
+    console.log("Submit claim button disactivated")
+    button.disabled = true;
+    button.classList.remove("enabled");
+    }
 }
 
