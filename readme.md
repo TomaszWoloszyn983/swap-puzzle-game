@@ -156,6 +156,22 @@ If NOT connected:
 
 **Manual wallet input**
 
+### Minting NFT's
+
+**1. User clicks "Claim"**
+
+**2. Frontend sends request (wallet address)**
+
+**3. Backend validates tokens**
+
+**4. Backend calls smart contract**
+
+**5. NFT minted to wallet**
+
+**6. Transaction hash returned**
+
+**7. Frontend shows success**
+
 - **Side bars** 
   * **Greeting bar** Displays greeting and brief introduction to the game and its rules.
   * **Best Results** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stored in the Local Storage and they as restored after each entry to the game.
