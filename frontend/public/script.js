@@ -188,6 +188,7 @@ function closePopup() {
 document.getElementById("claimForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
+    
     const sessionId = getSessionId();
     const walletAddress = document.getElementById("walletAddress").value;
 
@@ -204,16 +205,38 @@ document.getElementById("claimForm").addEventListener("submit", async (e) => {
     });
 
     const data = await response.json();
+    const { mintNFT } = await import("./web3.js");
 
     if (response.ok) {
         console.log("Claim successful");
 
-        // ✅ update UI
+        // // ✅ update UI
+        // document.getElementById("tokenBalance").innerText = data.balance;
+        // updateClaimButton(data.balance);
+
+        // // ✅ CLOSE POPUP HERE
+        // closeClaimPopup();
+        // 🔥 NEW: mint NFT on blockchain
+        if (!data.tokenURI) {
+            alert("Missing tokenURI from backend");
+            return;
+        }
+
+        try {
+            await mintNFT(data.tokenURI);
+            alert("NFT successfully minted!");
+        } catch (err) {
+            console.error("Minting failed:", err);
+            alert("Transaction failed or rejected");
+            return;
+        }
+
+        // ✅ update UI AFTER mint
         document.getElementById("tokenBalance").innerText = data.balance;
         updateClaimButton(data.balance);
 
-        // ✅ CLOSE POPUP HERE
         closeClaimPopup();
+
     } else {
         alert(data.error);
     }

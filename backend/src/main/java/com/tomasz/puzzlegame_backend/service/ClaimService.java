@@ -21,6 +21,8 @@ public class ClaimService {
         String walletAddress = request.getWalletAddress();
 
         int balance = walletService.getBalance(sessionId);
+        // ✅ Generate NFT metadata URL
+        String tokenURI = generateTokenURI(request);
 
         if (balance < CLAIM_THRESHOLD) {
             throw new RuntimeException("Not enough tokens to claim reward");
@@ -37,7 +39,13 @@ public class ClaimService {
         return Map.of(
                 "message", "Reward claimed successfully",
                 "spent", CLAIM_THRESHOLD,
-                "balance", newBalance
+                "balance", newBalance,
+                "tokenURI", tokenURI
         );
+    }
+
+    private String generateTokenURI(ClaimRequest request) {
+        // For now → static file (simple and safe)
+        return "https://your-domain.com/nft/sample.json";
     }
 }

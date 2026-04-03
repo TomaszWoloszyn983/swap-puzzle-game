@@ -87,6 +87,7 @@ public class GameController {
 
     @PostMapping("/claim")
     public ResponseEntity<?> claimReward(@RequestBody ClaimRequest request) {
+
         try {
             Map<String, Object> result = claimService.claimReward(request);
             return ResponseEntity.ok(result);
