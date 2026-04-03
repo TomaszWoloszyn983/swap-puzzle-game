@@ -178,11 +178,13 @@ function closePopup() {
     popup.classList.remove("active");
 }
 
-// document.getElementById("claimForm").addEventListener("submit", (e) => {
-//  console.log("Submitting...")
-//   updateClaimSubmitState();
-// });
 
+/**
+ * Claim NFT Rewards button handler.
+ * Sends Session Id and Wallet Address to backend.
+ * Resets Currently Owned Tokens counter.
+ * Closes popup window.
+ */
 document.getElementById("claimForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -234,20 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 closeBtn.addEventListener("click", closePopup);
 overlay.addEventListener("click", closePopup);
-
-document.getElementById("claimForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-    //   const sessionId = getSessionId();
-    const walletAddress = document.getElementById("walletAddress").value;
-
-    if (!walletAddress) {
-        alert("Please connect wallet or enter address");
-        return;
-    }
-
-  // send request...
-});
 
 /**
  * Display Popup window when the turns result doesn't qualify to the Bast Results list.

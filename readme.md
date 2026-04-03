@@ -10,6 +10,8 @@ Link to the Swap Puzzle Game v2 [Here](https://swap-puzzle-game-2.onrender.com)
 
 Tile Swap Puzzle is a full-stack web application that allows users to play a drag-and-drop tile puzzle game and dynamically generate new puzzles by uploading their own images.
 
+The game involves assembling the correct picture from jumbled puzzle pieces. Players receive points (tokens) based on how quickly they solve the puzzle. The fewer moves they have to make to solve the puzzle, the more points they earn. After collecting at least 100 points, players can exchange these tokens for NFT Tokens.
+
 The application evolved from a front-end game into a production-ready full-stack project with:
 - Server-side image processing
 - Dynamic asset generation
@@ -17,7 +19,7 @@ The application evolved from a front-end game into a production-ready full-stack
 - Persistent client-side ranking system
 - Modal-based UI architecture
 
-This project demonstrates practical experience with JavaScript across both client and server environments, asynchronous programming, file system management, and production debugging.
+This project demonstrates practical experience with JavaScript frontend, and Java with Spring framework for backend. It includes both client and server environments, asynchronous programming, file system management, and production debugging.
 
 ## Architecture
 
