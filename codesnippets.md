@@ -54,4 +54,33 @@
 });
  ```
 
+ ### NFT Smart Contract (ERC-721)
+ ```solidity
+ // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.0;
+
+    import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+
+    contract PuzzleNFT is ERC721URIStorage {
+        uint256 public tokenCounter;
+
+        constructor() ERC721("PuzzleNFT", "PNFT") {
+            tokenCounter = 0;
+        }
+
+        function mintNFT(address recipient, string memory tokenURI)
+            public
+            returns (uint256)
+        {
+            uint256 newItemId = tokenCounter;
+
+            _safeMint(recipient, newItemId);
+            _setTokenURI(newItemId, tokenURI);
+
+            tokenCounter++;
+            return newItemId;
+        }
+    }
+ ```
+
 

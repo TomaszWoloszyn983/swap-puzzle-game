@@ -46,6 +46,7 @@ public class ClaimService {
 
     private String generateTokenURI(ClaimRequest request) {
         // For now → static file (simple and safe)
-        return "https://your-domain.com/nft/sample.json";
+        System.out.println("Generate token -> Hardcoded sample json file used.");
+        return "https://raw.githubusercontent.com/ethereum/ethereum-org-website/dev/src/data/nft-metadata.json";
     }
 }

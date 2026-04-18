@@ -21,6 +21,20 @@ The application evolved from a front-end game into a production-ready full-stack
 
 This project demonstrates practical experience with JavaScript frontend, and Java with Spring framework for backend. It includes both client and server environments, asynchronous programming, file system management, and production debugging.
 
+## Content
+[Architecture](#architecture)
+[Features](#features)
+[Collecting Tokens](#collecting-tokens)
+[Claiming Rewards](#claiming-reward)
+[Connecting Wallet](#connecting-wallet)
+[Database](#database)
+[Data Flow](#data-flow)
+[Future Features](#future-features)
+[Technologies Used](#technologies-used)
+[Testing](#testing)
+[Deployment](#deployment)
+[References and Credits](#references-and-credits)
+
 ## Architecture
 
 ```
@@ -277,7 +291,9 @@ User accounts
   - GitHub - Version control service used for storing and sharing development projects.
   - Drag and Drop - Functionality that allows to select a virtual object by "grapping" it and "dragging" it to a different location or onto another virtual object
   - Local Storage - Used for storing data such as the game results in the browsers memory.
-  - Render – Cloud hosting and deployment
+  - Render – Cloud hosting and deployment.
+  - Remix Ide - Browser-based development environment for writing, testing, and deploying Ethereum smart contracts using Solidity.
+  - Metamask - crypto wallet.
 
 
 ## Testing
