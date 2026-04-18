@@ -212,7 +212,7 @@ Go to [Remix Ide](https://remix.ethereum.org/)
 
 - Deploy & Run Transaction section
 
-![Connect wallet 1](documentation/images/smart_contract_deployment_01.png)
+![Connect wallet 1](documentation/images/smart_contract_deployment_01.jpg)
 
 - Click **Environment** to Connect your Wallet.
 
