@@ -22,18 +22,22 @@ The application evolved from a front-end game into a production-ready full-stack
 This project demonstrates practical experience with JavaScript frontend, and Java with Spring framework for backend. It includes both client and server environments, asynchronous programming, file system management, and production debugging.
 
 ## Content
-[Architecture](#architecture)
-[Features](#features)
-[Collecting Tokens](#collecting-tokens)
-[Claiming Rewards](#claiming-reward)
-[Connecting Wallet](#connecting-wallet)
-[Database](#database)
-[Data Flow](#data-flow)
-[Future Features](#future-features)
-[Technologies Used](#technologies-used)
-[Testing](#testing)
-[Deployment](#deployment)
-[References and Credits](#references-and-credits)
+
+Project contains the following sections:
+
+- [Architecture](#architecture)
+- [Features](#features)
+- [Collecting Tokens](#collecting-tokens)
+- [Claiming Rewards](#claiming-reward)
+- [Connecting Wallet](#connecting-wallet)
+- [Database](#database)
+- [Data Flow](#data-flow)
+- [Future Features](#future-features)
+- [Technologies Used](#technologies-used)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [References and Credits](#references-and-credits)
+
 
 ## Architecture
 
@@ -70,6 +74,13 @@ Header section also encloses the navigation bar that constains two buttons.
 ![Help section image](documentation/images/puzzle_help_window.jpg)
 
   * **About** About section contains some information about version of the program and how to contact the author.
+
+- **Side bars** 
+* **Greeting bar** Displays greeting and brief introduction to the game and its rules.
+* **Best Results** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stored in the Local Storage and they as restored after each entry to the game.
+ 
+ 
+- **Footer** Contains information about Copyrights. 
 
 - **Game Main Board** 
 
@@ -129,6 +140,9 @@ The upload form appears inside a modal popup for improved UI experience.
 
 The image is processed server-side and dynamically loaded into the game board.
 
+
+---
+
 ## Collecting Tokens
 
 To receive a reward in the form of NFT Tokens, collect at least 100 points.
@@ -170,7 +184,11 @@ If NOT connected:
 
 **MetaMask integration**
 
+Add some photos.
+
 **Manual wallet input**
+
+This function is to be removed.
 
 ### Minting NFT's
 
@@ -188,12 +206,33 @@ If NOT connected:
 
 **7. Frontend shows success**
 
-- **Side bars** 
-  * **Greeting bar** Displays greeting and brief introduction to the game and its rules.
-  * **Best Results** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stored in the Local Storage and they as restored after each entry to the game.
- 
- 
-- **Footer** Contains information about Copyrights. 
+### Smart Contract Implementation
+
+Go to [Remix Ide](https://remix.ethereum.org/)
+
+- Deploy & Run Transaction section
+
+![Remix Ide](documentation/images/smart_contract_deployment_01.png)
+
+- Click **Environment** to Connect your Wallet.
+
+![Remix Ide](documentation/images/smart_contract_deployment_02.png)
+
+- Select 'Connect Wallet' from drop-box
+
+![Remix Ide](documentation/images/smart_contract_deployment_03.png)
+
+- Choose your wallet.
+
+![Remix Ide](documentation/images/smart_contract_deployment_04.png)
+
+- Connect
+
+![Remix Ide](documentation/images/smart_contract_deployment_05.png)
+
+Create a new  *.sol* file, and paste [Smart Contract](codesnippets.md#nft-smart-contract-erc-721) 
+
+
 
 ## Database
 
@@ -294,6 +333,7 @@ User accounts
   - Render – Cloud hosting and deployment.
   - Remix Ide - Browser-based development environment for writing, testing, and deploying Ethereum smart contracts using Solidity.
   - Metamask - crypto wallet.
+  - Remix ide
 
 
 ## Testing
