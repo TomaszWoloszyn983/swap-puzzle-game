@@ -212,23 +212,23 @@ Go to [Remix Ide](https://remix.ethereum.org/)
 
 - Deploy & Run Transaction section
 
-![Remix Ide](documentation/images/smart_contract_deployment_01.png)
+![Connect wallet 1](documentation/images/smart_contract_deployment_01.png)
 
 - Click **Environment** to Connect your Wallet.
 
-![Remix Ide](documentation/images/smart_contract_deployment_02.png)
+![Connect wallet 2](documentation/images/smart_contract_deployment_02.png)
 
 - Select 'Connect Wallet' from drop-box
 
-![Remix Ide](documentation/images/smart_contract_deployment_03.png)
+![Connect wallet 3](documentation/images/smart_contract_deployment_03.png)
 
 - Choose your wallet.
 
-![Remix Ide](documentation/images/smart_contract_deployment_04.png)
+![Connect wallet 4](documentation/images/smart_contract_deployment_04.png)
 
 - Connect
 
-![Remix Ide](documentation/images/smart_contract_deployment_05.png)
+![Connect wallet 5](documentation/images/smart_contract_deployment_05.png)
 
 Create a new  *.sol* file, and paste [Smart Contract](codesnippets.md#nft-smart-contract-erc-721) 
 
