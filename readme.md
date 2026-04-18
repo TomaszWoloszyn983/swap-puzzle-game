@@ -21,6 +21,8 @@ The application evolved from a front-end game into a production-ready full-stack
 
 This project demonstrates practical experience with JavaScript frontend, and Java with Spring framework for backend. It includes both client and server environments, asynchronous programming, file system management, and production debugging.
 
+---
+
 ## Content
 
 Project contains the following sections:
@@ -30,6 +32,7 @@ Project contains the following sections:
 - [Collecting Tokens](#collecting-tokens)
 - [Claiming Rewards](#claiming-reward)
 - [Connecting Wallet](#connecting-wallet)
+- [Smart Contract Implementation](#smart-contract-implementation)
 - [Database](#database)
 - [Data Flow](#data-flow)
 - [Future Features](#future-features)
@@ -53,6 +56,7 @@ PostgreSQL (wallet balance)
 Blockchain (NFT mint)
 ```
 
+---
 
 ## Features
 The project includes only one main page, divided into three main sections:
@@ -208,6 +212,10 @@ This function is to be removed.
 
 ### Smart Contract Implementation
 
+For this project, I used the Polygon Amoy blockchain network. This is Polygon's testnet, allowing developers to deploy, test, and optimize smart contracts without incurring gas fees on the mainnet.
+
+#### Connect cryptocurrency wallet
+
 Go to [Remix Ide](https://remix.ethereum.org/)
 
 - Deploy & Run Transaction section
@@ -230,9 +238,15 @@ Go to [Remix Ide](https://remix.ethereum.org/)
 
 ![Connect wallet 5](documentation/images/smart_contract_deployment_05.png)
 
+#### Deploy Contract
+
 Create a new  *.sol* file, and paste [Smart Contract](codesnippets.md#nft-smart-contract-erc-721) 
 
+#### Get abi
 
+![Get abi](documentation/images/smart_contract_deployment_get_abi.png)
+
+---
 
 ## Database
 
@@ -284,6 +298,7 @@ Player (session_id)
 
    └── Wallet (current token balance)
 
+---
 
 ### Data Flow
 
@@ -318,6 +333,8 @@ User accounts
   - Add confirm popup box to make sure that the player really wants to quit the current game.
   - Improve the vertical positioning of the game.
 
+---
+
 ## Technologies used:
   - Javascript - High-level programming language.
   - Node.js – Backend server
@@ -333,14 +350,17 @@ User accounts
   - Render – Cloud hosting and deployment.
   - Remix Ide - Browser-based development environment for writing, testing, and deploying Ethereum smart contracts using Solidity.
   - Metamask - crypto wallet.
-  - Remix ide
+  - Remix ide - Open-source, browser-based development environment for writing, testing, and deploying Ethereum smart contracts using Solidity.
+  - Solidity - High-level, statically-typed programming language specifically designed for writing smart contracts on the Ethereum blockchain.
+  - Polygon Amoy - A Polygon testnet which allows developers to deploy, test and optimize their smart contracts without incurring gas fees on the mainet.
 
+---
 
 ## Testing
 Every page in this project was validation tested and it is responsive for every type of devices from desktop computers to mobile phone screen.
 More details about tesings are available in the separate testing section [here](testing.md) or in the dedicated file testing.md
 
-
+---
 
 
 ## Deployment
@@ -367,6 +387,7 @@ Alternatively, if using Gitpod, you can click below to create your own workspace
 
 To run the project locally in you computer (using for example VSC) install [Node.js](https://nodejs.org/en/download), and type: ***node server.js*** in your Ide command line. 
  
+---
 
 ## References and Credits:
 Drag and Drop swap puzzle: https://www.youtube.com/watch?v=S6GNtMGNcUE&t=583s
