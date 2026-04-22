@@ -217,27 +217,7 @@ To use the Amoy free testnet, make sure you have enough Polygon tokens in your c
 
 Go to [Remix Ide](https://remix.ethereum.org/)
 
-- Deploy & Run Transaction section
-
-<!-- ![Connect wallet 1](documentation/images/smart_contract_deployment_01.jpg) -->
-
-- Click **Environment** to Connect your Wallet.
-
-<!-- ![Connect wallet 2](documentation/images/smart_contract_deployment_02.png) -->
-
-- Select 'Connect Wallet' from drop-box
-
-<!-- ![Connect wallet 3](documentation/images/smart_contract_deployment_03.png) -->
-
-- Choose your wallet.
-
-<!-- ![Connect wallet 4](documentation/images/smart_contract_deployment_04.png) -->
-
-- Connect
-
-<!-- ![Connect wallet 5](documentation/images/smart_contract_deployment_05.png) -->
-
-Alternatively if you have you MetaMask browser extention already installed:
+**Before you start install MetaMask browser extention in your browser**
 1. Open Remix Ide
 2. Go to Deploy & Run Transaction tab.
 3. From the **Environment** drop-down select *Browser Extension* ( or Injected Provider in older versions), and select *MetaMask*.
@@ -245,17 +225,16 @@ Alternatively if you have you MetaMask browser extention already installed:
 5. Make sure you have some test POL tokens. If you don't, get them from [here](https://faucet.polygon.technology/)
 6. Ensure your MetaMask is connected to Amoy Network
 
-  ![amoy network](documentation\images\amoy_net.png)
+  ![amoy network](documentation/images/amoy_net.png)
 
-If the displayed network is different than Amoy, disconnect your wallet an connect it again:
+**If the displayed network is different than Amoy, disconnect your wallet an connect it again:**
   * Go to your MetaMask
   * Go to settings / Permissions / Sites
-  * Find remix.ethereum connection
+  * Find *remix.ethereum* connection
   * Disconnect wallet
   * Refresh Remix with Alt+F5.
   * Return to step 3. and connect wallet again.
 
-7. Deploy
 
 #### Deploy Contract
 
