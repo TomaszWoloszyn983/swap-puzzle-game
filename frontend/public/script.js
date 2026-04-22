@@ -222,6 +222,8 @@ document.getElementById("claimForm").addEventListener("submit", async (e) => {
             return;
         }
 
+        console.log("Minting NFT with tokenURI:", data.tokenURI);
+
         try {
             await mintNFT(data.tokenURI);
             alert("NFT successfully minted!");

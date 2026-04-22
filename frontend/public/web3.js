@@ -2,11 +2,8 @@
 
 import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
 
-// const contractAddress = "0xf8e81D47203A594245E36C48e151709F0C19fBe8";
-const contractAddress = "0x6A47E0AeE3526aa02EB3152d71b556896E9F0Fc9"; // Replace with your deployed contract address
-// const abi = [
-//   "function mintNFT(address recipient, string memory tokenURI) public returns (uint256)"
-// ];
+const contractAddress = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4"; // Replace with your deployed contract address
+
 
 /**
  * You can find ABI in your Remix ide.
@@ -533,11 +530,15 @@ export async function mintNFT(tokenURI) {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   
+  const network = await provider.getNetwork();
+  console.log("Token network: "+network.chainId);
+  
   const contract = new ethers.Contract(contractAddress, abi, signer);
   
   const userAddress = await signer.getAddress();
   console.log("Address:", userAddress);
 
+  // Here we call the mintNFT function from our smart contract, passing the user's address and the tokenURI.
   const tx = await contract.mintNFT(userAddress, tokenURI);
   await tx.wait();
 

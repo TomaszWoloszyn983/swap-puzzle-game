@@ -32,7 +32,7 @@ Project contains the following sections:
 - [Collecting Tokens](#collecting-tokens)
 - [Claiming Rewards](#claiming-reward)
 - [Connecting Wallet](#connecting-wallet)
-- [Smart Contract Implementation](#smart-contract-implementation)
+- [Smart Contract Implementation](#smart-contract-implementation-in-remix)
 - [Database](#database)
 - [Data Flow](#data-flow)
 - [Future Features](#future-features)
@@ -114,7 +114,6 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
   * **Upload Your Own Image (New Feature)** A major new feature in Version 2 allows users to upload their own image and instantly transform it into a playable puzzle.
 
   **How It Works:**
-
 1. Click Upload Image
 2. A modal popup window appears
 3. Select an image file from your device
@@ -126,11 +125,9 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
   - Reloads the board with the new image
 
 **Upload Popup Window**
-
 The upload form appears inside a modal popup for improved UI experience.
 
 **Features:**
-
 - Clean overlay design
 - Cancel button to close without uploading
 - Loading state while image is being processed
@@ -210,41 +207,71 @@ This function is to be removed.
 
 **7. Frontend shows success**
 
-### Smart Contract Implementation
+### Smart Contract Implementation in Remix
 
 For this project, I used the Polygon Amoy blockchain network. This is Polygon's testnet, allowing developers to deploy, test, and optimize smart contracts without incurring gas fees on the mainnet.
 
-#### Connect cryptocurrency wallet
+To use the Amoy free testnet, make sure you have enough Polygon tokens in your connected wallet. If you don't have any tokens, you can claim a free amount [here](https://faucet.polygon.technology/).
+
+#### Remix Ide
 
 Go to [Remix Ide](https://remix.ethereum.org/)
 
 - Deploy & Run Transaction section
 
-![Connect wallet 1](documentation/images/smart_contract_deployment_01.jpg)
+<!-- ![Connect wallet 1](documentation/images/smart_contract_deployment_01.jpg) -->
 
 - Click **Environment** to Connect your Wallet.
 
-![Connect wallet 2](documentation/images/smart_contract_deployment_02.png)
+<!-- ![Connect wallet 2](documentation/images/smart_contract_deployment_02.png) -->
 
 - Select 'Connect Wallet' from drop-box
 
-![Connect wallet 3](documentation/images/smart_contract_deployment_03.png)
+<!-- ![Connect wallet 3](documentation/images/smart_contract_deployment_03.png) -->
 
 - Choose your wallet.
 
-![Connect wallet 4](documentation/images/smart_contract_deployment_04.png)
+<!-- ![Connect wallet 4](documentation/images/smart_contract_deployment_04.png) -->
 
 - Connect
 
-![Connect wallet 5](documentation/images/smart_contract_deployment_05.png)
+<!-- ![Connect wallet 5](documentation/images/smart_contract_deployment_05.png) -->
+
+Alternatively if you have you MetaMask browser extention already installed:
+1. Open Remix Ide
+2. Go to Deploy & Run Transaction tab.
+3. From the **Environment** drop-down select *Browser Extension* ( or Injected Provider in older versions), and select *MetaMask*.
+4. In your Metamask, switch network to Polygon Amoy
+5. Make sure you have some test POL tokens. If you don't, get them from [here](https://faucet.polygon.technology/)
+6. Ensure your MetaMask is connected to Amoy Network
+
+  ![amoy network](documentation\images\amoy_net.png)
+
+If the displayed network is different than Amoy, disconnect your wallet an connect it again:
+  * Go to your MetaMask
+  * Go to settings / Permissions / Sites
+  * Find remix.ethereum connection
+  * Disconnect wallet
+  * Refresh Remix with Alt+F5.
+  * Return to step 3. and connect wallet again.
+
+7. Deploy
 
 #### Deploy Contract
 
-Create a new  *.sol* file, and paste [Smart Contract](codesnippets.md#nft-smart-contract-erc-721) 
+- Create a new  *.sol* file, and paste [Smart Contract](codesnippets.md#nft-smart-contract-erc-721) 
+
+- In the Deploy & Run Transaction tab go to Deploy section.
+- Click Compile and Deploy. *Assuming your Metamsk Wallet is already connected. If it's not, go to section* ![Connect Wallet](#remix-ide)
 
 #### Get abi
 
 ![Get abi](documentation/images/smart_contract_deployment_get_abi.png)
+
+
+### Claim NFT Reward in the game.
+
+
 
 ---
 
