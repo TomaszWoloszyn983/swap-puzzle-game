@@ -41,8 +41,10 @@ Project contains the following sections:
 - [Deployment](#deployment)
 - [References and Credits](#references-and-credits)
 
-
+---
 ## Architecture
+
+#### The application consists of five main components
 
 ```
 Frontend (game)
@@ -56,13 +58,26 @@ PostgreSQL (wallet balance)
 Blockchain (NFT mint)
 ```
 
+* **The frontend** is responsible for the user interface, i.e., the game's operation.
+
+* **The backend** manages the business logic.
+
+* **The database** stores information such as the high score ranking and the number of points earned by the player.
+
+* **Claim Button** - initiates the process of receiving a reward in the form of an NFT token.
+
+* **Blockchain** - manages the process of creating an NFT token and assigning ownership of the acquired token to the player.
+
 ---
 
 ## Features
 The project includes only one main page, divided into three main sections:
+
 * **Header** 
 Where the name of the project is displayed.
 Header section also encloses the navigation bar that constains two buttons.
+
+![Navigation image](documentation/images/puzzle_nav_bar.jpg)
 
 * **Help** Clicking the Help button displays Popup box that contains more specific information about the rules of the game.
 
@@ -103,18 +118,18 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
   * **Turns counter** Turns Counter display how many movements have been made so far. The number increases everytime we make a swap.
 
 ### Upload Your Own Image
-A major new feature in Version 2 allows users to upload their own image and instantly transform it into a playable puzzle.
+A major new feature in Version 2. It allows users to upload their own image and instantly transform it into a playable puzzle.
 
   **How It Works:**
-1. Click Upload Image
-2. A modal popup window appears
-3. Select an image file from your device
-4. Click Upload & Split
-5. The server:
-  - Processes the image
-  - Splits it into 20 equal tiles (5 rows × 4 columns)
-  - Stores the pieces
-  - Reloads the board with the new image
+1. Click Upload Image.
+2. A modal popup window appears.
+3. Select an image file from your device.
+4. Click Upload & Split.
+5. Then the server:
+  - Processes the image.
+  - Splits it into 20 equal tiles (5 rows × 4 columns).
+  - Stores the pieces.
+  - Reloads the board with the new image.
 
 **Upload Popup Window**
 The upload form appears inside a modal popup for improved UI experience.
@@ -138,9 +153,6 @@ The image is processed server-side and dynamically loaded into the game board.
 ![Claim Reward popup](documentation/images/claim_reward_popup.png)
 
 [Code Snippets](codesnippets.md#get-reward-popup-box)
-
-![Navigation image](documentation/images/puzzle_nav_bar.jpg)
-
 
 ---
 
@@ -239,8 +251,6 @@ Go to [Remix Ide](https://remix.ethereum.org/)
 
 ### Claim NFT Reward in the game.
 
-
-
 ---
 
 ## Database
@@ -322,10 +332,10 @@ User accounts
   - NFT minting logic
 
 ## Future Features
+  - Adding the ability to authenticate and create user accounts.
+  - Introducing the ability to insert photos in the horizontal position.
   - Keyboard control function. Keyboard arrow keys to be used to swap the tiles.
-  - Adding your own images to the board that could be split into tiles and used in the game.
   - Mobile devices compatibility. At the moment the game is not working on devices used touch screens. Our future feature would be to implement such a functionality.
-  - Add confirm popup box to make sure that the player really wants to quit the current game.
   - Improve the vertical positioning of the game.
 
 ---
