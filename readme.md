@@ -29,8 +29,8 @@ Project contains the following sections:
 
 - [Architecture](#architecture)
 - [Features](#features)
-- [Collecting Tokens](#collecting-tokens)
-- [Claiming Rewards](#claiming-reward)
+- [Upload Image](#upload-your-own-image)
+- [Tokens and Points](#point-tokens-and-rewards)
 - [Connecting Wallet](#connecting-wallet)
 - [Smart Contract Implementation](#smart-contract-implementation-in-remix)
 - [Database](#database)
@@ -46,13 +46,13 @@ Project contains the following sections:
 
 ```
 Frontend (game)
-      ↓
+        ↓
 Spring Boot backend
-      ↓
+        ↓
 PostgreSQL (wallet balance)
-      ↓
+        ↓
 [CLAIM BUTTON]
-      ↓
+        ↓
 Blockchain (NFT mint)
 ```
 
@@ -60,31 +60,22 @@ Blockchain (NFT mint)
 
 ## Features
 The project includes only one main page, divided into three main sections:
-- **Header** 
+* **Header** 
 Where the name of the project is displayed.
 Header section also encloses the navigation bar that constains two buttons.
 
-* **Claim Reward popup box**
-
-
-![Claim Reward popup](documentation/images/claim_reward_popup.png)
-
-[Code Snippets](codesnippets.md#get-reward-popup-box)
-
-![Navigation image](documentation/images/puzzle_nav_bar.jpg)
-
-  * **Help** Clicking the Help button displays Popup box that contains more specific information about the rules of the game.
+* **Help** Clicking the Help button displays Popup box that contains more specific information about the rules of the game.
 
 ![Help section image](documentation/images/puzzle_help_window.jpg)
 
-  * **About** About section contains some information about version of the program and how to contact the author.
+* **About** About section contains some information about version of the program and how to contact the author.
 
-- **Side bars** 
+* **Side bars** 
 * **Greeting bar** Displays greeting and brief introduction to the game and its rules.
 * **Best Results** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stored in the Local Storage and they as restored after each entry to the game.
  
  
-- **Footer** Contains information about Copyrights. 
+* **Footer** Contains information about Copyrights. 
 
 - **Game Main Board** 
 
@@ -97,21 +88,22 @@ our tile can be swapped with.
 
 The game uses Drag and Drop functionality to click selected tile to drag it and move it over its neighbouring tile to drop it.
 
-![Drag and Drop](documentation/images/swap_1.jpg)
+<!-- ![Drag and Drop](documentation/images/swap_1.jpg) -->
 ![Drag and Drop](documentation/images/swap_2.jpg)
-![Drag and Drop](documentation/images/swap_3.jpg)
-![Drag and Drop](documentation/images/swap_4.jpg)
+<!-- ![Drag and Drop](documentation/images/swap_3.jpg) -->
+<!-- ![Drag and Drop](documentation/images/swap_4.jpg) -->
 
 
 
-  * **Start New Game/Quit Game** Clicking this button will result with arranging the tiles in random order, the Turns counter is set to zero and the game starts. Thanks to the use of toggle button function the Start New Game button changes its functionality to Quit Game and allows to quit current game and put the pieces into the starting position.
+* **Start New Game/Quit Game** Clicking this button will result with arranging the tiles in random order, the Turns counter is set to zero and the game starts. Thanks to the use of toggle button function the Start New Game button changes its functionality to Quit Game and allows to quit current game and put the pieces into the starting position.
 
 ![Start image](documentation/images/start_quit_1.jpg)
 ![Start image](documentation/images/start_quit_2.jpg)
 
   * **Turns counter** Turns Counter display how many movements have been made so far. The number increases everytime we make a swap.
 
-  * **Upload Your Own Image (New Feature)** A major new feature in Version 2 allows users to upload their own image and instantly transform it into a playable puzzle.
+### Upload Your Own Image
+A major new feature in Version 2 allows users to upload their own image and instantly transform it into a playable puzzle.
 
   **How It Works:**
 1. Click Upload Image
@@ -141,18 +133,25 @@ The upload form appears inside a modal popup for improved UI experience.
 
 The image is processed server-side and dynamically loaded into the game board.
 
+* **Claim Reward popup box**
+
+![Claim Reward popup](documentation/images/claim_reward_popup.png)
+
+[Code Snippets](codesnippets.md#get-reward-popup-box)
+
+![Navigation image](documentation/images/puzzle_nav_bar.jpg)
+
 
 ---
 
-## Collecting Tokens
+## Point, Tokens and rewards
 
+### Collecting Tokens
 To receive a reward in the form of NFT Tokens, collect at least 100 points.
-
 To earn points, you must solve the puzzle. The faster you do it (fewer moves), the more points you earn.
-
 Until you have collected the required number of points, the "Claim NFT Reward" button is disabled.
 
-## Claiming Reward
+### Claiming Reward
 
 When user clicks Claim:
 1. Check balance ≥ threshold (e.g. 100)
@@ -174,7 +173,6 @@ Enter your wallet address
 
 
 ### Connecting Wallet
-
 If MetaMask is connected:
  - autofill input
  - disable manual editing
@@ -184,28 +182,19 @@ If NOT connected:
  - user can type address manually
 
 **MetaMask integration**
-
 Add some photos.
 
 **Manual wallet input**
-
 This function is to be removed.
 
 ### Minting NFT's
-
-**1. User clicks "Claim"**
-
-**2. Frontend sends request (wallet address)**
-
-**3. Backend validates tokens**
-
-**4. Backend calls smart contract**
-
-**5. NFT minted to wallet**
-
-**6. Transaction hash returned**
-
-**7. Frontend shows success**
+1. User clicks "Claim"
+2. Frontend sends request (wallet address)
+3. Backend validates tokens
+4. Backend calls smart contract
+5. NFT minted to wallet
+6. Transaction hash returned
+7. Frontend shows success
 
 ### Smart Contract Implementation in Remix
 
@@ -238,10 +227,10 @@ Go to [Remix Ide](https://remix.ethereum.org/)
 
 #### Deploy Contract
 
-- Create a new  *.sol* file, and paste [Smart Contract](codesnippets.md#nft-smart-contract-erc-721) 
+1. Create a new  *.sol* file, and paste [Smart Contract](codesnippets.md#nft-smart-contract-erc-721) 
 
-- In the Deploy & Run Transaction tab go to Deploy section.
-- Click Compile and Deploy. *Assuming your Metamsk Wallet is already connected. If it's not, go to section* ![Connect Wallet](#remix-ide)
+2. In the Deploy & Run Transaction tab go to Deploy section.
+3. Click Compile and Deploy. *Assuming your Metamsk Wallet is already connected. If it's not, go to section*  [Connect Wallet](#remix-ide)
 
 #### Get abi
 
