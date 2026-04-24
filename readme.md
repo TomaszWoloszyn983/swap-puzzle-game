@@ -13,31 +13,29 @@ Tile Swap Puzzle is a full-stack web application that allows users to play a dra
 The game challenges players to reconstruct an image from shuffled puzzle pieces. Players earn in-game points (tokens) based on their performance — the fewer moves and less time required to solve the puzzle, the higher the reward. After collecting at least 100 tokens, players can exchange them for NFT rewards minted on the blockchain.
 
 The application evolved from a simple front-end puzzle game into a production-ready full-stack project featuring:
-
-Server-side image processing and dynamic puzzle generation
-User-uploaded image handling
-Dynamic asset generation
-Cloud deployment
-Persistent client-side ranking and score tracking
-Modal-based UI architecture
-Blockchain integration with NFT reward minting
-MetaMask wallet connectivity
-Smart contract interaction using ethers.js
-ERC-721 NFT minting on the Polygon Amoy test network
+- Server-side image processing and dynamic puzzle generation
+- User-uploaded image handling
+- Dynamic asset generation
+- Cloud deployment
+- Persistent client-side ranking and score tracking
+- Modal-based UI architecture
+- Blockchain integration with NFT reward minting
+- MetaMask wallet connectivity
+- Smart contract interaction using ethers.js
+- ERC-721 NFT minting on the Polygon Amoy test network
 
 The NFT reward system integrates Web3 technologies into the game experience. When players claim a reward, the application connects to the user’s MetaMask wallet, interacts with a deployed Solidity smart contract, and mints a unique ERC-721 NFT directly to the player’s wallet using blockchain transactions on the Polygon network.
 
 The project demonstrates practical experience with:
-
-JavaScript frontend development
-Java and Spring framework backend development
-Asynchronous programming
-REST-style client-server communication
-Smart contract integration and blockchain interaction
-Wallet authentication and transaction signing
-File system management
-Cloud deployment workflows
-Production debugging and troubleshooting across both Web2 and Web3 environments
+- JavaScript frontend development
+- Java and Spring framework backend development
+- Asynchronous programming
+- REST-style client-server communication
+- Smart contract integration and blockchain interaction
+- Wallet authentication and transaction signing
+- File system management
+- Cloud deployment workflows
+- Production debugging and troubleshooting across both Web2 and Web3 environments
 
 This project combines traditional full-stack application development with modern blockchain technologies, demonstrating the integration of decentralized systems into an interactive web application experience.
 
@@ -49,9 +47,10 @@ Project contains the following sections:
 
 - [Architecture](#architecture)
 - [Features](#features)
+- [Rules](#rules)
 - [Upload Image](#upload-your-own-image)
 - [Tokens and Points](#point-tokens-and-rewards)
-- [Connecting Wallet](#connecting-wallet)
+- [Metamask Integration](#metamask-integration)
 - [Smart Contract Implementation](#smart-contract-implementation-in-remix)
 - [Database](#database)
 - [Data Flow](#data-flow)
@@ -91,7 +90,6 @@ Blockchain (NFT mint)
 ---
 
 ## Features
-The project includes only one main page, divided into three main sections:
 
 ### **Swap Puzzle Game** 
 
@@ -100,36 +98,20 @@ The project includes only one main page, divided into three main sections:
 1. Click the Start Game button.
 
 2. Click and hold a tile with your mouse.
-Slide the tile towards an adjacent tile to swap them.
-
-This creates a picture from the shuffled tiles.
+Slide the tile towards an adjacent tile to swap them. This creates a picture from the shuffled tiles.
 
 3. You will receive points for completing the picture depending on how many moves you make. The fewer moves you make, the more points you receive.
 
 4. After earning a certain number of points, you can claim a reward in the form of a test NFT token.
 
 5. To claim your reward, click the "Claim NFT Reward" button, which activates after earning the required number of points.
-
-At least 100 points are currently required to qualify for the reward.
+*At least 100 points are currently required to qualify for the reward.*
 
 6. Enter your MetaMask cryptocurrency wallet address and claim your reward in the form of an NFT token on the Polygon Amoy network.
-You may need to have a minimum number of Pol tokens in your wallet to pay for the transaction.
+*You may need to have a minimum number of Pol tokens in your wallet to pay for the transaction*.
 
 
-
-
-* **Help** Clicking the Help button displays Popup box that contains more specific information about the rules of the game.
-
-![Help section image](documentation/images/puzzle_help_window.jpg)
-
-* **About** About section contains some information about version of the program and how to contact the author.
-
-* **Side bars** 
-* **Greeting bar** Displays greeting and brief introduction to the game and its rules.
-* **Best Results** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stored in the Local Storage and they as restored after each entry to the game.
- 
- 
-* **Footer** Contains information about Copyrights. 
+#### Page features
 
 - **Game Main Board** 
 
@@ -154,7 +136,19 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 ![Start image](documentation/images/start_quit_1.jpg)
 ![Start image](documentation/images/start_quit_2.jpg)
 
-  * **Turns counter** Turns Counter display how many movements have been made so far. The number increases everytime we make a swap.
+* **Help** Clicking the Help button displays Popup box that contains more specific information about the rules of the game.
+
+![Help section image](documentation/images/puzzle_help_window.jpg)
+
+* **About** About section contains some information about version of the program and how to contact the author.
+
+* **Side bars** 
+* **Greeting bar** Displays greeting and brief introduction to the game and its rules.
+* **Leaderboard** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stored in PostgreSql datatable.
+ 
+* **Footer** Contains information about Copyrights. 
+
+* **Turns counter** Turns Counter display how many movements have been made so far. The number increases everytime we make a swap.
 
 ---
 
@@ -204,8 +198,16 @@ To receive a reward in the form of NFT Tokens, collect at least 100 points.
 To earn points, you must solve the puzzle. The faster you do it (fewer moves), the more points you earn.
 Until you have collected the required number of points, the "Claim NFT Reward" button is disabled.
 
-### Claiming Reward
+### Minting NFT's
+1. User clicks "Claim"
+2. Frontend sends request (wallet address)
+3. Backend validates tokens
+4. Backend calls smart contract
+5. NFT minted to wallet
+6. Transaction hash returned
+7. Frontend shows success
 
+### Claiming Reward
 When user clicks Claim:
 1. Check balance ≥ threshold (e.g. 100)
 2. Ask for wallet address (MetaMask)
@@ -224,7 +226,6 @@ Enter your wallet address
 
 ![Claim Reward popup](documentation/images/claim_reward_popup.png)
 
-
 ### Connecting Wallet
 If MetaMask is connected:
  - autofill input
@@ -234,20 +235,75 @@ If MetaMask is connected:
 If NOT connected:
  - user can type address manually
 
-**MetaMask integration**
-Add some photos.
+### **MetaMask integration**
+MetaMask acts as:
+  * wallet
+  * blockchain identity
+  * transaction signer
 
-**Manual wallet input**
-This function is to be removed.
+It allows the user to:
+  * connect wallet
+  * approve transactions
+  * sign blockchain operations securely
 
-### Minting NFT's
-1. User clicks "Claim"
-2. Frontend sends request (wallet address)
-3. Backend validates tokens
-4. Backend calls smart contract
-5. NFT minted to wallet
-6. Transaction hash returned
-7. Frontend shows success
+Your app NEVER gets the user’s private key.
+
+MetaMask signs transactions safely.
+
+**Integration**
+```js
+  import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+
+  window.ethereum
+
+  if (!window.ethereum) {
+    alert("MetaMask not detected");
+  }
+```
+To integrate the application with the Blockchain network, I used Provider class.
+A provider is the bridge between Frontend Application and Blockchain Network
+
+It allows reading blockchain data, such as: 
+  * Signer - used for approval blockchain transactions
+  * Network/chain Id - returns the blockchain Id, which can be used for network veryfication.
+
+```js
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+
+  const network = await provider.getNetwork();
+  console.log(network.chainId);
+
+ const contract = new ethers.Contract(contractAddress, abi, signer);
+
+```
+
+#### Contract
+
+  **Contract** is a connection to the smart contract located at the contractAddess, using abi description, and let this wallet signer to authorize transactions. 
+
+  **Transaction** is a signed instruction sent to the blockchain
+  that changes blockchain state.
+
+  **State** - is an information stored permanently on blockchain. 
+  * NFT ownership
+  * balances
+  * token Id's
+  * contract data
+
+#### abi
+
+abi - *Application Binary Interface* describes:
+  * available functions - without abi frontend does not know what functions exist and how to call them.
+  * function parameters - what arguments the functions require.
+  * return values
+  * events
+
+You can copy ABI from Remix.
+
+![Get abi](documentation/images/smart_contract_deployment_get_abi.png)
+
+---
 
 ### Smart Contract Implementation in Remix
 
@@ -255,7 +311,7 @@ For this project, I used the Polygon Amoy blockchain network. This is Polygon's 
 
 To use the Amoy free testnet, make sure you have enough Polygon tokens in your connected wallet. If you don't have any tokens, you can claim a free amount [here](https://faucet.polygon.technology/).
 
-#### Remix Ide
+### Remix Ide
 
 Go to [Remix Ide](https://remix.ethereum.org/)
 
@@ -277,18 +333,12 @@ Go to [Remix Ide](https://remix.ethereum.org/)
   * Refresh Remix with Alt+F5.
   * Return to step 3. and connect wallet again.
 
-
 #### Deploy Contract
 
 1. Create a new  *.sol* file, and paste [Smart Contract](codesnippets.md#nft-smart-contract-erc-721) 
 
 2. In the Deploy & Run Transaction tab go to Deploy section.
 3. Click Compile and Deploy. *Assuming your Metamsk Wallet is already connected. If it's not, go to section*  [Connect Wallet](#remix-ide)
-
-#### Get abi
-
-![Get abi](documentation/images/smart_contract_deployment_get_abi.png)
-
 
 ### Claim NFT Reward in the game.
 
@@ -371,6 +421,8 @@ Player (session_id)
 User accounts
   - Blockchain wallet integration (e.g. MetaMask)
   - NFT minting logic
+
+---
 
 ## Future Features
   - Adding the ability to authenticate and create user accounts.
