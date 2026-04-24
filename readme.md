@@ -10,16 +10,36 @@ Link to the Swap Puzzle Game v2 [Here](https://swap-puzzle-game-2.onrender.com)
 
 Tile Swap Puzzle is a full-stack web application that allows users to play a drag-and-drop tile puzzle game and dynamically generate new puzzles by uploading their own images.
 
-The game involves assembling the correct picture from jumbled puzzle pieces. Players receive points (tokens) based on how quickly they solve the puzzle. The fewer moves they have to make to solve the puzzle, the more points they earn. After collecting at least 100 points, players can exchange these tokens for NFT Tokens.
+The game challenges players to reconstruct an image from shuffled puzzle pieces. Players earn in-game points (tokens) based on their performance — the fewer moves and less time required to solve the puzzle, the higher the reward. After collecting at least 100 tokens, players can exchange them for NFT rewards minted on the blockchain.
 
-The application evolved from a front-end game into a production-ready full-stack project with:
-- Server-side image processing
-- Dynamic asset generation
-- Cloud deployment
-- Persistent client-side ranking system
-- Modal-based UI architecture
+The application evolved from a simple front-end puzzle game into a production-ready full-stack project featuring:
 
-This project demonstrates practical experience with JavaScript frontend, and Java with Spring framework for backend. It includes both client and server environments, asynchronous programming, file system management, and production debugging.
+Server-side image processing and dynamic puzzle generation
+User-uploaded image handling
+Dynamic asset generation
+Cloud deployment
+Persistent client-side ranking and score tracking
+Modal-based UI architecture
+Blockchain integration with NFT reward minting
+MetaMask wallet connectivity
+Smart contract interaction using ethers.js
+ERC-721 NFT minting on the Polygon Amoy test network
+
+The NFT reward system integrates Web3 technologies into the game experience. When players claim a reward, the application connects to the user’s MetaMask wallet, interacts with a deployed Solidity smart contract, and mints a unique ERC-721 NFT directly to the player’s wallet using blockchain transactions on the Polygon network.
+
+The project demonstrates practical experience with:
+
+JavaScript frontend development
+Java and Spring framework backend development
+Asynchronous programming
+REST-style client-server communication
+Smart contract integration and blockchain interaction
+Wallet authentication and transaction signing
+File system management
+Cloud deployment workflows
+Production debugging and troubleshooting across both Web2 and Web3 environments
+
+This project combines traditional full-stack application development with modern blockchain technologies, demonstrating the integration of decentralized systems into an interactive web application experience.
 
 ---
 
@@ -53,16 +73,16 @@ Spring Boot backend
         ↓
 PostgreSQL (wallet balance)
         ↓
-[CLAIM BUTTON]
+CLAIM Button
         ↓
 Blockchain (NFT mint)
 ```
 
-* **The frontend** is responsible for the user interface, i.e., the game's operation.
+* **The frontend** - is responsible for the user interface, i.e., the game's operation.
 
-* **The backend** manages the business logic.
+* **The backend** - manages the business logic.
 
-* **The database** stores information such as the high score ranking and the number of points earned by the player.
+* **The database** - stores information such as the high score ranking and the number of points earned by the player.
 
 * **Claim Button** - initiates the process of receiving a reward in the form of an NFT token.
 
@@ -73,11 +93,30 @@ Blockchain (NFT mint)
 ## Features
 The project includes only one main page, divided into three main sections:
 
-* **Header** 
-Where the name of the project is displayed.
-Header section also encloses the navigation bar that constains two buttons.
+### **Swap Puzzle Game** 
 
-![Navigation image](documentation/images/puzzle_nav_bar.jpg)
+#### Rules
+
+1. Click the Start Game button.
+
+2. Click and hold a tile with your mouse.
+Slide the tile towards an adjacent tile to swap them.
+
+This creates a picture from the shuffled tiles.
+
+3. You will receive points for completing the picture depending on how many moves you make. The fewer moves you make, the more points you receive.
+
+4. After earning a certain number of points, you can claim a reward in the form of a test NFT token.
+
+5. To claim your reward, click the "Claim NFT Reward" button, which activates after earning the required number of points.
+
+At least 100 points are currently required to qualify for the reward.
+
+6. Enter your MetaMask cryptocurrency wallet address and claim your reward in the form of an NFT token on the Polygon Amoy network.
+You may need to have a minimum number of Pol tokens in your wallet to pay for the transaction.
+
+
+
 
 * **Help** Clicking the Help button displays Popup box that contains more specific information about the rules of the game.
 
@@ -117,6 +156,8 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 
   * **Turns counter** Turns Counter display how many movements have been made so far. The number increases everytime we make a swap.
 
+---
+
 ### Upload Your Own Image
 A major new feature in Version 2. It allows users to upload their own image and instantly transform it into a playable puzzle.
 
@@ -152,7 +193,7 @@ The image is processed server-side and dynamically loaded into the game board.
 
 ![Claim Reward popup](documentation/images/claim_reward_popup.png)
 
-[Code Snippets](codesnippets.md#get-reward-popup-box)
+Pop-up widow code snippet: [Pop-up modal](codesnippets.md#get-reward-popup-box)
 
 ---
 
