@@ -208,12 +208,12 @@ Until you have collected the required number of points, the "Claim NFT Reward" b
 7. Frontend shows success
 
 ### Claiming Reward
-When user clicks Claim:
-1. Check balance ≥ threshold (e.g. 100)
-2. Ask for wallet address (MetaMask)
-3. Call smart contract
-4. Mint NFT
-5. Reduce backend balance
+When user clicks Claim, the application:
+1. Checks if balance is equaL or higher than the threshold (e.g. 100)
+2. Asks for wallet address (MetaMask)
+3. Calls smart contract
+4. Mints NFT
+5. Reduces backend balance by the threshold.
 
 
 ![Claim Reward button disabled](documentation/images/claim_reward_btn_disabled.png)
@@ -274,25 +274,28 @@ It allows reading blockchain data, such as:
   const network = await provider.getNetwork();
   console.log(network.chainId);
 
- const contract = new ethers.Contract(contractAddress, abi, signer);
+  const contract = new ethers.Contract(contractAddress, abi, signer);
 
 ```
 
-#### Contract
+#### **Contract** 
+is a connection to the smart contract located at the contractAddess, using abi description, and let this wallet signer to authorize transactions. 
 
-  **Contract** is a connection to the smart contract located at the contractAddess, using abi description, and let this wallet signer to authorize transactions. 
+You can get your **ContractAddress** copied from Remix -> Deployed Contract
+To verify if the Contract Address is correct go to [PolygonScan](https://amoy.polygonscan.com/)
 
-  **Transaction** is a signed instruction sent to the blockchain
+#### **Transaction** 
+is a signed instruction sent to the blockchain
   that changes blockchain state.
 
-  **State** - is an information stored permanently on blockchain. 
+#### **State** 
+is an information stored permanently on blockchain. 
   * NFT ownership
   * balances
   * token Id's
   * contract data
 
-#### abi
-
+### **abi**
 abi - *Application Binary Interface* describes:
   * available functions - without abi frontend does not know what functions exist and how to call them.
   * function parameters - what arguments the functions require.
@@ -339,8 +342,11 @@ Go to [Remix Ide](https://remix.ethereum.org/)
 
 2. In the Deploy & Run Transaction tab go to Deploy section.
 3. Click Compile and Deploy. *Assuming your Metamsk Wallet is already connected. If it's not, go to section*  [Connect Wallet](#remix-ide)
+4. After the Deployment, **Copy and Save**:
+  * Contract Address
+  * Network Name
+  * abi
 
-### Claim NFT Reward in the game.
 
 ---
 
