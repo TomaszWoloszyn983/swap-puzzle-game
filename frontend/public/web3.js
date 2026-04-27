@@ -4,7 +4,6 @@ import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.es
 
 const contractAddress = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4"; // Replace with your deployed contract address
 
-
 /**
  * You can find ABI in your Remix ide.
  * Go to 'Deploy and run transactions' tab, then click three dots on the contract name'.

@@ -49,9 +49,10 @@ Project contains the following sections:
 - [Features](#features)
 - [Rules](#rules)
 - [Upload Image](#upload-your-own-image)
-- [Tokens and Points](#point-tokens-and-rewards)
+- [Tokens and Points](#points-tokens-and-rewards)
 - [Metamask Integration](#metamask-integration)
 - [Smart Contract Implementation](#smart-contract-implementation-in-remix)
+- [Received Nft token](#received-nft)
 - [Database](#database)
 - [Data Flow](#data-flow)
 - [Future Features](#future-features)
@@ -191,7 +192,7 @@ Pop-up widow code snippet: [Pop-up modal](codesnippets.md#get-reward-popup-box)
 
 ---
 
-## Point, Tokens and rewards
+## Points, Tokens and rewards
 
 ### Collecting Tokens
 To receive a reward in the form of NFT Tokens, collect at least 100 points.
@@ -281,7 +282,8 @@ It allows reading blockchain data, such as:
 #### **Contract** 
 is a connection to the smart contract located at the contractAddess, using abi description, and let this wallet signer to authorize transactions. 
 
-You can get your **ContractAddress** copied from Remix -> Deployed Contract
+You can get your **contractAddress** copied from Remix -> [Deployed Contract](#deploy-contract).
+
 To verify if the Contract Address is correct go to [PolygonScan](https://amoy.polygonscan.com/)
 
 #### **Transaction** 
@@ -342,11 +344,28 @@ Go to [Remix Ide](https://remix.ethereum.org/)
 
 2. In the Deploy & Run Transaction tab go to Deploy section.
 3. Click Compile and Deploy. *Assuming your Metamsk Wallet is already connected. If it's not, go to section*  [Connect Wallet](#remix-ide)
-4. After the Deployment, **Copy and Save**:
-  * Contract Address
-  * Network Name
-  * abi
+4. After the Deployment, **Copy and Save** (important!):
+    * Contract Address
+    * Network Name
+    * abi
 
+---
+
+### Received Nft
+
+**Important note!**
+What the user receives at this stage is NOT the Nft itself. It is the Nft metadata file working on the Polygon Amoy Testnet. They do not have any market value. 
+How ever you can verify ....
+
+The aim of the project is to demonstrate a functional blockchain integration, not a profuction-ready NFT ecosystem.
+
+```js
+{
+  "name": "Puzzle Reward",
+  "description": "Awarded for solving the puzzle",
+  "image": "https://raw.githubusercontent.com/ethereum/ethereum-org-website/dev/src/data/nft-metadata.json"
+}
+```
 
 ---
 
