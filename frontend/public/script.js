@@ -179,6 +179,56 @@ function closePopup() {
 }
 
 
+// Handling Help, About and other text contents.
+async function loadPopupContent(
+    filePath,
+    elementId
+) {
+
+    try {
+
+        const response =
+            await fetch(filePath);
+
+        const html =
+            await response.text();
+
+        document.getElementById(
+            elementId
+        ).innerHTML = html;
+
+    } catch (err) {
+
+        console.error(
+            "Failed loading popup content",
+            err
+        );
+
+    }
+}
+
+/**
+ * Loads content for Help, About and Welcome popups from text files.
+ */
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        loadPopupContent(
+            "textContent/help.html",
+            "helpContent"
+        );
+        loadPopupContent(
+            "textContent/about.html",
+            "aboutContent"
+        );
+        loadPopupContent(
+            "textContent/leftPanel.html",
+            "welcomeContent"
+        );
+    }
+);
+
+
 /**
  * Claim NFT Rewards button handler.
  * Sends Session Id and Wallet Address to backend.

@@ -41,22 +41,8 @@
     <!-- Main section containing: Game board, info panel and Best Results list -->
     <main id="game_container">
         <section id="rules">
-            <h2>Welcome to the game</h2>
-            <p>Click "Start New Game" button to begin.<br>
-                Drag tiles to swap them with their nearest adjacent tiles.
-                Put them in the right order to build the image in the board.
-                <br><br>
-                The fewer attempts, the better result!
-                <br><br>
-                To upload your own image:<br>
-                 - Click Upload Image button<br>
-                 - Select image from your hard drive<br>
-                 - Submit by clicking 'Upload & Split' button.<br>
-                <br><br>
-                It is strongly recommended to use photos in a vertical position.
-                <br><br>
-                It is NOT recommended to use mobile devices with touch screen for this game.
-            </p>
+            <!-- Insert welcome content from textContent/leftPanel.html -->
+            <div id="welcomeContent"></div>
             <p id="message_box"></p>
         </section>
         
@@ -144,25 +130,8 @@
             <div class = "popup" id="popup-help"> 
                 <div class="overlay"></div>
                 <div class="content">
-                    <h2>Help</h2>
-                    <p> 
-                        1. Click "Start New Game" button to begin.
-                        <br>
-                        2. Swap tiles to complete the Puzzles. Remember that you can only swap a puzzle 
-                        with its adjacent tile: the nearest left, right, upper or a puzzle below 
-                        the selected puzzle. To make it easier for you the correct tiles are highlighted 
-                        so you can easily locate them.
-                        <br>
-                        3. Complete the picture of a man in a hat to finish the game. The fewer turns you 
-                        you will need to complete the task the better. 
-                        You can put your name down to be shown on Best Results.
-                        <br><br>
-                        The game does not support touch screen functionality, so it is NOT recommended using 
-                        mobile devices for this game.
-                        <br><br>
-                        Enjoy the game!
-                        <br><br>
-                    </p>
+                    <!-- Insert help content from textContent/help.html -->
+                    <div id="helpContent"></div>
                     <button type="button" id="closeHelp">Close</button>
                 </div>
             </div>
@@ -170,22 +139,8 @@
             <div class = "popup" id="popup-about"> 
                 <div class="overlay"></div>
                 <div class="content">
-                    <h2>About the application:</h2>
-                    <p>
-                        This is Swap Tiles Puzzle Game. Version 1.1<br>
-                        Author: Tomasz Woloszyn<br>
-                        Application was created to serve educational purposes only 
-                        and will not be used for any commercial use.<br>
-                        Images used in this project belong to the author 
-                        and are subject to copyright protection.<br><br>
-                        For more informations please visit:<br>
-                        profile TomaszWoloszyn983 on https://github.com
-                        <br>
-                        or contact the Author:
-                        <br>
-                        tomaszwoloszyn983@gmail.com
-                        <br><br>
-                    </p>
+                    <!-- Insert help content from textContent/about.html -->
+                    <div id="aboutContent"></div>
                     <button type="button" id="closeAbout">Close</button>
                 </div>
             </div>
@@ -226,8 +181,7 @@
                                 Connected Wallet: <span id="walletDisplay">Not connected</span>
                             </div>
                         </div>
-                        <!-- <h5>Or</h5>
-                        <h4>Enter your wallet address</h4> -->
+
                         <form id="claimForm">
                             <input 
                                 type="text" 

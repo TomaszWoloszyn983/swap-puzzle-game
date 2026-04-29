@@ -83,4 +83,64 @@
     }
  ```
 
+ ## Display Text Content from other html file
+ 
+ ```js
+async function loadPopupContent(filePath, elementId) {
+
+    try {
+        const response = await fetch(filePath);
+        const html = await response.text();
+        document.getElementById(elementId).innerHTML = html;
+    } catch (err) {
+        console.error(
+            "Failed loading popup content",
+            err
+        );
+    }
+}
+
+
+ /**
+ * Loads content for Help, About and Welcome popups from text files.
+ */
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        loadPopupContent(
+            "textContent/help.html",
+            "helpContent"
+        );
+        loadPopupContent(
+            "textContent/about.html",
+            "aboutContent"
+        );
+        loadPopupContent(
+            "textContent/leftPanel.html",
+            "welcomeContent"
+        );
+    }
+);
+ ```
+ ```html
+<!-- Help Popup box -->
+<div class = "popup" id="popup-help"> 
+    <div class="overlay"></div>
+    <div class="content">
+        <!-- Insert help content from textContent/help.html -->
+        <div id="helpContent"></div>
+        <button type="button" id="closeHelp">Close</button>
+    </div>
+</div>
+<!-- About Popup box -->
+<div class = "popup" id="popup-about"> 
+    <div class="overlay"></div>
+    <div class="content">
+        <!-- Insert help content from textContent/about.html -->
+        <div id="aboutContent"></div>
+        <button type="button" id="closeAbout">Close</button>
+    </div>
+</div>
+ ```
+
 
