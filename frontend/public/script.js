@@ -429,7 +429,7 @@ function highlight(){
     if(gameOn == true){
         let tiles = document.getElementById("board").children;
         for(let tile of tiles){
-            tile.style.opacity = "0.7";
+            tile.style.opacity = "0.3";
         }
 
         // Highlighting the hovered tile and its neighbours
@@ -449,10 +449,10 @@ function highlight(){
 function mouseLeave(){
     let tiles = document.getElementById("board").children;
     for(let tile of tiles){
-        tile.style.border = "2px solid blue";
+        tile.style.border = "2px solid var(--borders-color)";
         tile.style.opacity = "1";
     }
-    this.style.border = "2px solid blue";
+    this.style.border = "2px solid var(--borders-color)";
 }
 
 /**

@@ -2,9 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@600&display=swap');
 
 :root {
- --borders-color: #1e90ff;
+ --borders-color: #1e8fff36;
  --background-color: #e0df97;
  --main-color: #1e293b;
+ --buttons-color: #4CAF50;
 }
 
 body {
@@ -17,7 +18,7 @@ body {
 h1 {
     font-family: 'Orbitron', sans-serif;
     color: #1e293b;
-    font-size: 42px;
+    font-size: 50px;
     letter-spacing: 5px;
 }
 
@@ -28,12 +29,12 @@ h3 {
 }
 
 button {
-    min-width: 50px;
-    min-height: 25px;
+    min-width: 150px;
+    min-height: 35px;
     padding: 0;
     margin: 0;
     display: inline;
-    background: #535353;
+    background: var(--buttons-color);
     color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -89,7 +90,7 @@ li {
     padding: 0;
     margin: 0;
     display: inline;
-    background-color: #4CAF50;
+    background-color: var(--buttons-color);
 }
 
         /* Main game section */
@@ -141,8 +142,9 @@ li {
 
         /* Start New Game/Quit Game Button */
 #btn_new_game,
-#btn_upload_image {
-    background-color: #4CAF50;
+#btn_upload_image,
+#claimSubmitBtn {
+    background-color: var(--buttons-color);
     border: 2px solid black;
     color: white;
     padding: 15px 32px;
@@ -153,15 +155,16 @@ li {
 }
 
 #btn_new_game:hover,
-#btn_claim_reward,
+#btn_claim_reward:hover,
+#claimSubmitBtn:hover,
 #btn_upload_image:hover{
-    background-color: #4CAF50;
+    background-color: var(--buttons-color);
     border: 4px solid black;
     color: yellow;
 }
 
 #btn_claim_reward{
-    background-color: #4CAF50;
+    background-color: var(--buttons-color);
     border: 2px solid black;
     color: white;
     padding: 10px 20px;
@@ -184,18 +187,18 @@ li {
   cursor: not-allowed;
 }
 
-#claimSubmitBtn {
+/* #claimSubmitBtn {
   background-color: #ccc;
   color: #666;
   cursor: not-allowed;
   transition: all 0.2s ease;
-}
+} */
 
-#claimSubmitBtn.enabled {
-  background-color: #4CAF50;
+/* #claimSubmitBtn.enabled {
+  background-color: var(--buttons-color);
   color: white;
   cursor: pointer;
-}
+} */
 
 #rules, #results{
     height: fit-content;
@@ -243,17 +246,22 @@ li {
 }
 
 .popup .content {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
+
     transform: translate(-50%, -50%) scale(0);
-    background: #fff;
-    width: 450px;
-    height: fit-content;
-    z-index: 2;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    color: #1e293b;
+    border-radius: 20px;
+    padding: 30px;
+
+    z-index: 101;
+    transition: 0.25s ease;
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.15);
 }
 
 .popup .close-btn {
