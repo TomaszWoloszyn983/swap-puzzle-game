@@ -125,11 +125,7 @@ our tile can be swapped with.
 
 The game uses Drag and Drop functionality to click selected tile to drag it and move it over its neighbouring tile to drop it.
 
-<!-- ![Drag and Drop](documentation/images/swap_1.jpg) -->
 ![Drag and Drop](documentation/images/swap_2.jpg)
-<!-- ![Drag and Drop](documentation/images/swap_3.jpg) -->
-<!-- ![Drag and Drop](documentation/images/swap_4.jpg) -->
-
 
 
 * **Start New Game/Quit Game** Clicking this button will result with arranging the tiles in random order, the Turns counter is set to zero and the game starts. Thanks to the use of toggle button function the Start New Game button changes its functionality to Quit Game and allows to quit current game and put the pieces into the starting position.
@@ -142,6 +138,29 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 ![Help section image](documentation/images/puzzle_help_window.jpg)
 
 * **About** About section contains some information about version of the program and how to contact the author.
+
+*Content for Help and About sections as well as content for the lepft-side panel are defined in separate html files located in public/textContent folder, and they are dynamically added to the index.html template.*
+
+```html
+  <!-- Help Popup box -->
+  <div class = "popup" id="popup-help"> 
+      <div class="overlay"></div>
+      <div class="content">
+          <!-- Insert help content from textContent/help.html -->
+          <div id="helpContent"></div>
+          <button type="button" id="closeHelp">Close</button>
+      </div>
+  </div>
+  <!-- About Popup box -->
+  <div class = "popup" id="popup-about"> 
+      <div class="overlay"></div>
+      <div class="content">
+          <!-- Insert help content from textContent/about.html -->
+          <div id="aboutContent"></div>
+          <button type="button" id="closeAbout">Close</button>
+      </div>
+  </div>
+```
 
 * **Side bars** 
 * **Greeting bar** Displays greeting and brief introduction to the game and its rules.
@@ -162,10 +181,12 @@ A major new feature in Version 2. It allows users to upload their own image and 
 3. Select an image file from your device.
 4. Click Upload & Split.
 5. Then the server:
-  - Processes the image.
-  - Splits it into 20 equal tiles (5 rows × 4 columns).
-  - Stores the pieces.
-  - Reloads the board with the new image.
+    - Processes the image.
+    - Splits it into 20 equal tiles (5 rows × 4 columns).
+    - Stores the pieces.
+    - Reloads the board with the new image.
+
+![Upload Image Popup box](documentation/images/upload_image_box.png)
 
 **Upload Popup Window**
 The upload form appears inside a modal popup for improved UI experience.
