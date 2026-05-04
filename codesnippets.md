@@ -83,7 +83,7 @@
     }
  ```
 
- ## Display Text Content from other html file
+## Display Text Content from other html file
  
  ```js
 async function loadPopupContent(filePath, elementId) {

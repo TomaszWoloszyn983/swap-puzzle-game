@@ -139,7 +139,7 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 
 * **About** About section contains some information about version of the program and how to contact the author.
 
-*Content for Help and About sections as well as content for the lepft-side panel are defined in separate html files located in public/textContent folder, and they are dynamically added to the index.html template.*
+*Content for Help and About sections, as well as content for the left-side panel are defined in separate html files located in public/textContent folder, and they are dynamically added to the index.html template.*
 
 ```html
   <!-- Help Popup box -->
@@ -162,9 +162,12 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
   </div>
 ```
 
+More details [here](codesnippets.md#display-text-content-from-other-html-file)
+
+
 * **Side bars** 
 * **Greeting bar** Displays greeting and brief introduction to the game and its rules.
-* **Leaderboard** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stored in PostgreSql datatable.
+* **Leaderboard** List of the best results that were achived by players. It is sorted and displayed in ascending order. The data from the list are stored in relational datatable.
  
 * **Footer** Contains information about Copyrights. 
 
@@ -176,10 +179,10 @@ The game uses Drag and Drop functionality to click selected tile to drag it and 
 A major new feature in Version 2. It allows users to upload their own image and instantly transform it into a playable puzzle.
 
   **How It Works:**
-1. Click Upload Image.
+1. Click 'Upload Image' button.
 2. A modal popup window appears.
 3. Select an image file from your device.
-4. Click Upload & Split.
+4. Click 'Upload & Split' button.
 5. Then the server:
     - Processes the image.
     - Splits it into 20 equal tiles (5 rows × 4 columns).
@@ -205,11 +208,15 @@ The upload form appears inside a modal popup for improved UI experience.
 
 The image is processed server-side and dynamically loaded into the game board.
 
-* **Claim Reward popup box**
+Added images are stored in cache on the server, they are not stored on any external storage. An added image is permanently deleted from memory immediately after the next image is added.
+
+
+  <!-- vvv This must be here by accident vvv -->
+<!-- * **Claim Reward popup box**
 
 ![Claim Reward popup](documentation/images/claim_reward_popup.png)
 
-Pop-up widow code snippet: [Pop-up modal](codesnippets.md#get-reward-popup-box)
+Pop-up widow code snippet: [Pop-up modal](codesnippets.md#get-reward-popup-box) -->
 
 ---
 

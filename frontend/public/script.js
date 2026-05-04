@@ -184,26 +184,12 @@ async function loadPopupContent(
     filePath,
     elementId
 ) {
-
     try {
-
-        const response =
-            await fetch(filePath);
-
-        const html =
-            await response.text();
-
-        document.getElementById(
-            elementId
-        ).innerHTML = html;
-
+        const response = await fetch(filePath);
+        const html = await response.text();
+        document.getElementById(elementId).innerHTML = html;
     } catch (err) {
-
-        console.error(
-            "Failed loading popup content",
-            err
-        );
-
+        console.error("Failed loading popup content", err);
     }
 }
 
