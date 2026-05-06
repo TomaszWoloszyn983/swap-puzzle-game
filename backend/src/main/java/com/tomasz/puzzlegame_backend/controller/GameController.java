@@ -4,15 +4,23 @@ import com.tomasz.puzzlegame_backend.dto.GameResultRequest;
 import com.tomasz.puzzlegame_backend.model.GameResult;
 import com.tomasz.puzzlegame_backend.repository.GameResultRepository;
 import com.tomasz.puzzlegame_backend.service.ClaimService;
-import com.tomasz.puzzlegame_backend.service.GameResultService;
 import com.tomasz.puzzlegame_backend.service.RewardService;
 import com.tomasz.puzzlegame_backend.service.WalletService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/game")
@@ -97,4 +105,95 @@ public class GameController {
             ));
         }
     }
+
+    /**
+     * Redirects the path to images pieces folder,
+     * depending on whether the image is default or user-uploaded.
+     *
+     * @return
+     */
+    @GetMapping("/getPiecesDir")
+    public Map<String, String> getPiecesDir() {
+        Path piecesPath = Paths.get("src/main/resources/static/assets/images/pieces");
+
+        try (Stream<Path> files = Files.list(piecesPath)) {
+            boolean hasFiles = files.findAny().isPresent();
+
+            if (hasFiles) {
+                return Map.of("dir", "assets/images/pieces");
+            } else {
+                return Map.of("dir", "assets/images/default");
+            }
+        } catch (IOException e) {
+            return Map.of("dir", "assets/images/default");
+        }
+    }
+
+    /**
+     * Receives the image uploaded by the user.
+     * Split the image into 20 pieces (5 rows and 4 columns)
+     * Deletes previously used pieces
+     *
+     * @param file
+     * @return
+     */
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
+        try {
+            System.out.println("Uploading image ...");
+            BufferedImage original = ImageIO.read(file.getInputStream());
+
+            int rows = 5;
+            int cols = 4;
+
+            int pieceWidth = original.getWidth() / cols;
+            int pieceHeight = original.getHeight() / rows;
+
+            Path outputDir = Paths.get("src/main/resources/static/assets/images/pieces");
+
+            if (!Files.exists(outputDir)) {
+                Files.createDirectories(outputDir);
+            }
+
+            // clear old pieces
+            Files.list(outputDir).forEach(p -> {
+                try { Files.delete(p); } catch (Exception ignored) {}
+            });
+
+            int count = 0;
+
+            for (int y = 0; y < rows; y++) {
+                for (int x = 0; x < cols; x++) {
+
+                    BufferedImage subImage = original.getSubimage(
+                            x * pieceWidth,
+                            y * pieceHeight,
+                            pieceWidth,
+                            pieceHeight
+                    );
+                    File outputFile = outputDir.resolve("piece_" + count + ".jpg").toFile();
+//                    if (!outputFile.exists()) {
+//                        System.out.println("Upload failure");
+//                        throw new RuntimeException("File not written: " + outputFile.getName());
+//                    }else{
+//                        System.out.println("Upload success");
+//                    }
+                    ImageIO.write(subImage, "jpg", outputFile);
+
+                    count++;
+                }
+            }
+            long count_pieces = Files.list(outputDir).count();
+
+            if (count_pieces == 20) {
+                System.out.println("Upload completed."+count_pieces+" pieces added.");
+            }else{
+                throw new RuntimeException("Not all pieces generated!");
+            }
+            return ResponseEntity.ok(Map.of("message", "Image processed"));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Upload failed");
+        }
+    }
+
 }

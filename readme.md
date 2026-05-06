@@ -487,7 +487,9 @@ User accounts
 ---
 
 ## Technologies used:
-  - Javascript - High-level programming language.
+  - Java - high-level, class-based, object-oriented programming language used in back-end systems, microservices, and web applications.
+  - Spring Framework - a powerful, lightweight, and modular Java framework widely used for building scalable, maintainable, and secure enterprise applications.
+  - Javascript - high-level, interpreted programming language primarily used to make web pages interactive and dynamic.
   - Node.js – Backend server
   - Express – Server framework
   - Multer – Image upload handling
@@ -498,9 +500,10 @@ User accounts
   - GitHub - Version control service used for storing and sharing development projects.
   - Drag and Drop - Functionality that allows to select a virtual object by "grapping" it and "dragging" it to a different location or onto another virtual object
   - Local Storage - Used for storing data such as the game results in the browsers memory.
+  - Supabase - offers a PostgreSQL database, built-in authentication, real-time subscriptions, storage solutions.
+  - H2 Database -  open-source, Java-based relational database designed for speed, portability, and ease of integration.
   - Render – Cloud hosting and deployment.
-  - Remix Ide - Browser-based development environment for writing, testing, and deploying Ethereum smart contracts using Solidity.
-  - Metamask - crypto wallet.
+  - Metamask -  is a free, open-source software wallet that primarily supports Ethereum and ERC-20 tokens. MetaMask is available as a browser extension for Chrome, Firefox, Brave, and Edge, as well as a mobile app for iOS and Android devices.
   - Remix ide - Open-source, browser-based development environment for writing, testing, and deploying Ethereum smart contracts using Solidity.
   - Solidity - High-level, statically-typed programming language specifically designed for writing smart contracts on the Ethereum blockchain.
   - Polygon Amoy - A Polygon testnet which allows developers to deploy, test and optimize their smart contracts without incurring gas fees on the mainet.
