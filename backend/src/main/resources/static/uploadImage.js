@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     // Refresh the page/
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   });
 });

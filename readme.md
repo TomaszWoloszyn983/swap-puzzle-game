@@ -227,14 +227,10 @@ To receive a reward in the form of NFT Tokens, collect at least 100 points.
 To earn points, you must solve the puzzle. The faster you do it (fewer moves), the more points you earn.
 Until you have collected the required number of points, the "Claim NFT Reward" button is disabled.
 
-### Minting NFT's
-1. User clicks "Claim"
-2. Frontend sends request (wallet address)
-3. Backend validates tokens
-4. Backend calls smart contract
-5. NFT minted to wallet
-6. Transaction hash returned
-7. Frontend shows success
+Currently, the app doesn't support user account creation, and points are assigned based on the browser's session ID.
+Using the same browser to play the game will keep the points you earned in previous games.
+
+You also need to have the Metamask extension installed on your browser to claim your NFT tokens.
 
 ### Claiming Reward
 When user clicks Claim, the application:
@@ -244,6 +240,14 @@ When user clicks Claim, the application:
 4. Mints NFT
 5. Reduces backend balance by the threshold.
 
+### Minting NFT's
+1. User clicks "Claim"
+2. Frontend sends request (wallet address)
+3. Backend validates tokens
+4. Backend calls smart contract
+5. NFT minted to wallet
+6. Transaction hash returned
+7. Frontend shows success
 
 ![Claim Reward button disabled](documentation/images/claim_reward_btn_disabled.png)
 

@@ -30,6 +30,9 @@ public class GameController {
     private final RewardService rewardService;
     private final WalletService walletService;
     private final ClaimService claimService;
+    String pathString = "uploads/pieces";
+//    String pathString = "src/main/resources/static/assets/images/pieces";
+    Path piecestDir = Paths.get(pathString);
 
     public GameController(GameResultRepository repository, RewardService rewardService, WalletService walletService, ClaimService claimService) {
         this.repository = repository;
@@ -114,13 +117,14 @@ public class GameController {
      */
     @GetMapping("/getPiecesDir")
     public Map<String, String> getPiecesDir() {
-        Path piecesPath = Paths.get("src/main/resources/static/assets/images/pieces");
+        Path piecesPath = piecestDir;
+        System.out.println("Checking "+pathString+" folder for uploaded files: "+arePiecesReady());
 
         try (Stream<Path> files = Files.list(piecesPath)) {
             boolean hasFiles = files.findAny().isPresent();
 
             if (hasFiles) {
-                return Map.of("dir", "assets/images/pieces");
+                return Map.of("dir", pathString);
             } else {
                 return Map.of("dir", "assets/images/default");
             }
@@ -142,14 +146,11 @@ public class GameController {
         try {
             System.out.println("Uploading image ...");
             BufferedImage original = ImageIO.read(file.getInputStream());
-
             int rows = 5;
             int cols = 4;
-
             int pieceWidth = original.getWidth() / cols;
             int pieceHeight = original.getHeight() / rows;
-
-            Path outputDir = Paths.get("src/main/resources/static/assets/images/pieces");
+            Path outputDir = piecestDir;
 
             if (!Files.exists(outputDir)) {
                 Files.createDirectories(outputDir);
@@ -160,11 +161,10 @@ public class GameController {
                 try { Files.delete(p); } catch (Exception ignored) {}
             });
 
-            int count = 0;
+            int count = 0; // Used to name pieces
 
             for (int y = 0; y < rows; y++) {
                 for (int x = 0; x < cols; x++) {
-
                     BufferedImage subImage = original.getSubimage(
                             x * pieceWidth,
                             y * pieceHeight,
@@ -172,21 +172,14 @@ public class GameController {
                             pieceHeight
                     );
                     File outputFile = outputDir.resolve("piece_" + count + ".jpg").toFile();
-//                    if (!outputFile.exists()) {
-//                        System.out.println("Upload failure");
-//                        throw new RuntimeException("File not written: " + outputFile.getName());
-//                    }else{
-//                        System.out.println("Upload success");
-//                    }
                     ImageIO.write(subImage, "jpg", outputFile);
-
                     count++;
                 }
             }
             long count_pieces = Files.list(outputDir).count();
 
             if (count_pieces == 20) {
-                System.out.println("Upload completed."+count_pieces+" pieces added.");
+                System.out.println("Upload completed, "+count_pieces+" pieces added.");
             }else{
                 throw new RuntimeException("Not all pieces generated!");
             }
@@ -194,6 +187,22 @@ public class GameController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Upload failed");
         }
+    }
+
+    /**
+     * Check if the pieces folder is not empty
+     * and
+     * if the number of pieces is equal to 20
+     * @return True is both conditions are met.
+     */
+    @GetMapping("/pieces-ready")
+    public boolean arePiecesReady() {
+        System.out.println("Check if pieces ready");
+        File dir = new File("uploads/pieces");
+
+        File[] files = dir.listFiles((d, name) -> name.endsWith(".jpg"));
+        System.out.println("Number of pieces: "+files.length);
+        return files != null && files.length == 20;
     }
 
 }

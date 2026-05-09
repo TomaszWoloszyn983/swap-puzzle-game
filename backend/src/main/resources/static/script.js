@@ -3,7 +3,8 @@ const rows = 5;
 const columns = 4;
 
 // Directories where image pieces are stored
-const piecesDir = "assets/images/pieces";
+// const piecesDir = "assets/images/pieces";
+const piecesDir = "/uploaded-images";
 const defaultDir = "assets/images/default";
 let useDir = piecesDir;
 
@@ -25,44 +26,45 @@ let ranking = []; // {name : score}
 function initializeBoard() {
     console.log("Start game on " + useDir)
 
-    // getRankingFromLocalStorage();
     getRankingFromBackend()
 
     let boardElement = document.getElementById("board");
     boardElement.innerHTML = ""; // clear board if needed
 
     pieces = []; // reset pieces array
-    console.log("delay set pieces ...")
     setPieces();
-
     loadBalance(); // load token balance
     loadWallet();
     updateClaimSubmitState(); 
     let i = 0;
     
+    
+    console.log("Filling board...")
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
-
-            let tile = document.createElement("img");
-            // tile.src = useDir + "/piece_" + (i++) + ".jpg";
-            tile.src = useDir + "/piece_" + (i++) + ".jpg?v=" + Date.now(); // add cache buster
-
-            let tileId = "tile" + i;
-            tile.setAttribute("id", tileId);
-            tile.setAttribute("alt", tileId);
-
-            tile.addEventListener("mousedown", highlight);
-            tile.addEventListener("mouseleave", mouseLeave);
-            tile.addEventListener("dragstart", dragStart);
-            tile.addEventListener("dragover", dragOver);
-            tile.addEventListener("dragenter", dragEnter);
-            tile.addEventListener("dragleave", dragLeave);
-            tile.addEventListener("drop", dragDrop);
-            tile.addEventListener("dragend", dragEnd);
-
-            boardElement.appendChild(tile);
+                setTimeout(() => {
+    
+                let tile = document.createElement("img");
+                tile.src = useDir + "/piece_" + (i++) + ".jpg?v=" + Date.now(); // add cache buster
+    
+                let tileId = "tile" + i;
+                tile.setAttribute("id", tileId);
+                tile.setAttribute("alt", tileId);
+    
+                tile.addEventListener("mousedown", highlight);
+                tile.addEventListener("mouseleave", mouseLeave);
+                tile.addEventListener("dragstart", dragStart);
+                tile.addEventListener("dragover", dragOver);
+                tile.addEventListener("dragenter", dragEnter);
+                tile.addEventListener("dragleave", dragLeave);
+                tile.addEventListener("drop", dragDrop);
+                tile.addEventListener("dragend", dragEnd);
+    
+                boardElement.appendChild(tile);
+            }, 250);
         }
     }
+
 }
 
 /**
@@ -84,23 +86,21 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = new FormData();
         formData.append("image", document.getElementById("imageInput").files[0]);
 
-        const res = await fetch("/upload", {
+        const res = await fetch("api/game/upload", {
             method: "POST",
             body: formData
         });
-
-        const data = await res.json();
 
         submitBtn.disabled = false;
         loadingText.style.display = "none";
 
         if (data.pieces) {
             toggleUploadPopup();
-
-            // 🔥 WAIT before loading board
-            location.reload();
         }
+
         initializeBoard();
+        location.reload();
+
     });
 
     uploadBtn.addEventListener("click", toggleUploadPopup);
@@ -108,14 +108,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 );
 
-
 function toggleUploadPopup() {
     document.getElementById("popup-upload").classList.toggle("active");
 }
 
 
 /**
- * Sends request to loaclhost to check if there are any files
+ * Sends request to localhost to check if there are any files
  * uploaded by the user.
  * 
  * If so, it set the users pieces folder
@@ -126,19 +125,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         const response = await fetch("api/game/getPiecesDir");
         const data = await response.json();
         const dir = data.dir;
-
+        
         if(dir.includes("default")){
             useDir = defaultDir;
-            console.log("Use defalut image.");
+            console.log("Using defalut image.");
         }else{
             useDir = piecesDir
-            console.log("Use uploaded image.");
+            console.log("Using uploaded image.");
         };
-        initializeBoard()
     } catch (err) {
         console.error("❌ Failed to load pieces directory:", err);
     }
+    // Refresh the page/
+    setTimeout(() => {
+        initializeBoard()
+    }, 750);
 });
+
 
             // buttons Event Listeners.
             
@@ -167,7 +170,7 @@ const popup = document.getElementById("popup-claimReward");
 const closeBtn = document.getElementById("closeClaimPopup");
 const overlay = document.getElementById("overlay-claim");
 openBtn.addEventListener("click", () => {
-  popup.classList.add("active");
+    popup.classList.add("active");
 });
 
 const connectWallet_btn = document
@@ -224,7 +227,6 @@ document.addEventListener(
 document.getElementById("claimForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-    
     const sessionId = getSessionId();
     const walletAddress = document.getElementById("walletAddress").value;
 
@@ -232,11 +234,11 @@ document.getElementById("claimForm").addEventListener("submit", async (e) => {
     const response = await fetch("/api/game/claim", {
         method: "POST",
         headers: {
-        "Content-Type": "application/json"
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
-        sessionId,
-        walletAddress
+            sessionId,
+            walletAddress
         })
     });
 
@@ -246,19 +248,11 @@ document.getElementById("claimForm").addEventListener("submit", async (e) => {
     if (response.ok) {
         console.log("Claim successful");
 
-        // // ✅ update UI
-        // document.getElementById("tokenBalance").innerText = data.balance;
-        // updateClaimButton(data.balance);
-
-        // // ✅ CLOSE POPUP HERE
-        // closeClaimPopup();
         // 🔥 NEW: mint NFT on blockchain
         if (!data.tokenURI) {
             alert("Missing tokenURI from backend");
             return;
         }
-
-        console.log("Minting NFT with tokenURI:", data.tokenURI);
 
         try {
             await mintNFT(data.tokenURI);
@@ -272,9 +266,7 @@ document.getElementById("claimForm").addEventListener("submit", async (e) => {
         // ✅ update UI AFTER mint
         document.getElementById("tokenBalance").innerText = data.balance;
         updateClaimButton(data.balance);
-
         closeClaimPopup();
-
     } else {
         alert(data.error);
     }
@@ -362,7 +354,7 @@ function toggleClaimReward(){
  * Used in onLoad function to initialize the pieces array.
  */
 function setPieces(){
-    console.log("Set pieces")
+    // console.log("Set pieces")
     for (let i=0; i < rows*columns; i++) {
         pieces.push(i.toString()); //put "1" to "20" into the array (puzzle images names)
     }
@@ -612,6 +604,13 @@ function dragDrop() {
 }
 
 /**
+ * At the end of each puzzle swapping process,the function checks
+ * if the two tiles are neighbours and if they are it swaps them.
+ * If they are not, the function displays a message that
+ * you can only swap adjacent tiles.
+ * After each swap the function checks if the pieces are in the right order
+ * and if they are it displays a message that the puzzle is solved.
+ * 
  * Concludes the Drag And Drop swap process.
  * Swap tiles.
  * Check if condition to win the game is met.
@@ -741,7 +740,6 @@ function isSolved(){
 
 */
 
-
 /**
  * Passes the players name and the result to the Java backend.
  * 
@@ -751,17 +749,16 @@ function isSolved(){
 async function sendResult(username, moves) {
     const sessionId = getSessionId();
     try {
-
         const response = await fetch("/api/game/result", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username: username,
-            moves: moves,
-            sessionId: sessionId
-        })
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                moves: moves,
+                sessionId: sessionId
+            })
         });
 
         // Update token balance, refresh leaderboard, update 'Get Reward Buttons' state.
@@ -983,15 +980,13 @@ function loadWallet() {
  */
 function updateClaimSubmitState() {
 
-    console.log("Update Claim button")
-
     const input = document.getElementById("walletAddress");
     const button = document.getElementById("claimSubmitBtn");
 
     const hasValue = input.value && input.value.trim().length > 0;
 
     if (hasValue) {
-    console.log("Submit claim button activated")
+    console.log("Submit claim button active")
     button.disabled = false;
     button.classList.add("enabled");
     } else {

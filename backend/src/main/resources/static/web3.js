@@ -524,7 +524,7 @@ export async function mintNFT(tokenURI) {
     alert("MetaMask not detected");
     return;
   }
-  console.log("TokenURI:", tokenURI);
+  // console.log("TokenURI:", tokenURI);
   
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
@@ -535,7 +535,7 @@ export async function mintNFT(tokenURI) {
   const contract = new ethers.Contract(contractAddress, abi, signer);
   
   const userAddress = await signer.getAddress();
-  console.log("Address:", userAddress);
+  // console.log("Address:", userAddress);
 
   // Here we call the mintNFT function from our smart contract, passing the user's address and the tokenURI.
   const tx = await contract.mintNFT(userAddress, tokenURI);
