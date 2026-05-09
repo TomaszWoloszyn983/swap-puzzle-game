@@ -227,7 +227,7 @@ To receive a reward in the form of NFT Tokens, collect at least 100 points.
 To earn points, you must solve the puzzle. The faster you do it (fewer moves), the more points you earn.
 Until you have collected the required number of points, the "Claim NFT Reward" button is disabled.
 
-Currently, the app doesn't support user account creation, and points are assigned based on the browser's session ID.
+Currently, the app doesn't support user account creation, and points are assigned based on the browser's [session ID](#design-notes).
 Using the same browser to play the game will keep the points you earned in previous games.
 
 You also need to have the Metamask extension installed on your browser to claim your NFT tokens.
@@ -452,6 +452,40 @@ Player (session_id)
    └── Wallet (current token balance)
 
 ---
+
+### Properties and Configurations
+
+There are three Properties files in the application
+- application-dev.properties
+- application-prod.properties
+- application.properties
+
+And two Config files: 
+- StaticResourceConfig.java
+```java
+  @Configuration
+  public class StaticResourceConfig implements WebMvcConfigurer {
+
+      @Override
+      public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+          registry.addResourceHandler("/uploaded-images/**")
+                  .addResourceLocations("file:uploads/pieces/");
+      }
+  }
+```
+- WebConfig.java
+```java
+  @Configuration
+  public class WebConfig implements WebMvcConfigurer {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+          registry.addMapping("/**")
+                  .allowedOrigins("http://localhost:3000")
+                  .allowedMethods("GET", "POST", "PUT", "DELETE");
+      }
+  }
+```
 
 ### Data Flow
 

@@ -198,7 +198,7 @@ public class GameController {
     @GetMapping("/pieces-ready")
     public boolean arePiecesReady() {
         System.out.println("Check if pieces ready");
-        File dir = new File("uploads/pieces");
+        File dir = new File(pathString);
 
         File[] files = dir.listFiles((d, name) -> name.endsWith(".jpg"));
         System.out.println("Number of pieces: "+files.length);

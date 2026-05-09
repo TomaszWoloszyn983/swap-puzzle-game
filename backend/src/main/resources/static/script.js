@@ -367,7 +367,6 @@ function setPieces(){
 function shuffle(piecesList){
     console.log("Shuffle pieces")
     let newList = piecesList;
-
     newList.reverse();
     for (let i =0; i < newList.length; i++) {
         let j = Math.floor(Math.random() * newList.length);
@@ -944,11 +943,11 @@ async function connectWallet() {
     localStorage.setItem("walletAddress", walletAddress);
     document.getElementById("walletDisplay").innerText = walletAddress; // display
 
-    // 🔹 autofill input
+    // autofill input
     const input = document.getElementById("walletAddress");
     input.value = walletAddress;
 
-    // 🔹 disable manual editing
+    // disable manual editing
     input.readOnly = true;
     updateClaimSubmitState(); 
   } catch (error) {
