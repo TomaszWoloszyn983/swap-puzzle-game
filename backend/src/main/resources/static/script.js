@@ -84,7 +84,18 @@ document.addEventListener("DOMContentLoaded", () => {
         loadingText.style.display = "inline";
 
         const formData = new FormData();
-        formData.append("image", document.getElementById("imageInput").files[0]);
+        const file = document.getElementById("imageInput").files[0];
+        formData.append("image", file);
+
+        // Checks if image size is bigger than 10MB 
+        // and if it is, it shows an error popup 
+        // and stops the upload process.
+        if (file.size > 10 * 1024 * 1024) {
+            showErrorPopup(
+                "Image is too large. Maximum size is 10MB."
+            );
+            return;
+        }
 
         const res = await fetch("api/game/upload", {
             method: "POST",
@@ -141,6 +152,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         initializeBoard()
     }, 750);
 });
+
+
+/**
+ * 
+ * @param {*} message 
+ */
+function showErrorPopup(message) {
+    document.getElementById("errorMessage").innerText = message;
+    document
+        .getElementById("popup-error")
+        .classList.add("active");
+}
 
 
             // buttons Event Listeners.

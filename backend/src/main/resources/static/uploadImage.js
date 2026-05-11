@@ -23,8 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (!response.ok) {
-        throw new Error("Upload failed");
+        // throw new Error("Upload failed");
+        showErrorPopup(
+            data.error || "Image upload failed."
+        );
       }
+
       console.log("Image uploaded successfully, now splitting...");
 
       const result = await response.json();
