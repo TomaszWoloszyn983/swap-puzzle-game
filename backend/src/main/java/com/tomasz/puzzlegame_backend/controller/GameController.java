@@ -1,4 +1,5 @@
 package com.tomasz.puzzlegame_backend.controller;
+import com.cloudinary.Cloudinary;
 import com.tomasz.puzzlegame_backend.dto.ClaimRequest;
 import com.tomasz.puzzlegame_backend.dto.GameResultRequest;
 import com.tomasz.puzzlegame_backend.model.GameResult;
@@ -30,6 +31,7 @@ public class GameController {
     private final RewardService rewardService;
     private final WalletService walletService;
     private final ClaimService claimService;
+    private final Cloudinary cloudinary;
     String pathString = "uploads/pieces";
 //    String pathString = "src/main/resources/static/assets/images/pieces";
     Path piecestDir = Paths.get(pathString);
@@ -39,6 +41,7 @@ public class GameController {
         this.rewardService = rewardService;
         this.walletService = walletService;
         this.claimService = claimService;
+        this.cloudinary = new Cloudinary();
     }
 
     /**
@@ -173,6 +176,7 @@ public class GameController {
                     );
                     File outputFile = outputDir.resolve("piece_" + count + ".jpg").toFile();
                     ImageIO.write(subImage, "jpg", outputFile);
+//                    cloudinary.uploader().upload(outputFile);
                     count++;
                 }
             }
