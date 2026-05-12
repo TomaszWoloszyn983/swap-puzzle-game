@@ -108,10 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.pieces) {
             toggleUploadPopup();
         }
-
+        
         initializeBoard();
         location.reload();
-
     });
 
     uploadBtn.addEventListener("click", toggleUploadPopup);
