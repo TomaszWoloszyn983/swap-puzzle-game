@@ -1,10 +1,12 @@
 package com.tomasz.puzzlegame_backend.controller;
 import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.tomasz.puzzlegame_backend.dto.ClaimRequest;
 import com.tomasz.puzzlegame_backend.dto.GameResultRequest;
 import com.tomasz.puzzlegame_backend.model.GameResult;
 import com.tomasz.puzzlegame_backend.repository.GameResultRepository;
 import com.tomasz.puzzlegame_backend.service.ClaimService;
+import com.tomasz.puzzlegame_backend.service.CloudinaryService;
 import com.tomasz.puzzlegame_backend.service.RewardService;
 import com.tomasz.puzzlegame_backend.service.WalletService;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -31,17 +34,19 @@ public class GameController {
     private final RewardService rewardService;
     private final WalletService walletService;
     private final ClaimService claimService;
-    private final Cloudinary cloudinary;
+    private final CloudinaryService cloudinaryService;
     String pathString = "uploads/pieces";
 //    String pathString = "src/main/resources/static/assets/images/pieces";
     Path piecestDir = Paths.get(pathString);
 
-    public GameController(GameResultRepository repository, RewardService rewardService, WalletService walletService, ClaimService claimService) {
+    public GameController(GameResultRepository repository,
+                          RewardService rewardService, WalletService walletService,
+                          ClaimService claimService, CloudinaryService cloudinary) {
         this.repository = repository;
         this.rewardService = rewardService;
         this.walletService = walletService;
         this.claimService = claimService;
-        this.cloudinary = new Cloudinary();
+        this.cloudinaryService = cloudinary;
     }
 
     /**
@@ -144,27 +149,71 @@ public class GameController {
      * @param file
      * @return
      */
+//    @PostMapping("/upload")
+//    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
+//        try {
+//            System.out.println("Uploading image ...");
+//            BufferedImage original = ImageIO.read(file.getInputStream());
+//            List<String> uploadedPieces = new ArrayList<>(); // Stores pieces Urls for Cloudinary
+//            int rows = 5;
+//            int cols = 4;
+//            int pieceWidth = original.getWidth() / cols;
+//            int pieceHeight = original.getHeight() / rows;
+//            Path outputDir = piecestDir;
+//
+//            if (!Files.exists(outputDir)) {
+//                Files.createDirectories(outputDir);
+//            }
+//
+//            // clear old pieces
+//            Files.list(outputDir).forEach(p -> {
+//                try { Files.delete(p); } catch (Exception ignored) {}
+//            });
+//
+//            int count = 0; // Used to name pieces
+//
+//            for (int y = 0; y < rows; y++) {
+//                for (int x = 0; x < cols; x++) {
+//                    BufferedImage subImage = original.getSubimage(
+//                            x * pieceWidth,
+//                            y * pieceHeight,
+//                            pieceWidth,
+//                            pieceHeight
+//                    );
+//                    File outputFile = outputDir.resolve("piece_" + count + ".jpg").toFile();
+//                    ImageIO.write(subImage, "jpg", outputFile);
+//                    String imageUrl = cloudinaryService.uploadImage(outputFile);
+//                    uploadedPieces.add(imageUrl);
+//                    count++;
+//                }
+//            }
+//            long count_pieces = Files.list(outputDir).count();
+//
+//            if (count_pieces == 20) {
+//                System.out.println("Upload completed, "+count_pieces+" pieces added.");
+//            }else{
+//                throw new RuntimeException("Not all pieces generated!");
+//            }
+//            return ResponseEntity.ok(Map.of("message", "Image processed"));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(500).body("Upload failed");
+//        }
+//    }
+
+
     @PostMapping("/upload")
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
+
         try {
             System.out.println("Uploading image ...");
             BufferedImage original = ImageIO.read(file.getInputStream());
+            List<String> uploadedPieces = new ArrayList<>();
+
             int rows = 5;
             int cols = 4;
             int pieceWidth = original.getWidth() / cols;
             int pieceHeight = original.getHeight() / rows;
-            Path outputDir = piecestDir;
-
-            if (!Files.exists(outputDir)) {
-                Files.createDirectories(outputDir);
-            }
-
-            // clear old pieces
-            Files.list(outputDir).forEach(p -> {
-                try { Files.delete(p); } catch (Exception ignored) {}
-            });
-
-            int count = 0; // Used to name pieces
+            int count = 0;
 
             for (int y = 0; y < rows; y++) {
                 for (int x = 0; x < cols; x++) {
@@ -174,22 +223,30 @@ public class GameController {
                             pieceWidth,
                             pieceHeight
                     );
-                    File outputFile = outputDir.resolve("piece_" + count + ".jpg").toFile();
-                    ImageIO.write(subImage, "jpg", outputFile);
-//                    cloudinary.uploader().upload(outputFile);
+
+                    File tempFile = File.createTempFile(
+                            "piece_" + count,
+                            ".jpg"
+                    );
+
+                    ImageIO.write(subImage, "jpg", tempFile);
+                    String imageUrl = cloudinaryService.uploadImage(tempFile);
+                    uploadedPieces.add(imageUrl);
+                    tempFile.delete();
                     count++;
                 }
             }
-            long count_pieces = Files.list(outputDir).count();
+            return ResponseEntity.ok(
+                Map.of(
+                        "message", "Image processed",
+                        "pieces", uploadedPieces
+            ));
 
-            if (count_pieces == 20) {
-                System.out.println("Upload completed, "+count_pieces+" pieces added.");
-            }else{
-                throw new RuntimeException("Not all pieces generated!");
-            }
-            return ResponseEntity.ok(Map.of("message", "Image processed"));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Upload failed");
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(500)
+                    .body("Upload failed");
         }
     }
 

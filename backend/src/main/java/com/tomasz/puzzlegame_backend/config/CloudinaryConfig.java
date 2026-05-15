@@ -1,18 +1,28 @@
 package com.tomasz.puzzlegame_backend.config;
 
 import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CloudinaryConfig {
-
-    private final String CLOUD_NAME = System.getenv("CLOUD_NAME");
-    private final String CLOUD_API_KEY = System.getenv("CLOUD_API_KEY");
-    private final String CLOUD_SECRET_KEY = System.getenv("CLOUD_SECRET_KEY");
+public class CloudinaryConfig{
 
     @Bean
     public Cloudinary cloudinary() {
-        return new Cloudinary();
+        System.out.println("CLOUD_NAME: " + System.getenv("CLOUD_NAME"));
+        System.out.println("CLOUD_API_KEY: " + System.getenv("CLOUD_API_KEY"));
+        System.out.println("CLOUD_SECRET_KEY: " + System.getenv("CLOUD_SECRET_KEY"));
+
+        String CLOUD_NAME = System.getenv("CLOUD_NAME");
+        String CLOUD_API_KEY = System.getenv("CLOUD_API_KEY");
+        String CLOUD_SECRET_KEY = System.getenv("CLOUD_SECRET_KEY");
+
+        return new Cloudinary(ObjectUtils.asMap(
+            "cloud_name", CLOUD_NAME,
+            "api_key", CLOUD_API_KEY,
+            "api_secret", CLOUD_SECRET_KEY,
+            "secure", true
+        ));
     }
 }

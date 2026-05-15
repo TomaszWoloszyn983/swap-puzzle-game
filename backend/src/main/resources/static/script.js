@@ -74,8 +74,8 @@ function initializeBoard() {
 document.addEventListener("DOMContentLoaded", () => {
     const uploadBtn = document.getElementById("btn_upload_image");
     let closeUploadBtn = document.getElementById("closeUpload");
-    document.getElementById("uploadForm").addEventListener("submit", async function(e) {
-        e.preventDefault();
+    document.getElementById("uploadForm").addEventListener("submit", async (event)=> {
+        event.preventDefault();
 
         const submitBtn = document.getElementById("uploadSubmit");
         const loadingText = document.getElementById("uploadLoading");

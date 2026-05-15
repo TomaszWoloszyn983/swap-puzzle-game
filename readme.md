@@ -400,6 +400,44 @@ The aim of the project is to demonstrate a functional blockchain integration, no
 ```
 
 ---
+### Cloudinary implementation
+
+#### Architecture
+```
+              GameController
+                    ↓
+            CloudinaryService
+                    ↓
+      Cloudinary Bean (Configuration)
+```
+
+#### Cloudinary Configurations:
+
+Creates and instantiates the Cloudinary Configuration Bean which contatins informtaion needed to establish connection to Cloudinary.
+
+```java
+  @Configuration
+  public class CloudinaryConfig {
+
+      @Bean
+      public Cloudinary cloudinary() {
+          String CLOUD_NAME = System.getenv("CLOUD_NAME");
+          String CLOUD_API_KEY = System.getenv("CLOUD_API_KEY");
+          String CLOUD_SECRET_KEY = System.getenv("CLOUD_SECRET_KEY");
+
+          return new Cloudinary(
+              ObjectUtils.asMap(
+                  "cloud_name", CLOUD_NAME,
+                  "api_key", CLOUD_API_KEY,
+                  "api_secret", CLOUD_SECRET_KEY,
+                  "secure", true
+              )
+          );
+      }
+  }
+```
+
+---
 
 ## Database
 
@@ -594,6 +632,10 @@ Modal popup windows: https://www.youtube.com/watch?v=XH5OW46yO8I
 A simple tutorial how to display a timing out text: https://www.youtube.com/watch?v=wK0HgL-UTgY
 
 Stack Overflow: https://stackoverflow.com/
+
+Supabase - Java Spring connection YouTube tutorial: https://www.youtube.com/watch?v=bZkCF6-0YD8
+
+Cloudinray - Java Spring connection YouTube tutorial: https://www.youtube.com/watch?v=YL5x8M7ludE
 
 ## Credits:
 I would like to especially thank to Tim Nelson from Code Institute for his great support.
