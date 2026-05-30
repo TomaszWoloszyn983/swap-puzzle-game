@@ -5,9 +5,7 @@ import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class CloudinaryService {
@@ -30,11 +28,15 @@ public class CloudinaryService {
 //        );
 //        return uploadResult.get("secure_url").toString();
 //    }
-    public String uploadImage(File file) {
+    public String uploadImage(File file, String imageName) {
         try {
             Map uploadResult = cloudinary.uploader().upload(
                     file,
-                    ObjectUtils.emptyMap()
+                    ObjectUtils.asMap(
+                            "folder", "Swap-Puzzle-Game-NFT",
+                            "public_id", imageName,
+                            "overwrite", true
+                    )
             );
             return uploadResult.get("secure_url").toString();
         } catch (Exception e) {

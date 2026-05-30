@@ -10,10 +10,6 @@ public class CloudinaryConfig{
 
     @Bean
     public Cloudinary cloudinary() {
-        System.out.println("CLOUD_NAME: " + System.getenv("CLOUD_NAME"));
-        System.out.println("CLOUD_API_KEY: " + System.getenv("CLOUD_API_KEY"));
-        System.out.println("CLOUD_SECRET_KEY: " + System.getenv("CLOUD_SECRET_KEY"));
-
         String CLOUD_NAME = System.getenv("CLOUD_NAME");
         String CLOUD_API_KEY = System.getenv("CLOUD_API_KEY");
         String CLOUD_SECRET_KEY = System.getenv("CLOUD_SECRET_KEY");

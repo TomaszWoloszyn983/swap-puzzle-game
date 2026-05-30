@@ -25,7 +25,6 @@ public class WalletService {
     }
 
     public int getBalance(UUID sessionId) {
-        System.out.println("Get balance.");
         return repository.findById(sessionId)
             .map(PlayerWallet::getTokenBalance)
             .orElse(0);

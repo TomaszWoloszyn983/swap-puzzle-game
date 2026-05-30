@@ -53,6 +53,7 @@ Project contains the following sections:
 - [Metamask Integration](#metamask-integration)
 - [Smart Contract Implementation](#smart-contract-implementation-in-remix)
 - [Received Nft token](#received-nft)
+- [Cloudinary implementation](#cloudinary-implementation)
 - [Database](#database)
 - [Data Flow](#data-flow)
 - [Future Features](#future-features)
@@ -401,6 +402,8 @@ The aim of the project is to demonstrate a functional blockchain integration, no
 
 ---
 ### Cloudinary implementation
+
+The app uses Cloudinary to store user-uploaded images on a cloud platform.
 
 #### Architecture
 ```
