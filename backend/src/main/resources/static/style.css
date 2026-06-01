@@ -265,6 +265,24 @@ li {
     transform: translate(-50%, -50%) scale(1);
 }
 
+.nft-preview {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.nft-preview img {
+    width: 180px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.nft-preview p {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
 
 @media screen and (max-width: 1200px){
     #game_container {

@@ -182,7 +182,6 @@ public class GameController {
                     );
                     File outputFile = outputDir.resolve("piece_" + count + ".jpg").toFile();
                     ImageIO.write(subImage, "jpg", outputFile);
-                    System.out.println("Uploaded image " + outputFile.getName());
                     count++;
                 }
             }
@@ -252,17 +251,13 @@ public class GameController {
 
     /**
      * Check if the pieces folder is not empty
-     * and
-     * if the number of pieces is equal to 20
+     * and if the number of pieces is equal to 20
      * @return True is both conditions are met.
      */
     @GetMapping("/pieces-ready")
     public boolean arePiecesReady() {
         File dir = new File(pathString);
-
         File[] files = dir.listFiles((d, name) -> name.endsWith(".jpg"));
-        System.out.println("Spit into pieces: "+files.length);
         return files != null && files.length == 20;
     }
-
 }

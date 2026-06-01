@@ -239,6 +239,30 @@ document.addEventListener(
     }
 );
 
+function updateWalletUI(walletAddress) {
+
+    const notConnected =
+        document.getElementById("walletNotConnected");
+
+    const connected =
+        document.getElementById("walletConnected");
+
+    if(walletAddress){
+
+        notConnected.style.display = "none";
+        connected.style.display = "block";
+
+        document.getElementById(
+            "connectedWalletAddress"
+        ).innerText = walletAddress;
+
+    }else{
+
+        notConnected.style.display = "block";
+        connected.style.display = "none";
+    }
+}
+
 
 /**
  * Claim NFT Rewards button handler.
@@ -958,6 +982,7 @@ async function connectWallet() {
 
     const walletAddress = accounts[0];
     console.log("Connected wallet:", walletAddress);
+    updateWalletUI(walletAddress);
 
     document.getElementById("walletDisplay").innerText = walletAddress; // display in UI
 

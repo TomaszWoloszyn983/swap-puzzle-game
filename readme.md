@@ -396,9 +396,11 @@ The aim of the project is to demonstrate a functional blockchain integration, no
 {
   "name": "Puzzle Reward",
   "description": "Awarded for solving the puzzle",
-  "image": "https://raw.githubusercontent.com/ethereum/ethereum-org-website/dev/src/data/nft-metadata.json"
+  "image": "https://res.cloudinary.com/tomaszwoloszyn983/image/upload/v1780298463/Swap-Puzzle-Game-NFT/puzzle_game_reward_yhbcg1.png"
 }
 ```
+
+*The reward image was taken by the applications author and modified by the GPT Chat*
 
 ---
 ### Cloudinary implementation
@@ -407,10 +409,10 @@ The app uses Cloudinary to store user-uploaded images on a cloud platform.
 
 #### Architecture
 ```
-              GameController
-                    ↓
-            CloudinaryService
-                    ↓
+      GameController
+           ↓
+      CloudinaryService
+           ↓
       Cloudinary Bean (Configuration)
 ```
 
@@ -522,7 +524,7 @@ And two Config files:
       @Override
       public void addCorsMappings(CorsRegistry registry) {
           registry.addMapping("/**")
-                  .allowedOrigins("http://localhost:3000")
+                  .allowedOrigins("http://localhost:8080")
                   .allowedMethods("GET", "POST", "PUT", "DELETE");
       }
   }
@@ -577,6 +579,7 @@ User accounts
   - CSS3 - A language used to style HTML and XHTML documents presentations in web development.
   - Gitpod - Online integrated development environment.
   - GitHub - Version control service used for storing and sharing development projects.
+  - GPT Chat - Large Language Model.
   - Drag and Drop - Functionality that allows to select a virtual object by "grapping" it and "dragging" it to a different location or onto another virtual object
   - Local Storage - Used for storing data such as the game results in the browsers memory.
   - Supabase - offers a PostgreSQL database, built-in authentication, real-time subscriptions, storage solutions.
@@ -638,7 +641,7 @@ Stack Overflow: https://stackoverflow.com/
 
 Supabase - Java Spring connection YouTube tutorial: https://www.youtube.com/watch?v=bZkCF6-0YD8
 
-Cloudinray - Java Spring connection YouTube tutorial: https://www.youtube.com/watch?v=YL5x8M7ludE
+Cloudinary - Java Spring connection YouTube tutorial: https://www.youtube.com/watch?v=YL5x8M7ludE
 
-## Credits:
-I would like to especially thank to Tim Nelson from Code Institute for his great support.
+
+
