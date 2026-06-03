@@ -394,6 +394,7 @@ function togglePopupAbout(){
 
 function toggleClaimReward(){
     document.getElementById("popup-claimReward").classList.toggle("active");
+    updateWalletUI();
 }
 
 /**
@@ -1032,13 +1033,44 @@ function updateClaimSubmitState() {
     const hasValue = input.value && input.value.trim().length > 0;
 
     if (hasValue) {
-    console.log("Submit claim button active")
-    button.disabled = false;
-    button.classList.add("enabled");
+        console.log("Submit claim button active")
+        button.disabled = false;
+        button.classList.add("enabled");
     } else {
-    console.log("Submit claim button disactivated")
-    button.disabled = true;
-    button.classList.remove("enabled");
+        console.log("Submit claim button disactivated")
+        button.disabled = true;
+        button.classList.remove("enabled");
     }
+}
+
+function updateWalletUI() {
+    const walletAddress =
+        document.getElementById("walletDisplay").innerText;
+
+    const connectWalletBtn =
+        document.getElementById("connectWalletBtn");
+
+    const claimForm =
+        document.getElementById("claimForm");
+
+    console.log("Wallet connected: " + walletAddress);
+
+    if (
+        walletAddress.includes("0x") &&
+        walletAddress.length > 10
+    ) {
+
+        console.log("Wallet connected");
+
+        connectWalletBtn.style.display = "none";
+        claimForm.style.display = "none";
+
+    } else {
+
+        console.log("Wallet not connected");
+
+        connectWalletBtn.style.display = "block";
+        claimForm.style.display = "block";
+    }   
 }
 
