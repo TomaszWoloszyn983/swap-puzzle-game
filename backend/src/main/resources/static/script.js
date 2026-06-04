@@ -263,6 +263,32 @@ function updateWalletUI(walletAddress) {
     }
 }
 
+/**
+ * Updates the UI of the Claim Reward popup based on the wallet connection
+ * status.
+ * If the wallet is connected, it hides the wallet address input
+ * and the claim message.
+ * If the wallet is not connected, it shows the wallet address input
+ * and the claim message, and disables the claim submit button.
+ */
+function updateWalletUI() {
+    const walletAddress = document.getElementById("walletDisplay").innerText;
+    const claimMessage = document.getElementById("claimMessage");
+    const walletAddressBox = document.getElementById("walletAddress");
+    const claimSubmitBtn = document.getElementById("claimSubmitBtn");
+
+    if (walletAddress.includes("0x") && walletAddress.length > 10) {
+        console.log("Wallet connected");
+        claimMessage.style.display = "none";
+        walletAddressBox.style.display = "none";
+    } else {
+        console.log("Wallet not connected");
+        claimMessage.style.display = "";
+        walletAddressBox.style.display = "";
+        claimSubmitBtn.style.display = "none";
+    }   
+}
+
 
 /**
  * Claim NFT Rewards button handler.
@@ -1043,24 +1069,4 @@ function updateClaimSubmitState() {
     }
 }
 
-function updateWalletUI() {
-    const walletAddress = document.getElementById("walletDisplay").innerText;
-    const claimMessage = document.getElementById("claimMessage");
-    const walletAddressBox = document.getElementById("walletAddress");
-    const claimSubmitBtn = document.getElementById("claimSubmitBtn");
-
-    console.log("Wallet connected: " + walletAddress);
-
-    if (walletAddress.includes("0x") && walletAddress.length > 10) {
-        console.log("Wallet connected");
-        claimMessage.style.display = "none";
-        walletAddressBox.style.display = "none";
-    } else {
-        console.log("Wallet not connected");
-        claimMessage.style.display = "";
-        walletAddressBox.style.display = "";
-        claimSubmitBtn.style.display = "none";
-    }   
-
-}
 

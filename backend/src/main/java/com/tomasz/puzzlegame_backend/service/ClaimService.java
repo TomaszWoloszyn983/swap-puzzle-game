@@ -1,14 +1,18 @@
 package com.tomasz.puzzlegame_backend.service;
 
+import com.tomasz.puzzlegame_backend.controller.GameController;
 import com.tomasz.puzzlegame_backend.dto.ClaimRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.UUID;
 
 @Service
 public class ClaimService {
-    private final WalletService walletService;
 
+    private static final Logger log = LoggerFactory.getLogger(GameController.class);
+    private final WalletService walletService;
     private static final int CLAIM_THRESHOLD = 100;
 
     public ClaimService(WalletService walletService) {
@@ -16,7 +20,6 @@ public class ClaimService {
     }
 
     public Map<String, Object> claimReward(ClaimRequest request) {
-
         UUID sessionId = request.getSessionId();
         String walletAddress = request.getWalletAddress();
 
@@ -34,7 +37,7 @@ public class ClaimService {
         walletService.updateBalance(sessionId, newBalance);
 
         // 🔹 placeholder for future NFT minting
-        System.out.println("NFT would be minted to: " + walletAddress);
+        log.info("NFT would be minted to: {}", walletAddress);
 
         return Map.of(
                 "message", "Reward claimed successfully",
@@ -46,7 +49,7 @@ public class ClaimService {
 
     private String generateTokenURI(ClaimRequest request) {
         // For now → static file (simple and safe)
-        System.out.println("Generate token -> Hardcoded sample json file used.");
+        log.info("Generate token -> Hardcoded sample json file used.");
         return "https://raw.githubusercontent.com/ethereum/ethereum-org-website/dev/src/data/nft-metadata.json";
     }
 }

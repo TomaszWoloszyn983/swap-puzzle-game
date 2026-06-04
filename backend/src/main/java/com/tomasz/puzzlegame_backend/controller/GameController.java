@@ -1,6 +1,4 @@
 package com.tomasz.puzzlegame_backend.controller;
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import com.tomasz.puzzlegame_backend.dto.ClaimRequest;
 import com.tomasz.puzzlegame_backend.dto.GameResultRequest;
 import com.tomasz.puzzlegame_backend.model.GameResult;
@@ -9,6 +7,8 @@ import com.tomasz.puzzlegame_backend.service.ClaimService;
 import com.tomasz.puzzlegame_backend.service.CloudinaryService;
 import com.tomasz.puzzlegame_backend.service.RewardService;
 import com.tomasz.puzzlegame_backend.service.WalletService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,13 +30,13 @@ import java.util.stream.Stream;
 @RequestMapping("/api/game")
 public class GameController {
 
+    private static final Logger log = LoggerFactory.getLogger(GameController.class);
     private final GameResultRepository repository;
     private final RewardService rewardService;
     private final WalletService walletService;
     private final ClaimService claimService;
     private final CloudinaryService cloudinaryService;
     String pathString = "uploads/pieces";
-//    String pathString = "src/main/resources/static/assets/images/pieces";
     Path piecestDir = Paths.get(pathString);
 
     public GameController(GameResultRepository repository,
@@ -58,19 +58,20 @@ public class GameController {
      */
     @PostMapping("/result")
     public ResponseEntity<?> receiveResult(@RequestBody GameResultRequest result) {
-        System.out.println("Session Id: "+result.getSessionId());
+        log.info("Session Id: {}", result.getSessionId());
         int reward = rewardService.calculateReward(result.getMoves());
         GameResult gameResult = new GameResult(result.getUsername(), result.getMoves(), result.getSessionId(), reward);
         repository.save(gameResult);
         int balance = walletService.getBalance(result.getSessionId());
         int newBalance = walletService.addReward(result.getSessionId(), reward);
 
-        System.out.println("User: " + result.getUsername()
-                +", Moves: " + result.getMoves()
-                +", session id: "+result.getSessionId()
-                +", previous balance: "+balance
-                +", reward: "+reward
-                +", next balance: "+newBalance);
+        log.info("User: {}, Moves: {}, session id: {}, previous balance: {}" +
+                ", reward: {}, next balance: {}",
+                result.getUsername(),
+                result.getMoves(),
+                result.getSessionId(),
+                balance, reward,
+                newBalance);
 
         return ResponseEntity.ok(Map.of(
             "message", "Result processed",
@@ -87,7 +88,7 @@ public class GameController {
     @GetMapping("/leaderboard")
     public List<GameResult> leaderboard() {
         List<GameResult> bestResults = repository.findTop10ByOrderByMovesAsc();
-        System.out.println("Loaded data from database: "+(bestResults.size()));
+        log.info("Loaded data from database: {}", bestResults.size());
         return bestResults;
     }
 
@@ -100,7 +101,7 @@ public class GameController {
     @GetMapping("/wallet/{sessionId}")
     public Map<String, Integer> getBalance(@PathVariable UUID sessionId) {
         int balance = walletService.getBalance(sessionId);
-        System.out.println("Wallet Balance: "+balance);
+        log.info("Wallet Balance: {}", balance);
         return Map.of("balance", balance);
     }
 
@@ -126,7 +127,7 @@ public class GameController {
     @GetMapping("/getPiecesDir")
     public Map<String, String> getPiecesDir() {
         Path piecesPath = piecestDir;
-        System.out.println("Checking "+pathString+" folder for uploaded files: "+arePiecesReady());
+        log.info("Checking {} folder for uploaded files: {}", pathString, arePiecesReady());
 
         try (Stream<Path> files = Files.list(piecesPath)) {
             boolean hasFiles = files.findAny().isPresent();
@@ -188,7 +189,7 @@ public class GameController {
             long count_pieces = Files.list(outputDir).count();
 
             if (count_pieces == 20) {
-                System.out.println("Upload completed, "+count_pieces+" pieces added.");
+                log.info("Upload completed, {} pieces added.", count_pieces);
             }else{
                 throw new RuntimeException("Not all pieces generated!");
             }

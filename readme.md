@@ -256,11 +256,12 @@ Once you have collected 100 or more points, you can click the button.
 
 ![Claim Reward button ensabled](documentation/images/claim_reward_btn_enabled.png)
 
-Enter your wallet address
-
-![Claim Reward popup](documentation/images/claim_reward_popup.png)
 
 ### Connecting Wallet
+
+![Not Connected Wallet](documentation/images/wallet_not_connected.png.png)
+![Connected Wallet](documentation/images/wallet_connected.png.png)
+
 If MetaMask is connected:
  - autofill input
  - disable manual editing
@@ -489,9 +490,7 @@ One session_id → Many game_result records
 One session_id → One player_wallet record
 
 Player (session_id)
-
    ├── Game Results (history of plays)
-
    └── Wallet (current token balance)
 
 ---
@@ -559,10 +558,10 @@ User accounts
 ---
 
 ## Future Features
+  - Mobile devices compatibility. At the moment the game is not working on devices used touch screens. Our future feature would be to implement such a functionality.
   - Adding the ability to authenticate and create user accounts.
   - Introducing the ability to insert photos in the horizontal position.
   - Keyboard control function. Keyboard arrow keys to be used to swap the tiles.
-  - Mobile devices compatibility. At the moment the game is not working on devices used touch screens. Our future feature would be to implement such a functionality.
   - Improve the vertical positioning of the game.
 
 ---
