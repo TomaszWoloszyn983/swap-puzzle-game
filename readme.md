@@ -259,8 +259,12 @@ Once you have collected 100 or more points, you can click the button.
 
 ### Connecting Wallet
 
-![Not Connected Wallet](documentation/images/wallet_not_connected.png.png)
-![Connected Wallet](documentation/images/wallet_connected.png.png)
+To claim your reward you must install the Metamask Browser Extension.
+
+After installing Metamask and collecting the appropriate amount of points, the option to connect your wallet will appear.
+
+![Not Connected Wallet](documentation/images/wallet_not_connected.png)
+![Connected Wallet](documentation/images/wallet_connected.png)
 
 If MetaMask is connected:
  - autofill input
