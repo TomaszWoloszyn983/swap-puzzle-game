@@ -176,27 +176,33 @@
                 <p>Collect at least 100 tokens to receive a reward.</p>
             </div>
 
-            
+            <!-- Claim Reward Pop-up Box -->
             <div id="claimReward-container">
                 <button type="button" id="btn_claim_reward">
                     Claim NFT Reward
                 </button>
-
                 <div class="popup" id="popup-claimReward">
                     <div class="overlay" id="overlay-claim"></div>
-
                     <div class="content">
                         <h3>Claim NFT Reward</h3>
-
+                        <!-- NFT Preview -->
+                        <div class="nft-preview">
+                            <h4>Your Reward</h4>
+                            <img
+                                id="nftPreviewImage"
+                                src="https://res.cloudinary.com/tomaszwoloszyn983/image/upload/v1780298463/Swap-Puzzle-Game-NFT/puzzle_game_reward_yhbcg1.png"
+                                alt="NFT Reward"
+                            >
+                        </div>
+                        <!-- Connect Wallet section -->
                         <div>
-                            <br>
-                            <h4>Connect your wallet</h4>
-                            <button id="connectWalletBtn">
-                                Connect Wallet
-                            </button>
-
+                            <div id="claimMessage">
+                                <h4>Connect your wallet</h4>
+                                <button id="connectWalletBtn">
+                                    Connect Wallet
+                                </button>
+                            </div>
                             <br><br>
-
                             <div>
                                 Connected Wallet:
                                 <span id="walletDisplay">
@@ -204,21 +210,7 @@
                                 </span>
                             </div>
                         </div>
-
-                        <!-- NFT Preview -->
-                        <div class="nft-preview">
-                            <h4>Your Reward</h4>
-
-                            <img
-                                id="nftPreviewImage"
-                                src="https://res.cloudinary.com/tomaszwoloszyn983/image/upload/v1780298463/Swap-Puzzle-Game-NFT/puzzle_game_reward_yhbcg1.png"
-                                alt="NFT Reward"
-                            >
-                            <p>
-                                Complete the puzzle and claim your NFT reward.
-                            </p>
-                        </div>
-
+                        <!-- Claim Reward Form -->
                         <form id="claimForm">
                             <input
                                 type="text"
@@ -226,9 +218,7 @@
                                 placeholder="Enter wallet address (0x...)"
                                 required
                             >
-
                             <br><br>
-
                             <button
                                 type="submit"
                                 id="claimSubmitBtn"
@@ -236,15 +226,12 @@
                                 Claim
                             </button>
                         </form>
-
                         <br>
-
                         <button
                             type="button"
                             id="closeClaimPopup">
                             Cancel
                         </button>
-
                     </div>
                 </div>
             </div>
