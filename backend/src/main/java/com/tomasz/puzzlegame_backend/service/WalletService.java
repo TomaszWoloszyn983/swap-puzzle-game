@@ -2,6 +2,8 @@ package com.tomasz.puzzlegame_backend.service;
 
 import com.tomasz.puzzlegame_backend.model.PlayerWallet;
 import com.tomasz.puzzlegame_backend.repository.PlayerWalletRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -9,6 +11,7 @@ import java.util.UUID;
 @Service
 public class WalletService {
 
+    private static final Logger log = LoggerFactory.getLogger(WalletService.class);
     private final PlayerWalletRepository repository;
 
     public WalletService(PlayerWalletRepository repository) {
@@ -20,7 +23,7 @@ public class WalletService {
                 .orElse(new PlayerWallet(sessionId));
         wallet.setTokenBalance(wallet.getTokenBalance() + reward);
         repository.save(wallet);
-        System.out.println(reward+" tokens added to wallet: " + wallet.getTokenBalance());
+        log.info("{} tokens added to wallet: {}", reward, wallet.getTokenBalance());
         return wallet.getTokenBalance();
     }
 
@@ -33,7 +36,6 @@ public class WalletService {
     public void updateBalance(UUID sessionId, int newBalance) {
         PlayerWallet wallet = repository.findById(sessionId)
                 .orElseThrow(() -> new RuntimeException("Wallet not found"));
-
         wallet.setTokenBalance(newBalance);
         repository.save(wallet);
     }

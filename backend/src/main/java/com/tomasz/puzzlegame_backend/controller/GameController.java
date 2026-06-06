@@ -153,9 +153,8 @@ public class GameController {
     @PostMapping("/upload")
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
         try {
-            System.out.println("Uploading image ...");
+            log.info("Uploading image ...");
             BufferedImage original = ImageIO.read(file.getInputStream());
-            List<String> uploadedPieces = new ArrayList<>(); // Stores pieces Urls for Cloudinary
             int rows = 5;
             int cols = 4;
             int pieceWidth = original.getWidth() / cols;

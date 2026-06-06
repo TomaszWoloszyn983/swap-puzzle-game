@@ -7,7 +7,7 @@ __pycache__/
 node_modules/
 .github/
 cloudinary_python.txt
-uploads
+uploads/
 
 HELP.md
 target/
