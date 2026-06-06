@@ -200,56 +200,6 @@ public class GameController {
     }
 
 
-//    @PostMapping("/upload")
-//    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
-//
-//        try {
-//            System.out.println("Uploading image ...");
-//            BufferedImage original = ImageIO.read(file.getInputStream());
-//            List<String> uploadedPieces = new ArrayList<>();
-//
-//            int rows = 5;
-//            int cols = 4;
-//            int pieceWidth = original.getWidth() / cols;
-//            int pieceHeight = original.getHeight() / rows;
-//            int count = 0;
-//
-//            for (int y = 0; y < rows; y++) {
-//                for (int x = 0; x < cols; x++) {
-//                    BufferedImage subImage = original.getSubimage(
-//                            x * pieceWidth,
-//                            y * pieceHeight,
-//                            pieceWidth,
-//                            pieceHeight
-//                    );
-//
-//                    String imageName = "piece_" + count;
-//                    File tempFile = File.createTempFile(
-//                            imageName,
-//                            ".jpg"
-//                    );
-//
-//                    ImageIO.write(subImage, "jpg", tempFile);
-//                    String imageUrl = cloudinaryService.uploadImage(tempFile, imageName);
-//                    uploadedPieces.add(imageUrl);
-//                    tempFile.delete();
-//                    count++;
-//                }
-//            }
-//            return ResponseEntity.ok(
-//                Map.of(
-//                        "message", "Image processed",
-//                        "pieces", uploadedPieces
-//            ));
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity
-//                    .status(500)
-//                    .body("Upload failed");
-//        }
-//    }
-
     /**
      * Check if the pieces folder is not empty
      * and if the number of pieces is equal to 20

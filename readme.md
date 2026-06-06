@@ -494,7 +494,9 @@ One session_id → Many game_result records
 One session_id → One player_wallet record
 
 Player (session_id)
+
    ├── Game Results (history of plays)
+   
    └── Wallet (current token balance)
 
 ---

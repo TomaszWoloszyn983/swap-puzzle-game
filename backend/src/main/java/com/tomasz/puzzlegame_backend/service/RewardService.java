@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class RewardService {
 
     public int calculateReward(int moves) {
-        if (moves <= 40) {
+        if (moves <= 35) {
             System.out.println("Reward: 50");
             return 50;
         }
@@ -14,7 +14,7 @@ public class RewardService {
             System.out.println("Reward: 30");
             return 30;
         }
-        if (moves <= 60) {
+        if (moves <= 65) {
             System.out.println("Reward: 15");
             return 15;
         }

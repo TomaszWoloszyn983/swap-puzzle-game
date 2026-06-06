@@ -15,19 +15,6 @@ public class CloudinaryService {
         this.cloudinary = cloudinary;
     }
 
-//    public String uploadImage(File file) throws IOException {
-//
-//        Map uploadResult = cloudinary.uploader().upload(
-//                file,
-//                ObjectUtils.asMap(
-//                        "folder",
-//                        "swap_puzzle",
-//                        "public_id",
-//                        UUID.randomUUID().toString()
-//                )
-//        );
-//        return uploadResult.get("secure_url").toString();
-//    }
     public String uploadImage(File file, String imageName) {
         try {
             Map uploadResult = cloudinary.uploader().upload(
