@@ -614,6 +614,16 @@ Deployment process:
 3. Set build/start command
 4. Deploy automatically from main branch
 
+### Environment Variables
+- profile
+- SUPABASE_PASSWORD
+- SUPABASE_USERNAME
+- SUPABASE_HOST
+- SUPABASE_URLpostgres?sslmode
+- CLOUD_NAME
+- CLOUD_API_KEY
+- CLOUD_SECRET_KEY
+
 Live link [here](https://swap-puzzle-game-2.onrender.com)
 
 ### Local Deployment
